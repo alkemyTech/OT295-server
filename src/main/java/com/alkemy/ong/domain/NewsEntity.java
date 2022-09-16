@@ -40,7 +40,7 @@ public class NewsEntity {
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "CATEGORIES_ID")
-    private CategoriesEntity categories;
+    private CategoryEntity categories;
 
     @Column(name = "CREATE_TIMESTAMP", updatable = false)
     @CreationTimestamp
