@@ -12,7 +12,7 @@ import java.sql.Timestamp;
 
 @Getter
 @Setter
-@Table(name = "testimonial")
+@Table(name = "testimonials")
 @SQLDelete(sql = "UPDATE testimonial SET softDelete = true WHERE id_testimonial = ?")
 @Where(clause = "softDelete = false")
 @Entity
