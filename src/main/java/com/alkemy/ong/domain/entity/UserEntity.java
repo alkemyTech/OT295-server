@@ -1,4 +1,4 @@
-package com.alkemy.ong.domain;
+package com.alkemy.ong.domain.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -48,10 +48,3 @@ public class UserEntity {
     @Column(name = "CREATE_TIMESTAMP", updatable = false)
     private Timestamp createTimestamp;
 }
-//        firstName: VARCHAR NOT NULL
-//        lastName: VARCHAR NOT NULL
-//        email: VARCHAR UNIQUE NOT NULL
-//        password: VARCHAR NOT NULL
-//        photo: VARCHAR NULLABLE
-//        roleId: Clave foranea hacia ID de Role
-//        timestamps y softDelete
