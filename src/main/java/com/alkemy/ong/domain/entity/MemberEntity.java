@@ -1,4 +1,4 @@
-package com.alkemy.ong.domain;
+package com.alkemy.ong.domain.entity;
 
 import lombok.*;
 import org.hibernate.annotations.SQLDelete;
