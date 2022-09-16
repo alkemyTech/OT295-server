@@ -1,6 +1,6 @@
 package com.alkemy.ong.repository;
 
-import com.alkemy.ong.domain.RoleEntity;
+import com.alkemy.ong.domain.entity.RoleEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

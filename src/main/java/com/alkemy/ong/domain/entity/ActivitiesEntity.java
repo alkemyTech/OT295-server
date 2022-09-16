@@ -1,15 +1,12 @@
-package com.alkemy.ong.domain;
+package com.alkemy.ong.domain.entity;
+
 
 import java.sql.Timestamp;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -22,12 +19,13 @@ import org.hibernate.annotations.CreationTimestamp;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "NEWS")
-public class NewsEntity {
+@Table(name = "ACTIVITIES")
+public class ActivitiesEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "NEWS_ID")
-    private Long newsId;
+    @Column(name = "ACTIVITIES_ID")
+    private Long activitiesId;
 
     @Column(name = "NAME", nullable = false)
     private String name;
@@ -38,16 +36,11 @@ public class NewsEntity {
     @Column(name = "IMAGE_URL", nullable = false)
     private String imageUrl;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-    @JoinColumn(name = "CATEGORIES_ID")
-    private CategoriesEntity categories;
-
-    @Column(name = "CREATE_TIMESTAMP", updatable = false)
     @CreationTimestamp
+    @Column(name = "CREATE_TIMESTAMP", updatable = false)
     private Timestamp createTimestamp;
 
     @Column(name = "SOFT_DELETED")
     private boolean softDeleted;
 
 }
-

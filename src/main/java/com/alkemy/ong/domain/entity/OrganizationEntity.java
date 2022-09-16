@@ -1,4 +1,4 @@
-package com.alkemy.ong.domain;
+package com.alkemy.ong.domain.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
