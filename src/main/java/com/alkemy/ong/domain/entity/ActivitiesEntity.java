@@ -37,7 +37,7 @@ public class ActivitiesEntity {
     private String imageUrl;
 
     @CreationTimestamp
-    @Column(name = "create_timestap", updatable = false)
+    @Column(name = "create_timestamp", updatable = false)
     private Timestamp createTimestamp;
 
     @Column(name = "soft_deleted")

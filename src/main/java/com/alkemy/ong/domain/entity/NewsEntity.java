@@ -22,31 +22,31 @@ import org.hibernate.annotations.CreationTimestamp;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "NEWS")
+@Table(name = "news")
 public class NewsEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "NEWS_ID")
+    @Column(name = "news_id")
     private Long newsId;
 
-    @Column(name = "NAME", nullable = false)
+    @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "CONTENT", nullable = false)
+    @Column(name = "content", nullable = false)
     private String content;
 
-    @Column(name = "IMAGE_URL", nullable = false)
+    @Column(name = "image_url", nullable = false)
     private String imageUrl;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-    @JoinColumn(name = "CATEGORIES_ID")
+    @JoinColumn(name = "categories_id")
     private CategoryEntity categories;
 
-    @Column(name = "CREATE_TIMESTAMP", updatable = false)
+    @Column(name = "create_timestamp", updatable = false)
     @CreationTimestamp
     private Timestamp createTimestamp;
 
-    @Column(name = "SOFT_DELETED")
+    @Column(name = "soft_deleted")
     private boolean softDeleted;
 
 }
