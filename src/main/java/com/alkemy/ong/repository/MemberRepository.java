@@ -1,10 +1,9 @@
 package com.alkemy.ong.repository;
 
-import com.alkemy.ong.domain.RoleEntity;
+import com.alkemy.ong.domain.MemberEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface RoleRepository extends JpaRepository<RoleEntity, Long> {
-
+public interface MemberRepository extends JpaRepository<MemberEntity, Long> {
 }
