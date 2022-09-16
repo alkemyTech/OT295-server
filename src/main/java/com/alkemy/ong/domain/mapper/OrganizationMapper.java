@@ -1,6 +1,6 @@
 package com.alkemy.ong.domain.mapper;
 
-import com.alkemy.ong.domain.OrganizationEntity;
+import com.alkemy.ong.domain.entity.OrganizationEntity;
 import com.alkemy.ong.domain.dto.OrganizationDTO;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;

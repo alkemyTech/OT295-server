@@ -1,6 +1,6 @@
 package com.alkemy.ong.service.impl;
 
-import com.alkemy.ong.domain.OrganizationEntity;
+import com.alkemy.ong.domain.entity.OrganizationEntity;
 import com.alkemy.ong.domain.dto.OrganizationDTO;
 import com.alkemy.ong.domain.mapper.OrganizationMapper;
 import com.alkemy.ong.repository.OrganizationRepository;
