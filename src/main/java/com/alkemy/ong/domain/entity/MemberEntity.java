@@ -13,13 +13,15 @@ import java.sql.Timestamp;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+//A Revisar el uso de ToString y EqualsAndHashCode en entidades
 @ToString
 @EqualsAndHashCode
-@SQLDelete(sql = "UPDATE members set soft_delete = true WHERE id = ? ")
-@Where(clause = "soft_delete = false")
+@SQLDelete(sql = "UPDATE members SET soft_Delete = true WHERE idMember = ? ")
+@Where(clause = "soft_Delete = false")
 @Table(name = "members")
 public class MemberEntity {
 
+    //A revisar GenerationType IDENTITY o SEQUENCE
     @Id
     @SequenceGenerator(name = "seq_members", sequenceName = "seq_members", initialValue = 1, allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_members")
@@ -47,6 +49,6 @@ public class MemberEntity {
     @Column(name = "timestamp")
     private Timestamp timestamp;
 
-    @Column(name = "soft_delete")
-    private boolean soft_delete = Boolean.FALSE;
+    @Column(name = "soft_Delete")
+    private boolean softDelete = Boolean.FALSE;
 }
