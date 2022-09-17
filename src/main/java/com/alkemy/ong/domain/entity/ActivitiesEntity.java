@@ -1,4 +1,4 @@
-package com.alkemy.ong.domain;
+package com.alkemy.ong.domain.entity;
 
 
 import java.sql.Timestamp;
@@ -19,28 +19,28 @@ import org.hibernate.annotations.CreationTimestamp;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "ACTIVITIES")
+@Table(name = "activities")
 public class ActivitiesEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ACTIVITIES_ID")
+    @Column(name = "activities_id")
     private Long activitiesId;
 
-    @Column(name = "NAME", nullable = false)
+    @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "CONTENT", nullable = false)
+    @Column(name = "content", nullable = false)
     private String content;
 
-    @Column(name = "IMAGE_URL", nullable = false)
+    @Column(name = "image_url", nullable = false)
     private String imageUrl;
 
     @CreationTimestamp
-    @Column(name = "CREATE_TIMESTAMP", updatable = false)
+    @Column(name = "create_timestamp", updatable = false)
     private Timestamp createTimestamp;
 
-    @Column(name = "SOFT_DELETED")
+    @Column(name = "soft_deleted")
     private boolean softDeleted;
 
 }

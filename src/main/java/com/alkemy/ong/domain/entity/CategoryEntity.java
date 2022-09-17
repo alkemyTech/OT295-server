@@ -5,7 +5,7 @@
 //  Daniel-Zemanate             2022-09-16          OT295-19            creation of base model
 //------------------------------------------------------------------------------//
 
-package com.alkemy.ong.domain;
+package com.alkemy.ong.domain.entity;
 
 import lombok.*;
 import org.hibernate.annotations.SQLDelete;

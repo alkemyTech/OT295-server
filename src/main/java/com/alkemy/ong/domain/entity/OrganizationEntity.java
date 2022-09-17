@@ -1,4 +1,4 @@
-package com.alkemy.ong.domain;
+package com.alkemy.ong.domain.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -17,7 +17,7 @@ import java.sql.Timestamp;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@SQLDelete(sql = "UPDATE pelicula SET deleted = true WHERE id=?" )
+@SQLDelete(sql = "UPDATE organizations SET deleted = true WHERE id=?" )
 @Where(clause = "deleted=false")
 public class OrganizationEntity {
 
