@@ -36,6 +36,7 @@ public class UserEntity {
     @Column(nullable = false)
     private String password;
 
+    @ManyToOne()
     @JoinColumn(name= "role_id", insertable = false, updatable = false)
     private RoleEntity role;
 
