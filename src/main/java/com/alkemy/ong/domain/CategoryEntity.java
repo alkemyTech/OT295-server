@@ -22,16 +22,16 @@ import java.sql.Timestamp;
 @ToString
 @EqualsAndHashCode
 @Entity
-@SQLDelete(sql = "UPDATE categories SET softDelete = true WHERE id_character = ?")
+@SQLDelete(sql = "UPDATE categories SET softDelete = true WHERE id_category = ?")
 @Where(clause = "softDelete = false")
 @Table(name = "categories")
 public class CategoryEntity {
 
     @Id
-    @SequenceGenerator(name = "seq_categories", sequenceName = "seq_categories", initialValue = 1, allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_categories")
-    @Column(name = "id_categories", nullable = false)
-    private Long idCategories;
+    @SequenceGenerator(name = "seq_category", sequenceName = "seq_category", initialValue = 1, allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_category")
+    @Column(name = "id_category", nullable = false)
+    private Long idCategory;
 
     @Column(name = "name", nullable = false)
     private String name;
