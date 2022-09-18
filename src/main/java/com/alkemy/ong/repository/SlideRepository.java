@@ -1,10 +1,9 @@
 package com.alkemy.ong.repository;
 
-
-import com.alkemy.ong.domain.entity.TestimonialEntity;
+import com.alkemy.ong.domain.entity.SlideEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface TestimonialRepository  extends JpaRepository<TestimonialEntity, Long> {
+public interface SlideRepository extends JpaRepository <SlideEntity,Long> {
 }

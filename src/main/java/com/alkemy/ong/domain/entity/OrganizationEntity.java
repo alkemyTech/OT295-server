@@ -10,6 +10,7 @@ import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.Set;
 
 @Entity
 @Table(name="organizations")
@@ -49,4 +50,7 @@ public class OrganizationEntity {
 
     @Column(name = "soft_deleted")
     private boolean softDeleted;
+
+    @OneToMany(mappedBy = "organization", fetch = FetchType.LAZY)
+    private Set<SlideEntity> slides;
 }

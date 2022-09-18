@@ -49,5 +49,7 @@ public class NewsEntity {
     @Column(name = "soft_deleted")
     private boolean softDeleted;
 
+
+
 }
 
