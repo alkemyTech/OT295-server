@@ -28,6 +28,7 @@ public class MemberEntity {
     @Column(name = "id_member", nullable = false)
     private Long idMember;
 
+
     @Column(nullable = false)
     private String name;
 

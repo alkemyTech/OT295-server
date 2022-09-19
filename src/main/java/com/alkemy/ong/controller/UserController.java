@@ -1,5 +1,6 @@
 package com.alkemy.ong.controller;
 
+import com.alkemy.ong.domain.dto.UserDTO;
 import com.alkemy.ong.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,9 +17,15 @@ public class UserController {
     @Autowired
     UserService userService;
 
+    @PatchMapping("/{id}")
+    public ResponseEntity<UserDTO> patchUser(@PathVariable Long userId, @RequestBody UserDTO userDTO) {
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(
+                this.userService.patchUser(userDTO, userId));
+    }
+
     @DeleteMapping("/{id}")
-    public ResponseEntity<Object> deleteUser(@PathVariable Long id){
-        this.userService.deleteUser(id);
+    public ResponseEntity<Object> deleteUser(@PathVariable Long userId){
+        this.userService.deleteUser(userId);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }
