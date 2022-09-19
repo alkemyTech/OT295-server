@@ -5,6 +5,7 @@ import com.alkemy.ong.domain.dto.UserDTO;
 import com.alkemy.ong.domain.mapper.UserMapper;
 import com.alkemy.ong.domain.entity.UserEntity;
 import com.alkemy.ong.repository.UserRepository;
+import com.alkemy.ong.service.EmailServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -21,6 +22,10 @@ public class UserDetailsCustomService implements UserDetailsService {
     UserRepository userRepository;
     @Autowired
     UserMapper userMapper;
+
+    @Autowired
+    private EmailServiceInterface emailService;
+
 
     @Override
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
@@ -39,6 +44,10 @@ public class UserDetailsCustomService implements UserDetailsService {
         userEntity.setEmail(userDTO.getEmail());
         userEntity.setPassword(passwordEncoder.encode(userDTO.getPassword()));
         userEntity = this.userRepository.save(userEntity);
+        if (userEntity != null) {
+            emailService.sendEmailTo(userEntity.getEmail());
+        }
+
         BasicUserDTO result = userMapper.basicDto2Entity(userEntity);
         return result;
 

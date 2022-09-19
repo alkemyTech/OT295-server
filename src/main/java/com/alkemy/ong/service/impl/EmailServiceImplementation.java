@@ -34,7 +34,7 @@ public class EmailServiceImplementation implements EmailServiceInterface {
 
 
     @Override
-    public void sendEmailTo(String to, String subject, String contentType, String contentMessage) {
+    public void sendEmailTo(String to) {
         if (!emailEnabled) {
             return;
         }
@@ -45,8 +45,11 @@ public class EmailServiceImplementation implements EmailServiceInterface {
         Email toEmail = new Email(to);
 
         // You have two options for the content type: text/plain or text/html. The second parameter will take the plain text or HTML content you wish to send.
-        Content content = new Content(contentType, contentMessage);
-
+        Content content = new Content(
+                "text/plain",
+                "Bienvenido/a a ONG"
+        );
+        String subject = "ONG";
 
         Mail mail = new Mail(fromEmail, subject, toEmail, content);
         SendGrid sg = new SendGrid(apiKey);
@@ -58,11 +61,13 @@ public class EmailServiceImplementation implements EmailServiceInterface {
             request.setBody(mail.build());
             Response response = sg.api(request);
 
-        } catch (IOException e) {
-            //TODO: USE LOGGER HERE TO SAVE POSSIBLE FAILURES
-
-            throw new RuntimeException(e);
+            System.out.println(response.getStatusCode());
+            System.out.println(response.getBody());
+            System.out.println(response.getHeaders());
+        }catch(IOException ex){
+            System.out.println("Error trying to send the email");
         }
+
 
 
     }

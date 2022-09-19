@@ -9,7 +9,7 @@ package com.alkemy.ong.service;
 
 public interface EmailServiceInterface {
 
-    void sendEmailTo(String to, String subject, String contentType, String contentMessage);
+    void sendEmailTo(String to);
 
 
 }
