@@ -22,7 +22,7 @@ import java.sql.Timestamp;
 @ToString
 @EqualsAndHashCode
 @Entity
-@SQLDelete(sql = "UPDATE categories SET softDelete = true WHERE id_category = ?")
+@SQLDelete(sql = "UPDATE categories SET soft_delete = true WHERE id_category = ?")
 @Where(clause = "softDelete = false")
 @Table(name = "categories")
 public class CategoryEntity {
