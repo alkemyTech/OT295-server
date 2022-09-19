@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class OrganizationDTO {
+public class OrganizationBasicDTO {
     private Long id;
     private String name;
     private String image;

@@ -1,7 +1,7 @@
 package com.alkemy.ong.service.impl;
 
 import com.alkemy.ong.domain.entity.OrganizationEntity;
-import com.alkemy.ong.domain.dto.OrganizationDTO;
+import com.alkemy.ong.domain.dto.OrganizationBasicDTO;
 import com.alkemy.ong.domain.mapper.OrganizationMapper;
 import com.alkemy.ong.repository.OrganizationRepository;
 import com.alkemy.ong.service.OrganizationService;
@@ -18,10 +18,10 @@ public class OrganizationServiceImpl implements OrganizationService {
     OrganizationRepository repository;
 
     @Override
-    public OrganizationDTO getOrganization(Long id) {
+    public OrganizationBasicDTO getOrganization(Long id) {
             Optional<OrganizationEntity> entityOptional = repository.findById(id);
             OrganizationEntity entity = entityOptional.get();
-            OrganizationDTO result = mapper.toOrganizationDTO(entity);
+            OrganizationBasicDTO result = mapper.toOrganizationBasicDTO(entity);
             return result;
     }
 }

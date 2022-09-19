@@ -1,7 +1,7 @@
 package com.alkemy.ong.domain.mapper;
 
 import com.alkemy.ong.domain.entity.OrganizationEntity;
-import com.alkemy.ong.domain.dto.OrganizationDTO;
+import com.alkemy.ong.domain.dto.OrganizationBasicDTO;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -19,9 +19,9 @@ public interface OrganizationMapper {
             @Mapping(source = "phone", target = "phone"),
             @Mapping(source = "address", target = "address")
     })
-    OrganizationDTO toOrganizationDTO(OrganizationEntity organization);
-    List<OrganizationDTO> toOrganizationDTOList(List<OrganizationEntity> organizations);
+    OrganizationBasicDTO toOrganizationBasicDTO(OrganizationEntity organization);
+    List<OrganizationBasicDTO> toOrganizationBasicDTOList(List<OrganizationEntity> organizations);
 
     @InheritInverseConfiguration
-    OrganizationEntity toOrganizationEntity(OrganizationDTO organizationDTO);
+    OrganizationEntity toOrganizationEntity(OrganizationBasicDTO organizationBasicDTO);
 }
