@@ -48,7 +48,7 @@ public class UserDetailsCustomService implements UserDetailsService {
             emailService.sendEmailTo(userEntity.getEmail());
         }
 
-        BasicUserDTO result = userMapper.basicDto2Entity(userEntity);
+        BasicUserDTO result = userMapper.entity2BasicDTO(userEntity);
         return result;
 
     }

@@ -1,12 +1,10 @@
 package com.alkemy.ong.auth.controller;
 
 
-import com.alkemy.ong.domain.dto.AuthenticationRequest;
-import com.alkemy.ong.domain.dto.AuthenticationResponse;
-import com.alkemy.ong.domain.dto.BasicUserDTO;
-import com.alkemy.ong.domain.dto.UserDTO;
+import com.alkemy.ong.domain.dto.*;
 import com.alkemy.ong.auth.service.UserDetailsCustomService;
 import com.alkemy.ong.domain.response.ErrorResponse;
+import com.alkemy.ong.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,17 +15,17 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/auth")
 @Api(tags = "Authentication Endpoints", value = "AuthenticationEndpoints")
 public class UserAuthController {
+    @Autowired
+    UserService userService;
     @Autowired
     UserDetailsCustomService userDetailsService;
     @Autowired
@@ -55,6 +53,13 @@ public class UserAuthController {
         String username = userDetails.getUsername();
 
         return ResponseEntity.ok(new AuthenticationResponse(username));
+    }
+
+    @GetMapping("/me")
+    public ResponseEntity<UserProfileDTO> getProfile(HttpServletRequest request) {
+
+        UserProfileDTO dto = userService.getUserProfile(request);
+        return ResponseEntity.ok().body(dto);
     }
 
 
