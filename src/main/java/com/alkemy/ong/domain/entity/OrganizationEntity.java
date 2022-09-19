@@ -18,13 +18,14 @@ import java.util.Set;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@SQLDelete(sql = "UPDATE organizations SET deleted = true WHERE id=?" )
-@Where(clause = "deleted=false")
+@SQLDelete(sql = "UPDATE organizations SET soft_deleted = true WHERE id=?" )
+@Where(clause = "soft_deleted=false")
 public class OrganizationEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long id;
+    @Column(name = "organization_id")
+    private Long idOrganization;
 
     @Column(nullable = false)
     private String name;
