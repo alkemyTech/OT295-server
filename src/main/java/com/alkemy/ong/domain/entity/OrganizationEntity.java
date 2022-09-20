@@ -6,11 +6,13 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Type;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Set;
+import java.util.UUID;
 
 @Entity
 @Table(name="organizations")
@@ -18,14 +20,14 @@ import java.util.Set;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@SQLDelete(sql = "UPDATE organizations SET soft_deleted = true WHERE id=?" )
-@Where(clause = "soft_deleted=false")
+@SQLDelete(sql = "UPDATE organizations SET deleted = true WHERE id=?" )
+@Where(clause = "deleted=false")
 public class OrganizationEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "organization_id")
-    private Long idOrganization;
+    @Type(type = "uuid-char")
+    private UUID id;
 
     @Column(nullable = false)
     private String name;
