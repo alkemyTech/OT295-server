@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 
@@ -40,6 +42,19 @@ public class UserServiceImpl implements UserService {
     public UserEntity getUserByID(UUID userId){
         return userRepository.findById(userId).orElseThrow(
                 ()->new ParamNotFound("User not found: "+ userId));
+    }
+
+    @Override
+    public List<UserProfileDTO> readAllUsers() {
+        //This method creates a list of users based on UserProfileDTO
+        List<UserEntity> userEntityList = userRepository.findAll();
+        List<UserProfileDTO> userProfileDTOList = new ArrayList<>();
+
+        for (UserEntity user : userEntityList) {
+            userProfileDTOList.add(userMapper.userEntity2UserProfileDTO(user));
+        }
+
+        return userProfileDTOList;
     }
 
     @Override

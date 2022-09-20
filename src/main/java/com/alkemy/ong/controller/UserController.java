@@ -30,4 +30,9 @@ public class UserController {
         this.userService.deleteUser(userId);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
+
+    @GetMapping()
+    public ResponseEntity<?> readAllUsers(){
+        return new ResponseEntity<>(userService.readAllUsers(),HttpStatus.OK);
+    }
 }

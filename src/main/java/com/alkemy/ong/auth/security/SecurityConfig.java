@@ -17,6 +17,32 @@ import static org.springframework.security.config.http.SessionCreationPolicy.STA
 @RequiredArgsConstructor
 public class SecurityConfig {
 
+    //WHITE LIST ALLOWS FULL ACCESS TO SUBSEQUENT ENDPOINTS
+    private static final String[] AUTH_WHITELIST = {
+            // -- Swagger UI v2
+            "/v2/api-docs", "/swagger-resources", "/swagger-resources/**", "/configuration/ui",
+            "/configuration/security", "/swagger-ui.html", "/webjars/**",
+            // -- Swagger UI v3 (OpenAPI)
+            "/v3/api-docs/**", "/swagger-ui/**",
+            // other public endpoints of your API may be appended to this array
+            // -- interface from db
+            "/h2-console/**",
+            "/auth/**"
+    };
+    //USE THIS ARRAY TO INCLUDE ALL RELATED ADMIN ROLE ENDPOINTS
+    private static final String[] ADMIN_ENDPOINTS_LIST = {
+            "/users"
+    };
+    //USE THIS ARRAY TO INCLUDE ALL RELATED USER ROLE ENDPOINTS
+    private static final String[] USER_ENDPOINTS_LIST = {
+
+    };
+    //USE THIS ARRAY TO INCLUDE ALL RELATED ADMIN/USER ROLE ENDPOINTS (WHEN BOTH ARE ABLE TO USE IT)
+    private static final String[] ADMIN_USER_ENDPOINTS_LIST = {
+
+    };
+
+
     private final JwtRequestFilter jwtFilter;
 
     @Bean
@@ -24,6 +50,8 @@ public class SecurityConfig {
         http
                 .csrf().disable()
                 .authorizeRequests()
+                .antMatchers(ADMIN_ENDPOINTS_LIST).hasRole(RoleType.ADMIN.name())
+                .antMatchers(AUTH_WHITELIST).permitAll()
                 .antMatchers(HttpMethod.POST, "/auth/login")
                 .permitAll()
                 .antMatchers(HttpMethod.POST, "/auth/register")
