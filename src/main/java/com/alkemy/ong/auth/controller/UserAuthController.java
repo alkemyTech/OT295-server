@@ -4,14 +4,11 @@ package com.alkemy.ong.auth.controller;
 import com.alkemy.ong.domain.dto.*;
 import com.alkemy.ong.auth.service.UserDetailsCustomService;
 import com.alkemy.ong.service.UserService;
+import org.apache.http.auth.InvalidCredentialsException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -20,10 +17,10 @@ import javax.validation.Valid;
 @RequestMapping("/auth")
 public class UserAuthController {
     @Autowired
-    UserService userService;
+    private UserService userService;
 
     @Autowired
-    UserDetailsCustomService userDetailsService;
+    private UserDetailsCustomService userDetailsService;
 
     @Autowired
     private AuthenticationManager authenticationManager;
@@ -34,12 +31,11 @@ public class UserAuthController {
         return ResponseEntity.status(HttpStatus.CREATED).body(result);
 
     }
-
     @PostMapping("/login")
-    public ResponseEntity<AuthenticationResponse> signIn(@Valid @RequestBody AuthenticationRequest authRequest) throws Exception {
-        String username= userDetailsService.getUsername(authRequest);
-
-        return ResponseEntity.ok(new AuthenticationResponse(username));
+    public ResponseEntity<AuthenticationResponse> login(
+            @RequestBody @Valid AuthenticationRequest authenticationRequest)
+            throws InvalidCredentialsException {
+        return ResponseEntity.ok(userDetailsService.login(authenticationRequest));
     }
 
     @GetMapping("/me")
