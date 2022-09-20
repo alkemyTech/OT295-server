@@ -15,6 +15,7 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Collection;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Entity
@@ -47,7 +48,7 @@ public class UserEntity implements UserDetails {
     private List<RoleEntity> roleEntities;
 
     @Column (name="role_id", nullable = false)
-    private Long roleId;
+    private UUID roleId;
 
     private boolean deleted = Boolean.FALSE;
 
