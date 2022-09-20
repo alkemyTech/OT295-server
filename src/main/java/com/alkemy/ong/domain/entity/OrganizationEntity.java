@@ -51,8 +51,7 @@ public class OrganizationEntity {
     @Column(name = "create_timestamp", updatable = false)
     private Timestamp createTimestamp;
 
-    @Column(name = "soft_deleted")
-    private boolean softDeleted;
+    private boolean deleted = Boolean.FALSE;
 
     @OneToMany(mappedBy = "organization", fetch = FetchType.LAZY)
     private Set<SlideEntity> slides;

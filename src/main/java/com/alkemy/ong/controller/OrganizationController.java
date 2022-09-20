@@ -9,6 +9,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
+import java.util.UUID;
+
 @RestController
 @RequestMapping("/organization")
 public class OrganizationController {
@@ -21,7 +23,7 @@ public class OrganizationController {
     }
 
     @GetMapping("/public/{id}")
-    public ResponseEntity<OrganizationBasicDTO> getOrganization(@PathVariable Long id) {
+    public ResponseEntity<OrganizationBasicDTO> getOrganization(@PathVariable UUID id){
         OrganizationBasicDTO organization = service.getOrganization(id);
         return ResponseEntity.ok().body(organization);
     }

@@ -4,8 +4,11 @@ import com.alkemy.ong.domain.dto.OrganizationBasicDTO;
 import com.alkemy.ong.domain.request.OrganizationRequest;
 import com.alkemy.ong.domain.response.OrganizationResponse;
 
-public interface OrganizationService {
-    OrganizationBasicDTO getOrganization(Long id);
+import java.util.UUID;
 
+public interface OrganizationService {
+
+    OrganizationBasicDTO getOrganization(UUID id);
+    
     OrganizationResponse update(OrganizationRequest organizationRequest);
 }

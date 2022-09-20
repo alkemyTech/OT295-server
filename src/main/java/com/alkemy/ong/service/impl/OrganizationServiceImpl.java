@@ -10,16 +10,17 @@ import com.alkemy.ong.service.OrganizationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class OrganizationServiceImpl implements OrganizationService {
     @Autowired
-    OrganizationMapper mapper;
+    private OrganizationMapper mapper;
     @Autowired
-    OrganizationRepository repository;
+    private OrganizationRepository repository;
 
     @Override
-    public OrganizationBasicDTO getOrganization(Long id) {
+    public OrganizationBasicDTO getOrganization(UUID id) {
             Optional<OrganizationEntity> entityOptional = repository.findById(id);
             OrganizationEntity entity = entityOptional.get();
             OrganizationBasicDTO result = mapper.toOrganizationBasicDTO(entity);
