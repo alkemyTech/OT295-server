@@ -7,7 +7,6 @@
 
 
 package com.alkemy.ong.service.impl;
-
 import com.alkemy.ong.service.EmailServiceInterface;
 import com.sendgrid.*;
 import com.sendgrid.helpers.mail.Mail;
@@ -17,7 +16,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
-
 import java.io.IOException;
 
 @Service
