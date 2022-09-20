@@ -1,33 +1,32 @@
 package com.alkemy.ong.domain.entity;
 
 import java.sql.Timestamp;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.*;
+import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@SQLDelete(sql = "UPDATE news SET soft_delete = true WHERE id = ?")
+@Where(clause = "deleted=false")
 @Entity
 @Table(name = "news")
 public class NewsEntity {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "news_id")
-    private Long newsId;
+    @GeneratedValue(generator = "uuid2")
+    @GenericGenerator(name = "uuid2", strategy = "org.hibernate.id.UUIDGenerator")
+    @Column(name = "id")
+    private UUID id;
 
     @Column(name = "name", nullable = false)
     private String name;
@@ -46,8 +45,8 @@ public class NewsEntity {
     @CreationTimestamp
     private Timestamp createTimestamp;
 
-    @Column(name = "soft_deleted")
-    private boolean softDeleted;
+    @Column(name = "soft_delete")
+    private Boolean softDelete = Boolean.FALSE;
 
 
 

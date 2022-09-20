@@ -2,31 +2,29 @@ package com.alkemy.ong.domain.entity;
 
 import lombok.*;
 import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Type;
 import org.hibernate.annotations.Where;
 import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.UUID;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-//A Revisar el uso de ToString y EqualsAndHashCode en entidades
-@ToString
-@EqualsAndHashCode
 @SQLDelete(sql = "UPDATE members SET soft_Delete = true WHERE idMember = ? ")
 @Where(clause = "soft_Delete = false")
 @Table(name = "members")
 public class MemberEntity {
 
-    //A revisar GenerationType IDENTITY o SEQUENCE
     @Id
-    @SequenceGenerator(name = "seq_members", sequenceName = "seq_members", initialValue = 1, allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_members")
+    @GeneratedValue
+    @Type(type = "uuid-char")
     @Column(name = "id_member", nullable = false)
-    private Long idMember;
+    private UUID id;
 
 
     @Column(nullable = false)

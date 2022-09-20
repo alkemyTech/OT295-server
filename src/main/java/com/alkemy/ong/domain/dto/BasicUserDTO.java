@@ -6,4 +6,5 @@ import lombok.Data;
 public class BasicUserDTO {
     private String firstName;
     private String lastName;
+    private String token;
 }

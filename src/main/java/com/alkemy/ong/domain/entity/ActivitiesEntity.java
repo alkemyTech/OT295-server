@@ -2,30 +2,34 @@ package com.alkemy.ong.domain.entity;
 
 
 import java.sql.Timestamp;
+import java.util.UUID;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.*;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@SQLDelete(sql = "UPDATE activities SET soft_delete = true WHERE id = ?")
+@Where(clause = "deleted=false")
 @Entity
 @Table(name = "activities")
 public class ActivitiesEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "activities_id")
-    private Long activitiesId;
+    @GeneratedValue(generator = "uuid2")
+    @GenericGenerator(name = "uuid2", strategy = "org.hibernate.id.UUIDGenerator")
+    @Column(name = "id")
+    private UUID id;
+
 
     @Column(name = "name", nullable = false)
     private String name;
@@ -40,7 +44,7 @@ public class ActivitiesEntity {
     @Column(name = "create_timestamp", updatable = false)
     private Timestamp createTimestamp;
 
-    @Column(name = "soft_deleted")
-    private boolean softDeleted;
+    @Column(name = "soft_delete")
+    private Boolean softDelete = Boolean.FALSE;
 
 }
