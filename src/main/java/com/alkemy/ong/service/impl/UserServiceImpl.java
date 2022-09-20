@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import javax.servlet.http.HttpServletRequest;
+import java.util.UUID;
 
 
 @Service
@@ -23,7 +24,7 @@ public class UserServiceImpl implements UserService {
     @Autowired
     UserMapper userMapper;
 
-    public UserDTO patchUser(UserDTO userDTO, Long userId) {
+    public UserDTO patchUser(UserDTO userDTO, UUID userId) {
         UserEntity userEntity = this.getUserByID(userId);
         userEntity.setFirstName(userDTO.getFirstName());
         userEntity.setLastName(userDTO.getLastName());
@@ -36,7 +37,7 @@ public class UserServiceImpl implements UserService {
 
     //Uso de orElseThrow para implementar excepcion
 
-    public UserEntity getUserByID(Long userId){
+    public UserEntity getUserByID(UUID userId){
         return userRepository.findById(userId).orElseThrow(
                 ()->new ParamNotFound("User not found: "+ userId));
     }
@@ -57,9 +58,9 @@ public class UserServiceImpl implements UserService {
         return userProfileDTO;
     }
 
-    public void deleteUser(Long userId){
+    public void deleteUser(UUID userId){
         userRepository.delete(userRepository.findById(userId).orElseThrow(
-        ()->new ParamNotFound("Param not found: "+ userId)));
+        ()->new ParamNotFound("User not found: "+ userId)));
     }
 
 }

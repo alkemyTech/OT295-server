@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.UUID;
+
 
 @RestController
 @RequiredArgsConstructor
@@ -18,13 +20,13 @@ public class UserController {
     UserService userService;
 
     @PatchMapping("/{id}")
-    public ResponseEntity<UserDTO> patchUser(@PathVariable Long userId, @RequestBody UserDTO userDTO) {
+    public ResponseEntity<UserDTO> patchUser(@PathVariable UUID userId, @RequestBody UserDTO userDTO) {
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(
                 this.userService.patchUser(userDTO, userId));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Object> deleteUser(@PathVariable Long userId){
+    public ResponseEntity<Object> deleteUser(@PathVariable UUID userId){
         this.userService.deleteUser(userId);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }

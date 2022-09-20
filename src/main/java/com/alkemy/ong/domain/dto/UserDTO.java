@@ -3,15 +3,22 @@ package com.alkemy.ong.domain.dto;
 import lombok.Data;
 
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 @Data
 public class UserDTO {
 
+    @NotBlank(message = "First name can not be empty")
     private String firstName;
+
+    @NotBlank(message = "Last name can not be empty")
     private String lastName;
-    @Email(message = "Username must be email")
+
+    @NotBlank(message = "Email can not be empty")
+    @Email(message = "Email is not valid")
     private String email;
+    
     @Size(min = 8)
     private String password;
 
