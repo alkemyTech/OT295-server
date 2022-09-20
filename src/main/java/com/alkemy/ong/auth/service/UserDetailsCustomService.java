@@ -2,6 +2,7 @@ package com.alkemy.ong.auth.service;
 
 import com.alkemy.ong.auth.jwt.JwtUtils;
 import com.alkemy.ong.auth.security.RoleType;
+import com.alkemy.ong.domain.dto.AuthenticationRequest;
 import com.alkemy.ong.domain.dto.BasicUserDTO;
 import com.alkemy.ong.domain.dto.UserDTO;
 import com.alkemy.ong.domain.mapper.UserMapper;
@@ -10,6 +11,10 @@ import com.alkemy.ong.repository.RoleRepository;
 import com.alkemy.ong.repository.UserRepository;
 import com.alkemy.ong.service.EmailServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -31,6 +36,8 @@ public class UserDetailsCustomService implements UserDetailsService {
     private JwtUtils jwtUtil;
     @Autowired
     private EmailServiceInterface emailService;
+    @Autowired
+    private AuthenticationManager authenticationManager;
 
 
     @Override
@@ -60,5 +67,18 @@ public class UserDetailsCustomService implements UserDetailsService {
         BasicUserDTO result = userMapper.entity2BasicDTO(userEntity);
         return result;
 
+    }
+    public String getUsername(AuthenticationRequest authRequest)throws Exception{
+        UserDetails userDetails;
+        try {
+            Authentication auth = authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(authRequest.getEmail(), authRequest.getPassword())
+            );
+            userDetails = (UserDetails) auth.getPrincipal();
+        } catch (BadCredentialsException e) {
+            throw new Exception("Incorrect username or password", e);
+        }
+        String username = userDetails.getUsername();
+        return username;
     }
 }
