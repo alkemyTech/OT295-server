@@ -12,6 +12,7 @@ import javax.validation.Valid;
 @RestController
 @RequestMapping("/organization")
 public class OrganizationController {
+
     @Autowired
     private OrganizationService service;
 
