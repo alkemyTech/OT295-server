@@ -1,16 +1,16 @@
 package com.alkemy.ong.domain.entity;
 
 import java.sql.Timestamp;
+import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.SQLDelete;
-import org.hibernate.annotations.Where;
+import org.hibernate.annotations.*;
 import javax.persistence.*;
-
-import static javax.persistence.GenerationType.IDENTITY;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
 @Getter
 @Setter
@@ -23,8 +23,10 @@ import static javax.persistence.GenerationType.IDENTITY;
 public class NewsEntity {
 
     @Id
-    @GeneratedValue(strategy = IDENTITY)
-    private Long id;
+    @GeneratedValue(generator = "uuid2")
+    @GenericGenerator(name = "uuid2", strategy = "org.hibernate.id.UUIDGenerator")
+    @Column(name = "id")
+    private UUID id;
 
     @Column(name = "name", nullable = false)
     private String name;

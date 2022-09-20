@@ -1,17 +1,18 @@
 package com.alkemy.ong.domain.entity;
 
 
+import java.sql.Timestamp;
+import java.util.UUID;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.SQLDelete;
-import org.hibernate.annotations.Where;
-import javax.persistence.*;
-import java.sql.Timestamp;
-import static javax.persistence.GenerationType.IDENTITY;
-
+import org.hibernate.annotations.*;
 
 @Getter
 @Setter
@@ -24,8 +25,11 @@ import static javax.persistence.GenerationType.IDENTITY;
 public class ActivitiesEntity {
 
     @Id
-    @GeneratedValue(strategy = IDENTITY)
-    private Long id;
+    @GeneratedValue(generator = "uuid2")
+    @GenericGenerator(name = "uuid2", strategy = "org.hibernate.id.UUIDGenerator")
+    @Column(name = "id")
+    private UUID id;
+
 
     @Column(name = "name", nullable = false)
     private String name;

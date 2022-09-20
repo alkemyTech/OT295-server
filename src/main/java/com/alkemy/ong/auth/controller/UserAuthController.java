@@ -22,32 +22,32 @@ import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/auth")
-@Api(tags = "Authentication Endpoints", value = "AuthenticationEndpoints")
 public class UserAuthController {
     @Autowired
     UserService userService;
+
     @Autowired
     UserDetailsCustomService userDetailsService;
+
     @Autowired
     private AuthenticationManager authenticationManager;
+
     @PostMapping("/register")
-    @ApiResponse(code = 403, message = "PERMISSION_DENIED - Forbidden.",
-            response = ErrorResponse.class)
-    public ResponseEntity<BasicUserDTO> signup(@Valid @RequestBody UserDTO user)throws Exception {
-        BasicUserDTO result =  this.userDetailsService.save(user);
+    public ResponseEntity<BasicUserDTO> signup(@Valid @RequestBody UserDTO user) throws Exception {
+        BasicUserDTO result = this.userDetailsService.save(user);
         return ResponseEntity.status(HttpStatus.CREATED).body(result);
 
     }
+
     @PostMapping("/login")
-    public ResponseEntity<AuthenticationResponse> signIn(@RequestBody AuthenticationRequest authRequest) throws Exception
-    {
+    public ResponseEntity<AuthenticationResponse> signIn(@RequestBody AuthenticationRequest authRequest) throws Exception {
         UserDetails userDetails;
-        try{
+        try {
             Authentication auth = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(authRequest.getEmail(), authRequest.getPassword())
             );
             userDetails = (UserDetails) auth.getPrincipal();
-        }catch (BadCredentialsException e){
+        } catch (BadCredentialsException e) {
             throw new Exception("Incorrect username or password", e);
         }
         String username = userDetails.getUsername();
