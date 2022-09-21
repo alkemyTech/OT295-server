@@ -9,11 +9,13 @@ package com.alkemy.ong.domain.entity;
 
 import lombok.*;
 import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Type;
 import org.hibernate.annotations.Where;
 import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.UUID;
 
 @Getter
 @Setter
@@ -28,10 +30,10 @@ import java.sql.Timestamp;
 public class CategoryEntity {
 
     @Id
-    @SequenceGenerator(name = "seq_category", sequenceName = "seq_category", initialValue = 1, allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_category")
+    @GeneratedValue
+    @Type(type = "uuid-char")
     @Column(name = "id_category", nullable = false)
-    private Long idCategory;
+    private UUID idCategory;
 
     @Column(name = "name", nullable = false)
     private String name;

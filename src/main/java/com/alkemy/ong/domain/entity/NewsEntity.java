@@ -23,8 +23,8 @@ import javax.persistence.Table;
 public class NewsEntity {
 
     @Id
-    @GeneratedValue(generator = "uuid2")
-    @GenericGenerator(name = "uuid2", strategy = "org.hibernate.id.UUIDGenerator")
+    @GeneratedValue
+    @Type(type = "uuid-char")
     @Column(name = "id")
     private UUID id;
 
