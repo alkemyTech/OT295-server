@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 import org.springframework.security.core.GrantedAuthority;
@@ -28,32 +29,33 @@ import java.util.stream.Collectors;
 @Table(name = "users")
 public class UserEntity implements UserDetails {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long id;
+    @GeneratedValue(generator = "uuid2")
+    @GenericGenerator(name = "uuid2", strategy = "org.hibernate.id.UUIDGenerator")
+    @Column(name = "id")
+    private UUID id;
 
-    @Column(nullable = false)
+    @Column(name= "first_name", nullable = false)
     private String firstName;
 
-    @Column(nullable = false)
+    @Column(name="last name", nullable = false)
     private String lastName;
 
-    @Column(nullable = false, unique = true)
+    @Column(name ="email", nullable = false, unique = true)
     private String email;
 
-    @Column(nullable = false)
+    @Column(name="password", nullable = false)
     private String password;
 
-    @Column(name = "role_id", nullable = false)
+
     @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     private List<RoleEntity> roleEntities;
 
-    @Column (name="role_id", nullable = false)
-    private UUID roleId;
 
+    @Column(name="deleted")
     private boolean deleted = Boolean.FALSE;
 
     @CreationTimestamp
-    @Column(name = "CREATE_TIMESTAMP", updatable = false)
+    @Column(name = "create_timestamp", updatable = false)
     private Timestamp createTimestamp;
 
     @Override
