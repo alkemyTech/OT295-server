@@ -14,7 +14,6 @@ import java.util.List;
 public interface OrganizationMapper {
 
     @Mappings({
-            @Mapping(source = "id", target = "id"),
             @Mapping(source = "name", target = "name"),
             @Mapping(source = "image", target = "image"),
             @Mapping(source = "phone", target = "phone"),

@@ -25,26 +25,29 @@ import java.util.UUID;
 public class OrganizationEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue
     @Type(type = "uuid-char")
     private UUID id;
 
-    @Column(nullable = false)
+    @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(nullable = false)
+    @Column(name = "image",nullable = false)
     private String image;
 
+    @Column(name = "address")
     private String address;
 
+    @Column(name = "phone")
     private Integer phone;
 
-    @Column(nullable = false)
+    @Column(name = "email",nullable = false)
     private String email;
 
-    @Column(nullable = false)
+    @Column(name = "welcome_text", nullable = false)
     private String welcomeText;
 
+    @Column(name = "about_us_text")
     private String aboutUsText;
 
     @CreationTimestamp

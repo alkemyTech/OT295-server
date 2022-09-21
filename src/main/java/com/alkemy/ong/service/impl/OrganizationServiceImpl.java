@@ -9,6 +9,9 @@ import com.alkemy.ong.repository.OrganizationRepository;
 import com.alkemy.ong.service.OrganizationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.w3c.dom.stylesheets.LinkStyle;
+
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -20,10 +23,9 @@ public class OrganizationServiceImpl implements OrganizationService {
     private OrganizationRepository repository;
 
     @Override
-    public OrganizationBasicDTO getOrganization(UUID id) {
-            Optional<OrganizationEntity> entityOptional = repository.findById(id);
-            OrganizationEntity entity = entityOptional.get();
-            OrganizationBasicDTO result = mapper.toOrganizationBasicDTO(entity);
+    public List<OrganizationBasicDTO> getOrganizations() {
+            List<OrganizationEntity> entityList = repository.findAll();
+            List<OrganizationBasicDTO> result = mapper.toOrganizationBasicDTOList(entityList);
             return result;
     }
 
