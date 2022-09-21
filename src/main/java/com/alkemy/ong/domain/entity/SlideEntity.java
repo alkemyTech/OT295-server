@@ -28,7 +28,7 @@ public class SlideEntity {
     private String imageUrl;
 
     private String text;
-    private String order;
+    private String orde;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "organization_id", insertable = false, updatable = false) // Solo para buscar informacion
