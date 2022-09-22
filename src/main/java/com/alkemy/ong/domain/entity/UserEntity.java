@@ -4,14 +4,15 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.SQLDelete;
-import org.hibernate.annotations.Where;
+import org.hibernate.annotations.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.sql.Timestamp;
 import java.util.Collection;
 import java.util.List;
@@ -27,33 +28,37 @@ import java.util.stream.Collectors;
 @Where(clause = "deleted=false")
 @Table(name = "users")
 public class UserEntity implements UserDetails {
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long id;
 
-    @Column(nullable = false)
+    @Id
+    @GeneratedValue
+    @Type(type ="uuid-char")
+    @Column(name = "id_user", nullable = false)
+    private UUID id;
+
+    @Column(name= "first_name", nullable = false)
     private String firstName;
 
-    @Column(nullable = false)
+    @Column(name="last_name", nullable = false)
     private String lastName;
 
-    @Column(nullable = false, unique = true)
+    @Column(name ="email", nullable = false, unique = true)
     private String email;
 
-    @Column(nullable = false)
+    private String username = email;
+
+    @Column(name="password", nullable = false)
     private String password;
 
-    @Column(name = "role_id", nullable = false)
+
     @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     private List<RoleEntity> roleEntities;
 
-    @Column (name="role_id", nullable = false)
-    private UUID roleId;
 
+    @Column(name="deleted")
     private boolean deleted = Boolean.FALSE;
 
     @CreationTimestamp
-    @Column(name = "CREATE_TIMESTAMP", updatable = false)
+    @Column(name = "create_timestamp", updatable = false)
     private Timestamp createTimestamp;
 
     @Override

@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.util.UUID;
@@ -18,9 +18,9 @@ import java.util.UUID;
 public class SlideEntity {
 
     @Id
-    @GeneratedValue(generator = "uuid2")
-    @GenericGenerator(name = "uuid2", strategy = "org.hibernate.id.UUIDGenerator")
-    @Column(name = "id")
+    @GeneratedValue
+    @Type(type ="uuid-char")
+    @Column(name = "id_slide", nullable = false)
     private UUID id;
 
 
@@ -28,7 +28,7 @@ public class SlideEntity {
     private String imageUrl;
 
     private String text;
-    private String order;
+    private String orde;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "organization_id", insertable = false, updatable = false) // Solo para buscar informacion

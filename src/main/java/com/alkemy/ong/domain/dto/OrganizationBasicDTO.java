@@ -8,10 +8,8 @@ import lombok.Setter;
 @Getter
 @Setter
 public class OrganizationBasicDTO {
-    private Long id;
     private String name;
     private String image;
     private int phone;
     private String address;
-
 }

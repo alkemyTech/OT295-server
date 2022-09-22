@@ -25,8 +25,8 @@ import org.hibernate.annotations.*;
 public class ActivitiesEntity {
 
     @Id
-    @GeneratedValue(generator = "uuid2")
-    @GenericGenerator(name = "uuid2", strategy = "org.hibernate.id.UUIDGenerator")
+    @GeneratedValue
+    @Type(type = "uuid-char")
     @Column(name = "id")
     private UUID id;
 

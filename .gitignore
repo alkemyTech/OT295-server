@@ -31,3 +31,9 @@ build/
 
 ### VS Code ###
 .vscode/
+
+
+### DEVELOPMENT DATABASE H2 ###
+*.db
+### AVOID UPLOAD LogFile.txt ONLY USED FOR LOGGING LOCAL BEFORE PRODUCTION ###
+LogFile.txt
