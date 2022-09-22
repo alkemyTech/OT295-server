@@ -19,19 +19,23 @@ public class SlideEntity {
 
     @Id
     @GeneratedValue
-    @Type(type ="uuid-char")
-    @Column(name = "id_slide", nullable = false)
+    @Type(type = "uuid-char")
+    @Column(name = "id")
     private UUID id;
 
 
     @Column(name = "image_url")
     private String imageUrl;
 
+    @Column(name = "text")
     private String text;
-    private String orde;
+
+    @Column(name = "slide_order")
+    private String slideOrder;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "organization_id", insertable = false, updatable = false) // Solo para buscar informacion
+    @JoinColumn(name = "organization_id", insertable = false, updatable = false, foreignKey = @ForeignKey(name = "fk_organization_id"))
+    // Solo para buscar informacion
     private OrganizationEntity organization;
 
     @Column(name = "organization_id", nullable = false) // Para guardar y actualizar
