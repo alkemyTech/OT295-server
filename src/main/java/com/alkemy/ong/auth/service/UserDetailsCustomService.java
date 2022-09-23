@@ -1,18 +1,18 @@
 package com.alkemy.ong.auth.service;
 
 import com.alkemy.ong.auth.jwt.JwtUtils;
-import com.alkemy.ong.auth.security.RoleType;
 import com.alkemy.ong.domain.dto.AuthenticationRequest;
 import com.alkemy.ong.domain.dto.AuthenticationResponse;
+import com.alkemy.ong.domain.entity.RoleEntity;
 import com.alkemy.ong.domain.dto.BasicUserDTO;
 import com.alkemy.ong.domain.dto.UserDTO;
-import com.alkemy.ong.domain.mapper.UserMapper;
 import com.alkemy.ong.domain.entity.UserEntity;
+import com.alkemy.ong.domain.mapper.UserMapper;
 import com.alkemy.ong.repository.RoleRepository;
 import com.alkemy.ong.repository.UserRepository;
 import com.alkemy.ong.service.EmailServiceInterface;
-import org.apache.http.auth.InvalidCredentialsException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -25,10 +25,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
-import java.util.List;
+import java.util.Set;
 
 @Service
 public class UserDetailsCustomService implements UserDetailsService {
+
     @Autowired
     private UserRepository userRepository;
     @Autowired
@@ -39,7 +40,10 @@ public class UserDetailsCustomService implements UserDetailsService {
     private JwtUtils jwtUtil;
     @Autowired
     private EmailServiceInterface emailService;
+
+
     @Autowired
+    @Lazy
     private AuthenticationManager authenticationManager;
 
 
@@ -49,20 +53,21 @@ public class UserDetailsCustomService implements UserDetailsService {
         if (userEntity == null) {
             throw new UsernameNotFoundException("Username or password not found");
         }
-        return new User(userEntity.getEmail(), userEntity.getPassword(), Collections.emptyList());
+        return new User(userEntity.getUsername(), userEntity.getPassword(), Collections.emptyList());
     }
 
     public BasicUserDTO save(UserDTO userDTO) {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        RoleEntity role=roleRepository.findByName("ROLE_ADMIN");
         UserEntity userEntity = new UserEntity();
         userEntity.setFirstName(userDTO.getFirstName());
         userEntity.setLastName(userDTO.getLastName());
         userEntity.setEmail(userDTO.getEmail());
-        userEntity.setRoleEntities(List.of(roleRepository.findByName(RoleType.USER.getFullRoleName())));
+        userEntity.setUsername(userDTO.getEmail());
+        userEntity.setRoles(Set.of(role));
         userEntity.setPassword(passwordEncoder.encode(userDTO.getPassword()));
-        BasicUserDTO result = userMapper.entity2BasicDTO(userEntity);
-        result.setToken(jwtUtil.generateToken(userEntity));
         userEntity = this.userRepository.save(userEntity);
+        BasicUserDTO result = userMapper.entity2BasicDTO(userEntity);
         if (userEntity != null) {
             emailService.sendEmailTo(userEntity.getEmail());
         }
@@ -71,18 +76,22 @@ public class UserDetailsCustomService implements UserDetailsService {
     }
 
 
-    public AuthenticationResponse login(AuthenticationRequest authenticationRequest)
-            throws InvalidCredentialsException {
-        UserEntity user = userRepository.findByEmail(authenticationRequest.getEmail());
-        if (user == null) {
-            throw new InvalidCredentialsException("Invalid email or password.");
+    public AuthenticationResponse login(AuthenticationRequest authRequest) throws Exception
+    {
+
+        UserDetails userDetails;
+        try{//esto del signin deberia hacerlo el servicio
+            Authentication auth = authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(authRequest.getEmail(), authRequest.getPassword())
+            );
+            userDetails = (UserDetails) auth.getPrincipal();
+        }catch (BadCredentialsException e){
+            throw new Exception("Incorrect username or password", e);
         }
+        final String jwt = jwtUtil.generateToken(userDetails);
 
-        authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(authenticationRequest.getEmail(),
-                        authenticationRequest.getPassword()));
-
-        return new AuthenticationResponse(user.getEmail(), jwtUtil.generateToken(user));
+        return new AuthenticationResponse(userDetails.getUsername(),jwt);
     }
+
 
 }

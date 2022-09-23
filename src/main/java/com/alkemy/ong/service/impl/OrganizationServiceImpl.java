@@ -14,7 +14,7 @@ import java.util.List;
 
 @Service
 public class OrganizationServiceImpl implements OrganizationService {
-    @Autowired
+
     private OrganizationMapper mapper;
     @Autowired
     private OrganizationRepository repository;
