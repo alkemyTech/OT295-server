@@ -7,10 +7,9 @@ import com.alkemy.ong.service.OrganizationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import javax.validation.Valid;
 
+import javax.validation.Valid;
 import java.util.List;
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/organization")
@@ -24,7 +23,7 @@ public class OrganizationController {
     }
 
     @GetMapping("/public")
-    public ResponseEntity<List<OrganizationBasicDTO>> getOrganization(){
+    public ResponseEntity<List<OrganizationBasicDTO>> getOrganization() {
         List<OrganizationBasicDTO> organization = service.getOrganizations();
         return ResponseEntity.ok().body(organization);
     }

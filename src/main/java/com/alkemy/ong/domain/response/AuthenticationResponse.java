@@ -18,3 +18,4 @@ public class AuthenticationResponse {
     public AuthenticationResponse() {
     }
 }
+

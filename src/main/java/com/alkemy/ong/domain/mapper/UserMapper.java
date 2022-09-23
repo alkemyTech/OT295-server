@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class UserMapper {
     public BasicUserDTO entity2BasicDTO(UserEntity userEntity){
-        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+
         BasicUserDTO result = new BasicUserDTO();
         result.setFirstName(userEntity.getFirstName());
         result.setLastName(userEntity.getLastName());
@@ -22,7 +22,6 @@ public class UserMapper {
         UserDTO dto = new UserDTO();
         dto.setFirstName(entity.getFirstName());
         dto.setLastName(entity.getLastName());
-        dto.setPassword(entity.getPassword());
         dto.setEmail(entity.getEmail());
         return dto;
     }

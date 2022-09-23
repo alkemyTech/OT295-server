@@ -1,10 +1,13 @@
 package com.alkemy.ong.domain.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import lombok.*;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.Type;
-import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -16,17 +19,17 @@ import java.util.UUID;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "roles")
+@Table(name = "app_roles")
 public class RoleEntity {
 
 
     @Id
     @GeneratedValue
-    @Type(type ="uuid-char")
-    @Column(name = "id_rol", nullable = false)
+    @Type(type = "uuid-char")
+    @Column(name = "id")
     private UUID id;
 
-    @Column(nullable = false)
+    @Column(name = "name", nullable = false)
     private String name;
 
     @Column(name = "description")

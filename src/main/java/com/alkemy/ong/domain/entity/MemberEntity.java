@@ -1,6 +1,9 @@
 package com.alkemy.ong.domain.entity;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Type;
@@ -16,7 +19,7 @@ import java.util.UUID;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@SQLDelete(sql = "UPDATE members SET soft_Delete = true WHERE idMember = ? ")
+@SQLDelete(sql = "UPDATE members SET soft_Delete = true WHERE id = ? ")
 @Where(clause = "soft_Delete = false")
 @Table(name = "members")
 public class MemberEntity {
@@ -24,7 +27,7 @@ public class MemberEntity {
     @Id
     @GeneratedValue
     @Type(type = "uuid-char")
-    @Column(name = "id_member", nullable = false)
+    @Column(name = "id")
     private UUID id;
 
 

@@ -15,3 +15,4 @@ public class AuthenticationRequest {
     @Size(min = 8)
     private String password;
 }
+

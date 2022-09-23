@@ -5,7 +5,6 @@ import com.alkemy.ong.domain.request.OrganizationRequest;
 import com.alkemy.ong.domain.response.OrganizationResponse;
 
 import java.util.List;
-import java.util.UUID;
 
 public interface OrganizationService {
 

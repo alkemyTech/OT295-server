@@ -1,9 +1,9 @@
 package com.alkemy.ong.auth.service;
 
 import com.alkemy.ong.auth.jwt.JwtUtils;
-import com.alkemy.ong.domain.dto.AuthenticationRequest;
-import com.alkemy.ong.domain.dto.AuthenticationResponse;
 import com.alkemy.ong.domain.entity.RoleEntity;
+import com.alkemy.ong.domain.request.AuthenticationRequest;
+import com.alkemy.ong.domain.response.AuthenticationResponse;
 import com.alkemy.ong.domain.dto.BasicUserDTO;
 import com.alkemy.ong.domain.dto.UserDTO;
 import com.alkemy.ong.domain.entity.UserEntity;
@@ -76,13 +76,13 @@ public class UserDetailsCustomService implements UserDetailsService {
     }
 
 
-    public AuthenticationResponse login(AuthenticationRequest authRequest) throws Exception
+    public AuthenticationResponse login( AuthenticationRequest authRequest) throws Exception
     {
 
         UserDetails userDetails;
         try{//esto del signin deberia hacerlo el servicio
             Authentication auth = authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(authRequest.getEmail(), authRequest.getPassword())
+                    new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword())
             );
             userDetails = (UserDetails) auth.getPrincipal();
         }catch (BadCredentialsException e){
