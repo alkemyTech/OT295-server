@@ -1,6 +1,7 @@
 package com.alkemy.ong.domain.entity;
 
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.Where;
@@ -27,7 +28,7 @@ public class MemberEntity {
     private UUID id;
 
 
-    @Column(nullable = false)
+    @Column(name = "name", nullable = false)
     private String name;
 
     @Column(name = "facebook_url")
@@ -39,15 +40,16 @@ public class MemberEntity {
     @Column(name = "linkedin_url")
     private String linkedinUrl;
 
-    @Column(nullable = false)
+    @Column(name = "image", nullable = false)
     private String image;
 
+    @Column(name = "description")
     private String description;
 
-    @CreatedDate
-    @Column(name = "timestamp")
-    private Timestamp timestamp;
+    @CreationTimestamp
+    @Column(name = "create_timestamp")
+    private Timestamp createTimestamp;
 
-    @Column(name = "soft_Delete")
-    private boolean softDelete = Boolean.FALSE;
+    @Column(name = "soft_delete")
+    private Boolean softDelete = Boolean.FALSE;
 }
