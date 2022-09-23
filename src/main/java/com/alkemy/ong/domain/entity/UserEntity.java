@@ -4,15 +4,15 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.SQLDelete;
-import org.hibernate.annotations.Where;
+import org.hibernate.annotations.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.sql.Timestamp;
 import java.util.Collection;
 import java.util.List;
@@ -28,9 +28,10 @@ import java.util.stream.Collectors;
 @Where(clause = "deleted=false")
 @Table(name = "users")
 public class UserEntity implements UserDetails {
+
     @Id
-    @GeneratedValue(generator = "uuid2")
-    @GenericGenerator(name = "uuid2", strategy = "org.hibernate.id.UUIDGenerator")
+    @GeneratedValue
+    @Type(type = "uuid-char")
     @Column(name = "id")
     private UUID id;
 
@@ -42,6 +43,8 @@ public class UserEntity implements UserDetails {
 
     @Column(name ="email", nullable = false, unique = true)
     private String email;
+
+    private String username = email;
 
     @Column(name="password", nullable = false)
     private String password;

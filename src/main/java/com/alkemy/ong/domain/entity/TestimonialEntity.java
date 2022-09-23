@@ -4,12 +4,16 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
 import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Type;
 import org.hibernate.annotations.Where;
 
+
 import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
 import java.util.UUID;
@@ -19,28 +23,31 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "testimonials")
-@SQLDelete(sql = "UPDATE testimonials SET softDelete = true WHERE id= ?")
-@Where(clause = "softDelete = false")
+@SQLDelete(sql = "UPDATE testimonials SET soft_delete = true WHERE id= ?")
+@Where(clause = "soft_delete = false")
 @Entity
 public class TestimonialEntity {
 
     @Id
-    @GeneratedValue(generator = "uuid2")
-    @GenericGenerator(name = "uuid2", strategy = "org.hibernate.id.UUIDGenerator")
+    @GeneratedValue
+    @Type(type = "uuid-char")
     @Column(name = "id")
     private UUID id;
 
-    @NotNull ( message =  "Name must be entered")
+    @NotNull(message = "Name must be entered")
+    @Column(name = "name")
     private String name;
 
+    @Column(name = "image")
     private String image;
 
+    @Column(name = "content")
     private String content;
 
-    @Column(name = "soft_deleted")
-    private boolean softDeleted = Boolean.FALSE;
-
     @CreationTimestamp
-    @Column(name = "create_timestamp", updatable = false)
+    @Column(name = "create_timestamp")
     private Timestamp createTimestamp;
+
+    @Column(name = "soft_delete")
+    private Boolean softDelete = Boolean.FALSE;
 }

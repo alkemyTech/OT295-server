@@ -8,12 +8,14 @@
 package com.alkemy.ong.domain.entity;
 
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Type;
 import org.hibernate.annotations.Where;
-import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.UUID;
 
 @Getter
 @Setter
@@ -22,16 +24,16 @@ import java.sql.Timestamp;
 @ToString
 @EqualsAndHashCode
 @Entity
-@SQLDelete(sql = "UPDATE categories SET soft_delete = true WHERE id_category = ?")
-@Where(clause = "softDelete = false")
+@SQLDelete(sql = "UPDATE categories SET soft_delete = true WHERE id = ?")
+@Where(clause = "soft_delete = false")
 @Table(name = "categories")
 public class CategoryEntity {
 
     @Id
-    @SequenceGenerator(name = "seq_category", sequenceName = "seq_category", initialValue = 1, allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_category")
-    @Column(name = "id_category", nullable = false)
-    private Long idCategory;
+    @GeneratedValue
+    @Type(type = "uuid-char")
+    @Column(name = "id")
+    private UUID id;
 
     @Column(name = "name", nullable = false)
     private String name;
@@ -42,9 +44,9 @@ public class CategoryEntity {
     @Column(name = "image")
     private String image;
 
-    @CreatedDate
-    @Column(name = "timestamp")
-    private Timestamp timestamp;
+    @CreationTimestamp
+    @Column(name = "create_timestamp")
+    private Timestamp createTimestamp;
 
     @Column(name = "soft_delete")
     private Boolean softDelete = Boolean.FALSE;
