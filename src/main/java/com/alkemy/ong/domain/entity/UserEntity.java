@@ -31,8 +31,8 @@ public class UserEntity implements UserDetails {
 
     @Id
     @GeneratedValue
-    @Type(type ="uuid-char")
-    @Column(name = "id_user", nullable = false)
+    @Type(type = "uuid-char")
+    @Column(name = "id")
     private UUID id;
 
     @Column(name= "first_name", nullable = false)
