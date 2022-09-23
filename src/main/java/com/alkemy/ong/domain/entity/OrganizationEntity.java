@@ -1,5 +1,6 @@
 package com.alkemy.ong.domain.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,18 +16,19 @@ import java.util.Set;
 import java.util.UUID;
 
 @Entity
-@Table(name="organizations")
+@Table(name = "organizations")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@SQLDelete(sql = "UPDATE organizations SET deleted = true WHERE id=?" )
-@Where(clause = "deleted=false")
+@SQLDelete(sql = "UPDATE organizations SET soft_delete = true WHERE id=?")
+@Where(clause = "soft_delete=false")
 public class OrganizationEntity {
 
     @Id
     @GeneratedValue
     @Type(type = "uuid-char")
+    @Column(name = "id")
     private UUID id;
 
     @Column(name = "name", nullable = false)
@@ -54,8 +56,10 @@ public class OrganizationEntity {
     @Column(name = "create_timestamp", updatable = false)
     private Timestamp createTimestamp;
 
-    private boolean deleted = Boolean.FALSE;
+    @Column(name = "soft_delete")
+    private Boolean softDelete = Boolean.FALSE;
 
-    @OneToMany(mappedBy = "organization", fetch = FetchType.LAZY)
-    private Set<SlideEntity> slides;
+    @OneToMany(mappedBy = "organization")
+    @JsonIgnore
+    private Set<SlideEntity> slidesList;
 }
