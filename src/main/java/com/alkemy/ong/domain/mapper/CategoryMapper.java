@@ -18,15 +18,7 @@ import java.util.UUID;
 
 @Component
 public class CategoryMapper {
-//    @Mappings({
-//            @Mapping(source = "name", target = "name")
-//    })
-//    CategoryBasicDTO toCategoryBasicDTO(CategoryEntity categoryEntity);
-//
-//    List<CategoryBasicDTO> toCategoryBasicDTOList(List<CategoryEntity> categories);
-//
-//    @InheritInverseConfiguration
-//    CategoryEntity toCategoryEntity(CategoryBasicDTO categoryBasicDTO);
+
     public List<CategoryBasicDTO> categoryEntity2DTOList(List<CategoryEntity> entities){
         List<CategoryBasicDTO> dtos = new ArrayList<>();
         for(CategoryEntity entity : entities) {
@@ -51,4 +43,14 @@ public class CategoryMapper {
         dto.setCreateTimestamp(entity.getCreateTimestamp());
         return dto;
     }
+
+    public CategoryEntity categoryDTO2Entity(CategoryDTO dto) {
+        CategoryEntity entity = new CategoryEntity();
+        entity.setName(dto.getName());
+        entity.setDescription(dto.getDescription());
+        entity.setImage(dto.getImage());
+        entity.setCreateTimestamp(dto.getCreateTimestamp());
+        return entity;
+    }
+
 }

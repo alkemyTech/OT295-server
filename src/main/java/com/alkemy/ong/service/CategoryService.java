@@ -10,4 +10,6 @@ public interface CategoryService {
     List<CategoryBasicDTO> getAllCategories();
 
     CategoryDTO getDetailsById(UUID id);
+
+    CategoryDTO save(CategoryDTO category);
 }

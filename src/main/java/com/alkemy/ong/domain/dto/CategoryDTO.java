@@ -8,6 +8,7 @@ import org.hibernate.annotations.Type;
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.validation.constraints.NotBlank;
 import java.sql.Timestamp;
 import java.util.UUID;
 
@@ -16,6 +17,7 @@ import java.util.UUID;
 public class CategoryDTO {
 
     private UUID id;
+    @NotBlank(message = "Name field can not be null or empty.")
     private String name;
     private String description;
     private String image;

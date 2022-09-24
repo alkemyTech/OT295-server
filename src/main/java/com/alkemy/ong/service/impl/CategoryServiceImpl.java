@@ -37,4 +37,14 @@ public class CategoryServiceImpl implements CategoryService {
         return categoryDTO;
     }
 
+    @Override
+    public CategoryDTO save(CategoryDTO dto) {
+        CategoryEntity entity = categoryMapper.categoryDTO2Entity(dto);
+        CategoryEntity entitySaved = categoryRepository.save(entity);
+        CategoryDTO result = categoryMapper.categoryEntity2DTO(entitySaved);
+        return result;
+    }
+
+
+
 }
