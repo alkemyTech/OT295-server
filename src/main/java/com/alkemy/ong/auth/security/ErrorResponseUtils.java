@@ -1,7 +1,7 @@
 package com.alkemy.ong.auth.security;
 
 
-import com.alkemy.ong.domain.response.ErrorResponse;
+import com.alkemy.ong.exception.ErrorResponse;
 import com.alkemy.ong.exception.TimestampUtils;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.http.entity.ContentType;

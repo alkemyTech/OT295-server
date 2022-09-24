@@ -1,19 +1,15 @@
-package com.alkemy.ong.domain.response;
+package com.alkemy.ong.exception;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
+
 import lombok.Getter;
 import lombok.Setter;
-
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
 @Getter
 @Setter
-@Builder
-@AllArgsConstructor
 public class ErrorResponse {
 
 

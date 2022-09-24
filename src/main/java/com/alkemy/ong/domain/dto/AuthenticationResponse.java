@@ -7,7 +7,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class AuthenticationResponse {
-    private String username;
     private String email;
     private String token;
     public AuthenticationResponse(String email, String token) {

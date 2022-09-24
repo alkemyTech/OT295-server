@@ -7,8 +7,8 @@ import lombok.Setter;
 @Getter
 @Setter
 public class AuthenticationResponse {
-    private String email;
-    private String username=email;
+
+    private String username;
     private String token;
     public AuthenticationResponse(String username, String token) {
         this.username = username;

@@ -13,12 +13,5 @@ public class NewsResponse {
 
     private String imageUrl;
 
-    public NewsResponse(String name, String content, String imageUrl) {
-        this.name = name;
-        this.content = content;
-        this.imageUrl = imageUrl;
-    }
 
-    public NewsResponse() {
-    }
 }
