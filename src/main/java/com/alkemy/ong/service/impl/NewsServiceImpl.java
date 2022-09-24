@@ -1,5 +1,6 @@
 package com.alkemy.ong.service.impl;
 
+import com.alkemy.ong.domain.entity.CategoryEntity;
 import com.alkemy.ong.domain.entity.NewsEntity;
 import com.alkemy.ong.domain.mapper.NewsMapper;
 import com.alkemy.ong.domain.request.NewsRequest;
@@ -11,6 +12,8 @@ import com.alkemy.ong.repository.NewsRepository;
 import com.alkemy.ong.service.NewsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 import java.util.UUID;
 
 
@@ -44,6 +47,17 @@ public class NewsServiceImpl implements NewsService {
         entity.setContent(newsRequest.getContent());
         entity.setImageUrl(newsRequest.getImageUrl());
         return newsMapper.entityToResponse(entity);
+    }
+
+    @Override
+    public void delete(UUID id) {
+        Optional<NewsEntity> entity= newsRepository.findById(id);
+            if(!entity.isPresent()){
+                throw new ParamNotFound("Id not valid");
+            }
+            newsRepository.delete(entity.get());
+
+
     }
 
 }

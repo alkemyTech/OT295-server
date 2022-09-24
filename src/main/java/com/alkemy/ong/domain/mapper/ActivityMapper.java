@@ -17,14 +17,14 @@ public class ActivityMapper {
         return activityResponse;
     }
 
-    public ActivityEntity requestToEntity (ActivityRequest response){
+    public ActivityEntity requestToEntity(ActivityRequest response) {
 
         ActivityEntity activityEntity = new ActivityEntity();
         activityEntity.setName(response.getName());
         activityEntity.setContent(response.getContent());
         activityEntity.setImageUrl(response.getImageUrl());
 
-        return  activityEntity;
+        return activityEntity;
 
     }
 
