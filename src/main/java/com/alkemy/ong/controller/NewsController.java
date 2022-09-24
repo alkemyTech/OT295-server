@@ -31,7 +31,7 @@ public class NewsController {
         return ResponseEntity.ok().body(news);
     }
     @PutMapping("/{id}")
-    public ResponseEntity<NewsResponse> update(@Valid @PathVariable UUID id, @RequestBody NewsRequest  newsRequest) throws NotFoundException {
+    public ResponseEntity<NewsResponse> update(@PathVariable UUID id,@Valid @RequestBody NewsRequest  newsRequest) {
         NewsResponse response = service.update(id,newsRequest);
         return ResponseEntity.ok().body(response);
     }

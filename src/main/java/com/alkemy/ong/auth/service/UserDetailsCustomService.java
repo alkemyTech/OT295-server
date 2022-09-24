@@ -8,6 +8,7 @@ import com.alkemy.ong.domain.dto.BasicUserDTO;
 import com.alkemy.ong.domain.dto.UserDTO;
 import com.alkemy.ong.domain.entity.UserEntity;
 import com.alkemy.ong.domain.mapper.UserMapper;
+import com.alkemy.ong.exception.InvalidCredentialsException;
 import com.alkemy.ong.repository.RoleRepository;
 import com.alkemy.ong.repository.UserRepository;
 import com.alkemy.ong.service.EmailServiceInterface;
@@ -77,7 +78,9 @@ public class UserDetailsCustomService implements UserDetailsService {
 
 
     public AuthenticationResponse login( AuthenticationRequest authRequest)
-    {
+
+             {
+        UserEntity user = userRepository.findByEmail(authRequest.getUsername());
         UserDetails userDetails;
             Authentication auth = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword())

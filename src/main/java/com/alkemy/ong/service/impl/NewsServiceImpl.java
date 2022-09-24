@@ -11,6 +11,8 @@ import com.alkemy.ong.repository.NewsRepository;
 import com.alkemy.ong.service.NewsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 import java.util.UUID;
 
 
@@ -39,11 +41,15 @@ public class NewsServiceImpl implements NewsService {
 
     @Override
     public NewsResponse update(UUID id, NewsRequest newsRequest)  {
-        NewsEntity entity=newsRepository.findById(id).get();
-        entity.setName(newsRequest.getName());
-        entity.setContent(newsRequest.getContent());
-        entity.setImageUrl(newsRequest.getImageUrl());
-        return newsMapper.entityToResponse(entity);
+        Optional<NewsEntity> entity=newsRepository.findById(id);
+        if(entity.isEmpty()){
+            throw new NotFoundException("News not exist");
+        }
+        NewsEntity news=entity.get();
+        news.setName(newsRequest.getName());
+        news.setContent(newsRequest.getContent());
+        news.setImageUrl(newsRequest.getImageUrl());
+        return newsMapper.entityToResponse(news);
     }
 
 }

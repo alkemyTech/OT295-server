@@ -31,6 +31,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private JwtRequestFilter jwtFilter;
 
+    @Autowired
+    private AuthEntryPointJwt unauthorizedHandler;
 
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
@@ -67,6 +69,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
+                .exceptionHandling()
+                .authenticationEntryPoint(unauthorizedHandler)
                 .and()
                 .authorizeRequests()
                 .antMatchers(HttpMethod.POST, "/auth/login")

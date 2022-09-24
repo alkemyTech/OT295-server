@@ -5,9 +5,9 @@ import com.alkemy.ong.auth.service.UserDetailsCustomService;
 import com.alkemy.ong.domain.dto.*;
 import com.alkemy.ong.domain.request.AuthenticationRequest;
 import com.alkemy.ong.domain.response.AuthenticationResponse;
+import com.alkemy.ong.exception.InvalidCredentialsException;
 import com.alkemy.ong.exception.UserAlreadyExistException;
 import com.alkemy.ong.service.UserService;
-import org.apache.http.auth.InvalidCredentialsException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,15 +30,14 @@ public class UserAuthController {
     private AuthenticationManager authenticationManager;
 
     @PostMapping("/register")
-    public ResponseEntity<BasicUserDTO> signup(@Valid @RequestBody UserDTO user) throws UserAlreadyExistException {
+    public ResponseEntity<BasicUserDTO> signup(@Valid @RequestBody UserDTO user) {
         BasicUserDTO result = this.userDetailsService.save(user);
         return ResponseEntity.status(HttpStatus.CREATED).body(result);
 
     }
     @PostMapping("/login")
-    public ResponseEntity<AuthenticationResponse> login(
-            @RequestBody @Valid AuthenticationRequest authenticationRequest)
-            throws InvalidCredentialsException {
+    public ResponseEntity<AuthenticationResponse> login (
+            @RequestBody @Valid AuthenticationRequest authenticationRequest)  {
         return ResponseEntity.ok(userDetailsService.login(authenticationRequest));
     }
 
