@@ -1,6 +1,7 @@
 package com.alkemy.ong.service.impl;
 
 
+import com.alkemy.ong.domain.response.NewDTOResponse;
 import com.alkemy.ong.domain.entity.NewsEntity;
 import com.alkemy.ong.domain.mapper.NewsMapper;
 import com.alkemy.ong.domain.request.NewsRequest;
@@ -61,6 +62,17 @@ public class NewsServiceImpl implements NewsService {
             newsRepository.delete(entity.get());
 
 
+    }
+
+    public NewDTOResponse getNewById(UUID id){
+        NewsEntity newsEntity = getNew(id);
+        NewDTOResponse dto = newsMapper.toNewDtoResponse(newsEntity);
+        return dto;
+    }
+
+    private NewsEntity getNew(UUID newId){
+        return newsRepository.findById(newId).orElseThrow(
+                ()->new ParamNotFound("New not found: "+ newId));
     }
 
 }

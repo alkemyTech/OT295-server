@@ -2,6 +2,7 @@ package com.alkemy.ong.controller;
 
 import com.alkemy.ong.domain.request.NewsRequest;
 import com.alkemy.ong.domain.request.OrganizationRequest;
+import com.alkemy.ong.domain.response.NewDTOResponse;
 import com.alkemy.ong.domain.response.NewsResponse;
 import com.alkemy.ong.domain.response.OrganizationResponse;
 import com.alkemy.ong.exception.ExternalServiceException;
@@ -40,6 +41,12 @@ public class NewsController {
     public ResponseEntity<Object> deleteUser(@PathVariable UUID id){
         this.service.delete(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<NewDTOResponse> getNewById(@PathVariable UUID id){
+        NewDTOResponse result = service.getNewById(id);
+        return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 }
 
