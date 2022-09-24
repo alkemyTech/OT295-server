@@ -1,11 +1,10 @@
 package com.alkemy.ong.service.impl;
 
-import com.alkemy.ong.domain.entity.CategoryEntity;
+
 import com.alkemy.ong.domain.entity.NewsEntity;
 import com.alkemy.ong.domain.mapper.NewsMapper;
 import com.alkemy.ong.domain.request.NewsRequest;
 import com.alkemy.ong.domain.response.NewsResponse;
-import com.alkemy.ong.exception.ExternalServiceException;
 import com.alkemy.ong.exception.NotFoundException;
 import com.alkemy.ong.exception.ParamNotFound;
 import com.alkemy.ong.repository.NewsRepository;
