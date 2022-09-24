@@ -12,4 +12,6 @@ public interface CategoryService {
     CategoryDTO getDetailsById(UUID id);
 
     CategoryDTO save(CategoryDTO category);
+
+    void delete(UUID id);
 }

@@ -45,6 +45,14 @@ public class CategoryServiceImpl implements CategoryService {
         return result;
     }
 
+    @Override
+    public void delete(UUID id) {
+        Optional<CategoryEntity> entity= this.categoryRepository.findById(id);
+        if(!entity.isPresent()){
+            throw new ParamNotFound("Id not valid");
+        }
+        this.categoryRepository.delete(entity.get());
+    }
 
 
 }

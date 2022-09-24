@@ -36,6 +36,11 @@ public class CategoryController {
         CategoryDTO categoryDTO = this.categoryService.getDetailsById(id);
         return ResponseEntity.ok(categoryDTO);
     }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable UUID id) {
+        this.categoryService.delete(id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
 
 
 }
