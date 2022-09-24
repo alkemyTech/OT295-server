@@ -4,7 +4,6 @@ import com.alkemy.ong.domain.request.NewsRequest;
 import com.alkemy.ong.domain.response.NewsResponse;
 import java.util.UUID;
 
-
 public interface NewsService {
     NewsResponse save(NewsRequest newsRequest);
 

@@ -76,18 +76,14 @@ public class UserDetailsCustomService implements UserDetailsService {
     }
 
 
-    public AuthenticationResponse login( AuthenticationRequest authRequest) throws Exception
+    public AuthenticationResponse login( AuthenticationRequest authRequest)
     {
-
         UserDetails userDetails;
-        try{//esto del signin deberia hacerlo el servicio
             Authentication auth = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword())
             );
             userDetails = (UserDetails) auth.getPrincipal();
-        }catch (BadCredentialsException e){
-            throw new Exception("Incorrect username or password", e);
-        }
+
         final String jwt = jwtUtil.generateToken(userDetails);
 
         return new AuthenticationResponse(userDetails.getUsername(),jwt);

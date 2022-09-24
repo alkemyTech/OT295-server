@@ -4,6 +4,8 @@ import com.alkemy.ong.domain.request.NewsRequest;
 import com.alkemy.ong.domain.request.OrganizationRequest;
 import com.alkemy.ong.domain.response.NewsResponse;
 import com.alkemy.ong.domain.response.OrganizationResponse;
+import com.alkemy.ong.exception.ExternalServiceException;
+import com.alkemy.ong.exception.NotFoundException;
 import com.alkemy.ong.service.NewsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -29,7 +31,7 @@ public class NewsController {
         return ResponseEntity.ok().body(news);
     }
     @PutMapping("/{id}")
-    public ResponseEntity<NewsResponse> update(@Valid @PathVariable UUID id, @RequestBody NewsRequest  newsRequest) {
+    public ResponseEntity<NewsResponse> update(@Valid @PathVariable UUID id, @RequestBody NewsRequest  newsRequest) throws NotFoundException {
         NewsResponse response = service.update(id,newsRequest);
         return ResponseEntity.ok().body(response);
     }

@@ -4,6 +4,8 @@ import com.alkemy.ong.domain.entity.NewsEntity;
 import com.alkemy.ong.domain.mapper.NewsMapper;
 import com.alkemy.ong.domain.request.NewsRequest;
 import com.alkemy.ong.domain.response.NewsResponse;
+import com.alkemy.ong.exception.ExternalServiceException;
+import com.alkemy.ong.exception.NotFoundException;
 import com.alkemy.ong.exception.ParamNotFound;
 import com.alkemy.ong.repository.NewsRepository;
 import com.alkemy.ong.service.NewsService;
@@ -36,11 +38,8 @@ public class NewsServiceImpl implements NewsService {
     }
 
     @Override
-    public NewsResponse update(UUID id, NewsRequest newsRequest) {
+    public NewsResponse update(UUID id, NewsRequest newsRequest)  {
         NewsEntity entity=newsRepository.findById(id).get();
-        if(entity.getId()==null){
-            throw new ParamNotFound("News not exist");
-        }
         entity.setName(newsRequest.getName());
         entity.setContent(newsRequest.getContent());
         entity.setImageUrl(newsRequest.getImageUrl());
