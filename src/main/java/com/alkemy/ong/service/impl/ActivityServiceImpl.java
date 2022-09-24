@@ -11,6 +11,8 @@ import com.alkemy.ong.service.ActivityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
+
 @Service
 public class ActivityServiceImpl implements ActivityService {
 
@@ -33,5 +35,15 @@ public class ActivityServiceImpl implements ActivityService {
         ActivityResponse response = activityMapper.entityToResponse(entity);
 
         return  response;
+    }
+
+    @Override
+    public ActivityResponse update(UUID id, ActivityRequest activityRequest) {
+
+        ActivityEntity entity=activityRepository.findById(id).get();
+        entity.setName(activityRequest.getName());
+        entity.setContent(activityRequest.getContent());
+        entity.setImageUrl(activityRequest.getImageUrl());
+        return activityMapper.entityToResponse(entity);
     }
 }
