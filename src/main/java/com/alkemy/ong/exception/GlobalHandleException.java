@@ -1,6 +1,5 @@
 package com.alkemy.ong.exception;
 
-
 import com.alkemy.ong.domain.response.ErrorResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
