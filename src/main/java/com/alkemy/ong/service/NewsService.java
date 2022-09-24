@@ -9,4 +9,5 @@ public interface NewsService {
 
     NewsResponse update(UUID id, NewsRequest newsRequest);
 
+    void delete(UUID id);
 }

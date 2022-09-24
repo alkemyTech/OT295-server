@@ -1,5 +1,6 @@
 package com.alkemy.ong.service.impl;
 
+import com.alkemy.ong.domain.entity.CategoryEntity;
 import com.alkemy.ong.domain.entity.NewsEntity;
 import com.alkemy.ong.domain.mapper.NewsMapper;
 import com.alkemy.ong.domain.request.NewsRequest;
@@ -50,6 +51,17 @@ public class NewsServiceImpl implements NewsService {
         news.setContent(newsRequest.getContent());
         news.setImageUrl(newsRequest.getImageUrl());
         return newsMapper.entityToResponse(news);
+    }
+
+    @Override
+    public void delete(UUID id) {
+        Optional<NewsEntity> entity= newsRepository.findById(id);
+            if(!entity.isPresent()){
+                throw new ParamNotFound("Id not valid");
+            }
+            newsRepository.delete(entity.get());
+
+
     }
 
 }

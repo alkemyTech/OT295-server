@@ -8,6 +8,7 @@ import com.alkemy.ong.exception.ExternalServiceException;
 import com.alkemy.ong.exception.NotFoundException;
 import com.alkemy.ong.service.NewsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,6 +35,11 @@ public class NewsController {
     public ResponseEntity<NewsResponse> update(@PathVariable UUID id,@Valid @RequestBody NewsRequest  newsRequest) {
         NewsResponse response = service.update(id,newsRequest);
         return ResponseEntity.ok().body(response);
+    }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Object> deleteUser(@PathVariable UUID id){
+        this.service.delete(id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }
 
