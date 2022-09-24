@@ -35,7 +35,7 @@ public class OrganizationServiceImpl implements OrganizationService {
     public OrganizationResponse update(OrganizationRequest organizationRequest) {
         OrganizationEntity organization=repository.findByEmail(organizationRequest.getEmail());
         if(organization.getEmail().isEmpty()){
-            throw new ParamNotFound("user not found");
+            throw new ParamNotFound("organization not found");
         }
         organization.setName(organizationRequest.getName());
         organization.setImage(organizationRequest.getImage());
