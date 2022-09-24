@@ -53,4 +53,10 @@ public class CategoryMapper {
         return entity;
     }
 
+    public void generoEntityRefreshValues(CategoryEntity entity, CategoryDTO dto) {
+        entity.setName(dto.getName());
+        entity.setDescription(dto.getDescription());
+        entity.setImage(dto.getImage());
+    }
+
 }

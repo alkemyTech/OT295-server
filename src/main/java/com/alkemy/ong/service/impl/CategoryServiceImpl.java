@@ -31,7 +31,7 @@ public class CategoryServiceImpl implements CategoryService {
     public CategoryDTO getDetailsById(UUID id) {
         Optional<CategoryEntity> entity = this.categoryRepository.findById(id);
         if(!entity.isPresent()){
-            throw new ParamNotFound("Id personaje no válido");
+            throw new ParamNotFound("Id not valid");
         }
         CategoryDTO categoryDTO = this.categoryMapper.categoryEntity2DTO(entity.get());
         return categoryDTO;
@@ -53,6 +53,20 @@ public class CategoryServiceImpl implements CategoryService {
         }
         this.categoryRepository.delete(entity.get());
     }
+
+    @Override
+    public CategoryDTO update(UUID id, CategoryDTO category) {
+        Optional<CategoryEntity> entity= this.categoryRepository.findById(id);
+        if(!entity.isPresent()){
+            throw new ParamNotFound("Id not valid");
+        }
+        this.categoryMapper.generoEntityRefreshValues(entity.get(), category);
+        CategoryEntity entitySaved = this.categoryRepository.save(entity.get());
+        CategoryDTO result = this.categoryMapper.categoryEntity2DTO(entitySaved);
+
+        return result;
+    }
+
 
 
 }

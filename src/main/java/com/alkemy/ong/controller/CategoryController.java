@@ -41,6 +41,11 @@ public class CategoryController {
         this.categoryService.delete(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
+    @PutMapping("/{id}")
+    public ResponseEntity<CategoryDTO> update(@PathVariable UUID id, @RequestBody CategoryDTO category) {
+        CategoryDTO result = this.categoryService.update(id, category);
+        return ResponseEntity.ok().body(result);
+    }
 
 
 }
