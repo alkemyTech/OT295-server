@@ -25,13 +25,8 @@ public class ActivityServiceImpl implements ActivityService {
     @Override
     public ActivityResponse save(ActivityRequest activity) {
 
-        ActivityEntity entity = new ActivityEntity();
-        entity.setName(activity.getName());
-        entity.setContent(activity.getContent());
-        entity.setImageUrl(activity.getImageUrl());
-
-        entity= this.activityRepository.save(entity);
-
+        ActivityEntity entity = activityMapper.requestToEntity(activity);
+        entity= activityRepository.save(entity);
         ActivityResponse response = activityMapper.entityToResponse(entity);
 
         return  response;
@@ -40,10 +35,11 @@ public class ActivityServiceImpl implements ActivityService {
     @Override
     public ActivityResponse update(UUID id, ActivityRequest activityRequest) {
 
-        ActivityEntity entity=activityRepository.findById(id).get();
-        entity.setName(activityRequest.getName());
-        entity.setContent(activityRequest.getContent());
-        entity.setImageUrl(activityRequest.getImageUrl());
-        return activityMapper.entityToResponse(entity);
+        ActivityEntity activityEntity=activityRepository.findById(id).get();
+        activityMapper.activityRefreshValues(activityRequest,activityEntity);
+        ActivityEntity entitySaved = activityRepository.save(activityEntity);
+        ActivityResponse response = activityMapper.entityToResponse(entitySaved);
+
+        return response;
     }
 }
