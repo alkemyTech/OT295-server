@@ -4,6 +4,7 @@ import com.alkemy.ong.domain.entity.ActivityEntity;
 import com.alkemy.ong.domain.mapper.ActivityMapper;
 import com.alkemy.ong.domain.request.ActivityRequest;
 import com.alkemy.ong.domain.response.ActivityResponse;
+import com.alkemy.ong.exception.NotFoundException;
 import com.alkemy.ong.repository.ActivityRepository;
 import com.alkemy.ong.service.ActivityService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,10 @@ public class ActivityServiceImpl implements ActivityService {
 
     @Override
     public ActivityResponse update(UUID id, ActivityRequest activityRequest) {
+
+        if(!activityRepository.existsById(id)){
+            throw new NotFoundException("Activity not exist");
+        }
 
         ActivityEntity activityEntity = activityRepository.findById(id).get();
         activityMapper.activityRefreshValues(activityRequest, activityEntity);
