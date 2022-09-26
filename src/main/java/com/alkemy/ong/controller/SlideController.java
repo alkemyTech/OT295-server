@@ -1,5 +1,6 @@
 package com.alkemy.ong.controller;
 
+import com.alkemy.ong.domain.dto.SlideDTOImageOrder;
 import com.alkemy.ong.domain.request.SlideRequest;
 import com.alkemy.ong.domain.response.SlideResponse;
 import com.alkemy.ong.service.SlideService;
@@ -8,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 
@@ -26,6 +28,11 @@ public class SlideController {
     @GetMapping("/{id}")
     public ResponseEntity<SlideResponse> getById(@PathVariable UUID id){
         return ResponseEntity.status(HttpStatus.OK).body(slideService.getByIdResponse(id));
+    }
+
+    @GetMapping()
+    public ResponseEntity<List<SlideDTOImageOrder>> readAllSlides(){
+        return new ResponseEntity<>(slideService.readAllSlides(),HttpStatus.OK);
     }
 
 }

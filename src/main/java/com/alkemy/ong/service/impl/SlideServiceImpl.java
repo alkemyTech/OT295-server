@@ -1,5 +1,6 @@
 package com.alkemy.ong.service.impl;
 
+import com.alkemy.ong.domain.dto.SlideDTOImageOrder;
 import com.alkemy.ong.domain.entity.SlideEntity;
 import com.alkemy.ong.domain.mapper.SlideMapper;
 import com.alkemy.ong.domain.request.SlideRequest;
@@ -11,6 +12,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -32,21 +35,34 @@ public class SlideServiceImpl implements SlideService {
         return slideMapper.entity2DtoResponse(slideRepository.save(entity));
     }
 
-    public SlideEntity getById(UUID id){
+    public SlideEntity getById(UUID id) {
         return slideRepository.findById(id).orElseThrow(
                 () -> new ParamNotFound("Slide not found"));
     }
 
-    public String generateUrlAmazon(MultipartFile imageB64){
+    public String generateUrlAmazon(MultipartFile imageB64) {
         return amazonClient.uploadFile(imageB64);
     }
 
-    public Integer generateOrder(UUID organization){
+    public Integer generateOrder(UUID organization) {
         Integer order = slideRepository.findMaxSlideOrder(organization);
         return order == null ? 0 : order;
     }
 
-    public SlideResponse getByIdResponse(UUID id){
+    public SlideResponse getByIdResponse(UUID id) {
         return slideMapper.entity2DtoResponse(getById(id));
+    }
+
+    @Override
+    public List<SlideDTOImageOrder> readAllSlides() {
+        List<SlideDTOImageOrder> slideDTOImageOrderList = new ArrayList<>();
+        List<SlideEntity> slideEntityList = slideRepository.findAll();
+
+
+        for (SlideEntity slide : slideEntityList) {
+            slideDTOImageOrderList.add(slideMapper.entity2DTOImageOrder(slide));
+        }
+
+        return slideDTOImageOrderList;
     }
 }

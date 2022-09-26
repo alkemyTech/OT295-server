@@ -1,9 +1,11 @@
 package com.alkemy.ong.service;
 
+import com.alkemy.ong.domain.dto.SlideDTOImageOrder;
 import com.alkemy.ong.domain.entity.SlideEntity;
 import com.alkemy.ong.domain.request.SlideRequest;
 import com.alkemy.ong.domain.response.SlideResponse;
 
+import java.util.List;
 import java.util.UUID;
 
 public interface SlideService {
@@ -14,4 +16,5 @@ public interface SlideService {
 
     SlideResponse getByIdResponse(UUID id);
 
+    List<SlideDTOImageOrder> readAllSlides();
 }
