@@ -39,8 +39,4 @@ public class RoleEntity {
     @Column(name = "create_timestamp")
     private Timestamp createTimestamp;
 
-    @ManyToMany(mappedBy = "roles")
-    @JsonBackReference
-    private List<UserEntity> usersList;
-
 }

@@ -1,6 +1,7 @@
 package com.alkemy.ong.auth.service;
 
 import com.alkemy.ong.auth.jwt.JwtUtils;
+import com.alkemy.ong.auth.security.RoleType;
 import com.alkemy.ong.domain.entity.RoleEntity;
 import com.alkemy.ong.domain.request.AuthenticationRequest;
 import com.alkemy.ong.domain.response.AuthenticationResponse;
@@ -26,6 +27,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -54,18 +56,17 @@ public class UserDetailsCustomService implements UserDetailsService {
         if (userEntity == null) {
             throw new UsernameNotFoundException("Username or password not found");
         }
-        return new User(userEntity.getUsername(), userEntity.getPassword(), Collections.emptyList());
+        return new User(userEntity.getUsername(), userEntity.getPassword(), userEntity.getAuthorities());
     }
 
     public UserDTO save(UserDTO userDTO) {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        RoleEntity role=roleRepository.findByName("ROLE_ADMIN");
         UserEntity userEntity = new UserEntity();
         userEntity.setFirstName(userDTO.getFirstName());
         userEntity.setLastName(userDTO.getLastName());
         userEntity.setEmail(userDTO.getEmail());
         userEntity.setUsername(userDTO.getEmail());
-        userEntity.setRoles(Set.of(role));
+        userEntity.setRoles(List.of(roleRepository.findByName(RoleType.USER.getFullRoleName())));
         userEntity.setPassword(passwordEncoder.encode(userDTO.getPassword()));
         UserDTO result = userMapper.entity2DTO(userRepository.save(userEntity));
         result.setToken(jwtUtil.generateToken(userEntity));
@@ -78,20 +79,15 @@ public class UserDetailsCustomService implements UserDetailsService {
     }
 
 
-    public AuthenticationResponse login( AuthenticationRequest authRequest)
 
-             {
-        UserEntity user = userRepository.findByEmail(authRequest.getUsername());
-        UserDetails userDetails;
-            Authentication auth = authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword())
-            );
-            userDetails = (UserDetails) auth.getPrincipal();
+    public AuthenticationResponse login(AuthenticationRequest authenticationRequest)
+            {
+        UserEntity user = userRepository.findByEmail(authenticationRequest.getUsername());
+        authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(authenticationRequest.getUsername(),
+                        authenticationRequest.getPassword()));
 
-        final String jwt = jwtUtil.generateToken(userDetails);
-
-        return new AuthenticationResponse(userDetails.getUsername(),jwt);
+        return new AuthenticationResponse(user.getUsername(), jwtUtil.generateToken(user));
     }
-
 
 }

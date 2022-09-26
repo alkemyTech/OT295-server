@@ -16,6 +16,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.access.AccessDeniedHandler;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
@@ -83,18 +84,23 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.GET, "/organization/public")
                 .permitAll()
                 .antMatchers(HttpMethod.POST, "/organization/public")
-                .hasAnyRole(RoleType.ADMIN.name())
+                .hasRole(RoleType.ADMIN.name())
+                .antMatchers(HttpMethod.POST, "/contacts")
+                .hasRole(RoleType.ADMIN.name())
                 .antMatchers(HttpMethod.GET, "/users")
                 .hasRole(RoleType.ADMIN.name())
-                .antMatchers("/h2-console/**")
-                .permitAll()
-                .anyRequest().permitAll()
+                .antMatchers(HttpMethod.POST, "/news")
+                .hasRole(RoleType.ADMIN.name())
+                .antMatchers(HttpMethod.PUT, "/news")
+                .hasRole(RoleType.ADMIN.name())
+                .anyRequest()
+                .authenticated()
                 .and()
-                .sessionManagement().sessionCreationPolicy(STATELESS)
-                .and()
-                .addFilterBefore(jwtFilter, BasicAuthenticationFilter.class);
+                .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
+                .exceptionHandling()
+                .accessDeniedHandler(accessDeniedHandler())
+                .authenticationEntryPoint(authenticationEntryPoint());
 
-        http.headers().frameOptions().disable();
 
 
     }

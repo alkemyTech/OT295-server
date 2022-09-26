@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.security.Principal;
 
 @RestController
 @RequestMapping("/auth")
@@ -42,9 +43,8 @@ public class UserAuthController {
     }
 
     @GetMapping("/me")
-    public ResponseEntity<UserProfileDTO> getProfile(HttpServletRequest request) {
-
-        UserProfileDTO dto = userService.getUserProfile(request);
+    public ResponseEntity<UserProfileDTO> getProfile(Principal request) {
+        UserProfileDTO dto = userService.getUserProfile(request.getName());
         return ResponseEntity.ok().body(dto);
     }
 

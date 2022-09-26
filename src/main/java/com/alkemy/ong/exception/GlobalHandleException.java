@@ -67,7 +67,7 @@ public class GlobalHandleException {
         ErrorResponse error = new ErrorResponse();
         error.setStatus(httpStatus.value());
         error.add(message);
-        error.setTimestamp(TimestampUtils.now());
+        error.getTimestamp();
         return error;
     }
 

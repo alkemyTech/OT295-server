@@ -9,10 +9,12 @@ import com.alkemy.ong.exception.ParamNotFound;
 import com.alkemy.ong.repository.UserRepository;
 import com.alkemy.ong.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -20,6 +22,7 @@ import java.util.UUID;
 
 @Service
 public class UserServiceImpl implements UserService {
+    private static final String USER_NOT_FOUND_MESSAGE = "User not found.";
     @Autowired
     JwtUtils jwtUtils;
     @Autowired
@@ -59,21 +62,16 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserProfileDTO getUserProfile(HttpServletRequest request) {
-
-        String email = null;
-        String jwt = null;
-
-        String authorizationHeader = request.getHeader("Authorization");
-        jwt = authorizationHeader.substring(7);
-        email = jwtUtils.decodeToken(jwt);
-
-        UserEntity userEntity = userRepository.findByEmail(email);
-        UserProfileDTO userProfileDTO = userMapper.userEntity2UserProfileDTO(userEntity);
-
-        return userProfileDTO;
+    public UserProfileDTO getUserProfile(String request) {
+        return userMapper.userEntity2UserProfileDTO(getUser(request));
     }
-
+    private UserEntity getUser(String username) {
+        UserEntity user = userRepository.findByEmail(username);
+        if (user == null) {
+            throw new UsernameNotFoundException(USER_NOT_FOUND_MESSAGE);
+        }
+        return user;
+    }
     public void deleteUser(UUID userId){
         userRepository.delete(userRepository.findById(userId).orElseThrow(
         ()->new ParamNotFound("User not found: "+ userId)));

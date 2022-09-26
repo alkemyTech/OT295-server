@@ -14,6 +14,7 @@ public class UserMapper {
         BasicUserDTO result = new BasicUserDTO();
         result.setFirstName(userEntity.getFirstName());
         result.setLastName(userEntity.getLastName());
+        result.setRole(userEntity.getRoles().get(0).getName());
         return result;
     }
 

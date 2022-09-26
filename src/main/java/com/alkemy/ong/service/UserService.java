@@ -10,7 +10,7 @@ import java.util.UUID;
 
 public interface UserService {
 
-    UserProfileDTO getUserProfile(HttpServletRequest request);
+    UserProfileDTO getUserProfile(String request);
 
     void deleteUser(UUID userId);
 

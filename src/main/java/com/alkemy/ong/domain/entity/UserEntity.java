@@ -15,6 +15,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Collection;
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -50,10 +51,8 @@ public class UserEntity implements UserDetails {
     private String password;
 
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id", foreignKey = @ForeignKey(name = "fk_user_id")), inverseJoinColumns = @JoinColumn(name = "role_id", foreignKey = @ForeignKey(name = "fk_role_id")))
-    @JsonManagedReference
-    private Set<RoleEntity> roles;
+    @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    private List<RoleEntity> roles;
 
 
     @CreationTimestamp
