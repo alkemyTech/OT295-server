@@ -31,7 +31,7 @@ public class SlideEntity {
     private String text;
 
     @Column(name = "slide_order")
-    private String slideOrder;
+    private Integer slideOrder;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "organization_id", insertable = false, updatable = false, foreignKey = @ForeignKey(name = "fk_organization_id"))

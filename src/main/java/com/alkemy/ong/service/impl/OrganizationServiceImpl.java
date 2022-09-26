@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class OrganizationServiceImpl implements OrganizationService {
@@ -46,6 +47,11 @@ public class OrganizationServiceImpl implements OrganizationService {
         organization.setAboutUsText(organizationRequest.getAboutUsText());
         return mapper.entityToDto(repository.save(organization));
 
+    }
+
+    public OrganizationEntity getById(UUID id) {
+        return repository.findById(id).orElseThrow(
+                () -> new ParamNotFound("Organization not found"));
     }
 
 }
