@@ -57,7 +57,7 @@ public class UserDetailsCustomService implements UserDetailsService {
         return new User(userEntity.getUsername(), userEntity.getPassword(), Collections.emptyList());
     }
 
-    public BasicUserDTO save(UserDTO userDTO) {
+    public UserDTO save(UserDTO userDTO) {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         RoleEntity role=roleRepository.findByName("ROLE_ADMIN");
         UserEntity userEntity = new UserEntity();
@@ -67,8 +67,9 @@ public class UserDetailsCustomService implements UserDetailsService {
         userEntity.setUsername(userDTO.getEmail());
         userEntity.setRoles(Set.of(role));
         userEntity.setPassword(passwordEncoder.encode(userDTO.getPassword()));
-        userEntity = this.userRepository.save(userEntity);
-        BasicUserDTO result = userMapper.entity2BasicDTO(userEntity);
+        UserDTO result = userMapper.entity2DTO(userRepository.save(userEntity));
+        result.setToken(jwtUtil.generateToken(userEntity));
+
         if (userEntity != null) {
             emailService.sendEmailTo(userEntity.getEmail());
         }
