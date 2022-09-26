@@ -30,8 +30,8 @@ public class UserAuthController {
     private AuthenticationManager authenticationManager;
 
     @PostMapping("/register")
-    public ResponseEntity<BasicUserDTO> signup(@Valid @RequestBody UserDTO user) {
-        BasicUserDTO result = this.userDetailsService.save(user);
+    public ResponseEntity<UserDTO> signup(@Valid @RequestBody UserDTO user) {
+        UserDTO result = this.userDetailsService.save(user);
         return ResponseEntity.status(HttpStatus.CREATED).body(result);
 
     }
