@@ -6,6 +6,7 @@ import lombok.*;
 @Getter
 @Setter
 public class SlideResponse {
+
     private String text;
     private Integer slideOrder;
     private String imageUrl;

@@ -1,6 +1,7 @@
 package com.alkemy.ong.controller;
 
-import com.alkemy.ong.domain.dto.UserDTO;
+import com.alkemy.ong.domain.request.UserRequest;
+import com.alkemy.ong.domain.response.UserResponse;
 import com.alkemy.ong.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,9 +21,9 @@ public class UserController {
     UserService userService;
 
     @PatchMapping("/{id}")
-    public ResponseEntity<UserDTO> patchUser(@PathVariable UUID userId, @RequestBody UserDTO userDTO) {
+    public ResponseEntity<UserResponse> patchUser(@PathVariable UUID userId, @RequestBody UserRequest userRequest) {
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(
-                this.userService.patchUser(userDTO, userId));
+                this.userService.patchUser(userRequest, userId));
     }
 
     @DeleteMapping("/{id}")

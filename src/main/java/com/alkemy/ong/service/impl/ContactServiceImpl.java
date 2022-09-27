@@ -7,6 +7,7 @@ import com.alkemy.ong.domain.request.ContactRequest;
 import com.alkemy.ong.domain.response.ContactResponse;
 import com.alkemy.ong.repository.ContactRepository;
 import com.alkemy.ong.service.ContactService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
@@ -15,6 +16,12 @@ public class ContactServiceImpl implements ContactService {
 
     private ContactMapper contactMapper;
     private ContactRepository contactRepository;
+
+    @Autowired
+    public ContactServiceImpl(ContactMapper contactMapper, ContactRepository contactRepository) {
+        this.contactMapper = contactMapper;
+        this.contactRepository = contactRepository;
+    }
 
     @Override
     public ContactResponse create(ContactRequest contactRequest) {

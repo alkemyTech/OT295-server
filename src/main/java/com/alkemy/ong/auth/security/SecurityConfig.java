@@ -93,6 +93,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .hasRole(RoleType.ADMIN.name())
                 .antMatchers(HttpMethod.PUT, "/news")
                 .hasRole(RoleType.ADMIN.name())
+                .antMatchers("/h2-console/**")
+                .permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()
@@ -101,7 +103,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .accessDeniedHandler(accessDeniedHandler())
                 .authenticationEntryPoint(authenticationEntryPoint());
 
-
+        http.headers().frameOptions().disable();
 
     }
 

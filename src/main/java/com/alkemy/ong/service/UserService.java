@@ -1,10 +1,10 @@
 package com.alkemy.ong.service;
 
-import com.alkemy.ong.domain.dto.UserDTO;
+import com.alkemy.ong.domain.request.UserRequest;
 import com.alkemy.ong.domain.dto.UserProfileDTO;
 import com.alkemy.ong.domain.entity.UserEntity;
+import com.alkemy.ong.domain.response.UserResponse;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.UUID;
 
@@ -14,7 +14,7 @@ public interface UserService {
 
     void deleteUser(UUID userId);
 
-    UserDTO patchUser(UserDTO userDTO, UUID userId);
+    UserResponse patchUser(UserRequest userRequest, UUID userId);
 
     UserEntity getUserByID(UUID userId);
 

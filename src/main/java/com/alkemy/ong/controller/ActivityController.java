@@ -14,7 +14,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/activities")
-public class ActivitiesController {
+public class ActivityController {
 
     @Autowired
     ActivityService activitiesService;

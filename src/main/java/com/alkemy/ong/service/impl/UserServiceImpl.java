@@ -1,10 +1,11 @@
 package com.alkemy.ong.service.impl;
 
 import com.alkemy.ong.auth.jwt.JwtUtils;
-import com.alkemy.ong.domain.dto.UserDTO;
+import com.alkemy.ong.domain.request.UserRequest;
 import com.alkemy.ong.domain.dto.UserProfileDTO;
 import com.alkemy.ong.domain.entity.UserEntity;
 import com.alkemy.ong.domain.mapper.UserMapper;
+import com.alkemy.ong.domain.response.UserResponse;
 import com.alkemy.ong.exception.ParamNotFound;
 import com.alkemy.ong.repository.UserRepository;
 import com.alkemy.ong.service.UserService;
@@ -13,8 +14,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import javax.servlet.http.HttpServletRequest;
-import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -24,18 +23,18 @@ import java.util.UUID;
 public class UserServiceImpl implements UserService {
     private static final String USER_NOT_FOUND_MESSAGE = "User not found.";
     @Autowired
-    JwtUtils jwtUtils;
+    private JwtUtils jwtUtils;
     @Autowired
-    UserRepository userRepository;
+    private UserRepository userRepository;
     @Autowired
-    UserMapper userMapper;
+    private UserMapper userMapper;
 
-    public UserDTO patchUser(UserDTO userDTO, UUID userId) {
+    public UserResponse patchUser(UserRequest userRequest, UUID userId) {
         UserEntity userEntity = this.getUserByID(userId);
-        userEntity.setFirstName(userDTO.getFirstName());
-        userEntity.setLastName(userDTO.getLastName());
-        userEntity.setPassword(new BCryptPasswordEncoder().encode(userDTO.getPassword()));
-        userEntity.setEmail(userDTO.getEmail());
+        userEntity.setFirstName(userRequest.getFirstName());
+        userEntity.setLastName(userRequest.getLastName());
+        userEntity.setPassword(new BCryptPasswordEncoder().encode(userRequest.getPassword()));
+        userEntity.setEmail(userRequest.getEmail());
         return userMapper.entity2DTO(userRepository.save(userEntity));
     }
 

@@ -1,10 +1,10 @@
 package com.alkemy.ong.domain.mapper;
 
 import com.alkemy.ong.domain.dto.BasicUserDTO;
-import com.alkemy.ong.domain.dto.UserDTO;
+import com.alkemy.ong.domain.request.UserRequest;
 import com.alkemy.ong.domain.dto.UserProfileDTO;
 import com.alkemy.ong.domain.entity.UserEntity;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import com.alkemy.ong.domain.response.UserResponse;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -19,8 +19,8 @@ public class UserMapper {
     }
 
     //Rever Segunda implementacion de basicDTO2Entity
-    public UserDTO entity2DTO(UserEntity entity) {
-        UserDTO dto = new UserDTO();
+    public UserResponse entity2DTO(UserEntity entity) {
+        UserResponse dto = new UserResponse();
         dto.setFirstName(entity.getFirstName());
         dto.setLastName(entity.getLastName());
         dto.setEmail(entity.getEmail());

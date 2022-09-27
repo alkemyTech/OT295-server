@@ -34,7 +34,7 @@ public class SlideEntity {
     private Integer slideOrder;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "organization_id", insertable = false, updatable = false, foreignKey = @ForeignKey(name = "fk_organization_id"))
+    @JoinColumn(name = "id", insertable = false, updatable = false, foreignKey = @ForeignKey(name = "id"))
     // Solo para buscar informacion
     private OrganizationEntity organization;
 

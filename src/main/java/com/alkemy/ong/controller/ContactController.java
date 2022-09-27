@@ -4,6 +4,7 @@ import com.alkemy.ong.domain.request.ContactRequest;
 import com.alkemy.ong.domain.response.ContactResponse;
 import com.alkemy.ong.repository.ContactRepository;
 import com.alkemy.ong.service.ContactService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,8 +17,15 @@ import javax.validation.Valid;
 @RestController
 @RequestMapping("/contacts")
 public class ContactController {
+
     private ContactRepository contactRepository;
     private ContactService createContact;
+
+    @Autowired
+    public ContactController(ContactRepository contactRepository, ContactService createContact) {
+        this.contactRepository = contactRepository;
+        this.createContact = createContact;
+    }
 
     @PostMapping
     public ResponseEntity<ContactResponse> create(

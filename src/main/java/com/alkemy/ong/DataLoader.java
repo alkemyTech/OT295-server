@@ -9,8 +9,9 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
+
 
 @Component
 public class DataLoader implements ApplicationRunner {
@@ -30,20 +31,20 @@ public class DataLoader implements ApplicationRunner {
 
         RoleEntity roleEntity = new RoleEntity();
         roleEntity.setName("ROLE_ADMIN");
-        roleEntity.setDescription("admin_D");
-        roleRepository.save(roleEntity);
-        Set<RoleEntity> roles = new HashSet<>();
-        roles.add(roleEntity);
+        roleEntity.setDescription("admin");
+        RoleEntity role = roleRepository.save(roleEntity);
+        List<RoleEntity> roles = new ArrayList<>();
+        roles.add(role);
 
-//        String password = passwordEncoder.encode("admin");
+ /*
         UserEntity userEntity = new UserEntity();
         userEntity.setFirstName("admin_FN");
         userEntity.setLastName("admin_LN");
-        userEntity.setEmail("admin_email");
+        userEntity.setEmail("admin@admin.com");
         userEntity.setUsername("admin");
-        userEntity.setPassword("admin");
+        userEntity.setPassword("12345678");
         userEntity.setRoles(roles);
         userRepository.save(userEntity);
-
+*/
     }
 }

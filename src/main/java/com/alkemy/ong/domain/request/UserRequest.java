@@ -1,4 +1,4 @@
-package com.alkemy.ong.domain.dto;
+package com.alkemy.ong.domain.request;
 
 import lombok.Data;
 
@@ -7,7 +7,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 @Data
-public class UserDTO {
+public class UserRequest {
 
     @NotBlank(message = "First name can not be empty")
     private String firstName;
