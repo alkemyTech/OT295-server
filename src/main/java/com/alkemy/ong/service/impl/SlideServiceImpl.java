@@ -10,7 +10,6 @@ import com.alkemy.ong.repository.SlideRepository;
 import com.alkemy.ong.service.SlideService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,10 +27,11 @@ public class SlideServiceImpl implements SlideService {
     public SlideResponse saveSlide(SlideRequest request) {
         SlideEntity entity = slideMapper.DTO2Entity(request);
         entity.setImageUrl(generateUrlAmazon(request.getImage_b64()));
+        /*
         Integer order = generateOrder(request.getOrganization());
         entity.setSlideOrder(request.getSlideOrder() != null && request.getSlideOrder() > order
                 ? request.getSlideOrder() : order + 1);
-
+        */
         return slideMapper.entity2DtoResponse(slideRepository.save(entity));
     }
 
@@ -40,8 +40,9 @@ public class SlideServiceImpl implements SlideService {
                 () -> new ParamNotFound("Slide not found"));
     }
 
-    public String generateUrlAmazon(MultipartFile imageB64) {
-        return amazonClient.uploadFile(imageB64);
+    public String generateUrlAmazon(String imageB64) {
+
+        return amazonClient.uploadFile(imageB64, UUID.randomUUID().toString());
     }
 
     public Integer generateOrder(UUID organization) {
