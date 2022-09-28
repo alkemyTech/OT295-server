@@ -33,12 +33,14 @@ public class SlideEntity {
     @Column(name = "slide_order")
     private Integer slideOrder;
 
+    /*
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id", insertable = false, updatable = false, foreignKey = @ForeignKey(name = "id"))
     // Solo para buscar informacion
     private OrganizationEntity organization;
 
-    @Column(name = "organization_id", nullable = false) // Para guardar y actualizar
+    @Column(name = "organization_id", nullable = true) // Para guardar y actualizar
     private UUID organizationId;
+    */
 }
 

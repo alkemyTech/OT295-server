@@ -18,8 +18,8 @@ public class BucketController {
     }
 
     @PostMapping("/uploadFile")
-    public String uploadFile(@RequestPart(value = "file") MultipartFile file) {
-        return this.amazonClient.uploadFile(file);
+    public String uploadFiles(@RequestPart(value = "file") MultipartFile file) {
+        return this.amazonClient.uploadFiles(file);
     }
 
     @DeleteMapping("/deleteFile")
