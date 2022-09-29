@@ -1,6 +1,8 @@
 package com.alkemy.ong.service.impl;
 
 
+import com.alkemy.ong.domain.dto.CategoryBasicDTO;
+import com.alkemy.ong.domain.entity.CategoryEntity;
 import com.alkemy.ong.domain.entity.ContactEntity;
 import com.alkemy.ong.domain.mapper.ContactMapper;
 import com.alkemy.ong.domain.request.ContactRequest;
@@ -9,6 +11,8 @@ import com.alkemy.ong.repository.ContactRepository;
 import com.alkemy.ong.service.ContactService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 
 @Service
@@ -27,5 +31,12 @@ public class ContactServiceImpl implements ContactService {
     public ContactResponse create(ContactRequest contactRequest) {
         ContactEntity contact = contactMapper.map(contactRequest);
         return contactMapper.map(contactRepository.save(contact));
+    }
+
+    @Override
+    public List<ContactResponse> getAllContacts() {
+        List<ContactEntity> entities = contactRepository.findAll();
+        List<ContactResponse> result = contactMapper.contactEntity2DTOList(entities);
+        return result;
     }
 }
