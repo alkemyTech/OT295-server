@@ -17,4 +17,6 @@ public interface SlideService {
     SlideResponse getByIdResponse(UUID id);
 
     List<SlideDTOImageOrder> readAllSlides();
+
+    SlideResponse update(UUID id, SlideRequest request);
 }
