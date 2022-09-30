@@ -42,5 +42,11 @@ public class SlideController {
         SlideResponse response = slideService.update(id,request);
         return ResponseEntity.ok().body(response);
     }
+    
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Object> delete(@PathVariable UUID id){
+        this.slideService.delete(id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
 
 }

@@ -85,5 +85,15 @@ public class SlideServiceImpl implements SlideService {
         return slideMapper.entity2DtoResponse(slideRepository.save(slide));
     }
 
+    @Override
+    public void delete(UUID id) {
+
+        if (!slideRepository.existsById(id)) {
+            throw new NotFoundException("Slide not exist");
+        }
+        slideRepository.delete(slideRepository.findById(id).get());
+
+    }
+
 
 }

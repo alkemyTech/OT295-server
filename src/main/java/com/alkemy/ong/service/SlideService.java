@@ -19,4 +19,6 @@ public interface SlideService {
     List<SlideDTOImageOrder> readAllSlides();
 
     SlideResponse update(UUID id, SlideRequest request);
+
+    void delete(UUID id);
 }
