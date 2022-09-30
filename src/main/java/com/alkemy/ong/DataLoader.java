@@ -1,7 +1,6 @@
 package com.alkemy.ong;
 
 import com.alkemy.ong.domain.entity.RoleEntity;
-import com.alkemy.ong.domain.entity.UserEntity;
 import com.alkemy.ong.repository.RoleRepository;
 import com.alkemy.ong.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-@Component
+
 public class DataLoader implements ApplicationRunner {
 
     private UserRepository userRepository;
