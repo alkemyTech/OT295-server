@@ -12,4 +12,6 @@ public interface TestimonialService {
 
     void delete(UUID id);
 
+    TestimonialResponse update(TestimonialRequest testimonialRequest, UUID id);
+
 }

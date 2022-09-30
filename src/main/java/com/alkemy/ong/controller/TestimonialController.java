@@ -23,6 +23,12 @@ public class TestimonialController {
         return ResponseEntity.ok().body(testimonialService.saveTestimonial(request));
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<TestimonialResponse> updateTestimonial(@Valid @RequestBody TestimonialRequest request, @PathVariable UUID id){
+        TestimonialResponse response = testimonialService.update(request, id);
+        return ResponseEntity.ok().body(response);
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Object> deleteTestimonial(@PathVariable UUID id){
         this.testimonialService.delete(id);

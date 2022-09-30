@@ -30,6 +30,14 @@ public class TestimonialServiceImpl implements TestimonialService {
         return testimonialMapper.entity2DTOResponse(testimonialRepository.save(entity));
     }
 
+    public TestimonialResponse update(TestimonialRequest testimonialRequest, UUID id){
+        TestimonialEntity entity = getById(id);
+        entity.setName(testimonialRequest.getName());
+        entity.setImage(testimonialRequest.getImage());
+        entity.setContent(testimonialRequest.getContent());
+        return testimonialMapper.entity2DTOResponse(testimonialRepository.save(entity));
+    }
+
     public void delete(UUID id){
         testimonialRepository.delete(getById(id));
     }
