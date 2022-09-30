@@ -1,10 +1,8 @@
 package com.alkemy.ong.service.impl;
 
-import com.alkemy.ong.domain.entity.ActivityEntity;
 import com.alkemy.ong.domain.entity.TestimonialEntity;
 import com.alkemy.ong.domain.mapper.TestimonialMapper;
 import com.alkemy.ong.domain.request.TestimonialRequest;
-import com.alkemy.ong.domain.response.ActivityResponse;
 import com.alkemy.ong.domain.response.TestimonialResponse;
 import com.alkemy.ong.exception.NotFoundException;
 import com.alkemy.ong.repository.TestimonialRepository;
@@ -33,9 +31,10 @@ public class TestimonialServiceImpl implements TestimonialService {
     }
 
     public void delete(UUID id){
-        if (!testimonialRepository.existsById(id)) {
-            throw new NotFoundException("Testimonial not exist");
-        }
-        testimonialRepository.delete(testimonialRepository.findById(id).get());
+        testimonialRepository.delete(getById(id));
+    }
+    public TestimonialEntity getById(UUID id){
+        return testimonialRepository.findById(id).orElseThrow(
+                () -> new NotFoundException("Testimonial not found"));
     }
 }
