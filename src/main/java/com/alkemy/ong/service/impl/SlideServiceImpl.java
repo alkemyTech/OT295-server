@@ -1,10 +1,14 @@
 package com.alkemy.ong.service.impl;
 
 import com.alkemy.ong.domain.dto.SlideDTOImageOrder;
+import com.alkemy.ong.domain.entity.NewsEntity;
 import com.alkemy.ong.domain.entity.SlideEntity;
 import com.alkemy.ong.domain.mapper.SlideMapper;
+import com.alkemy.ong.domain.request.NewsRequest;
 import com.alkemy.ong.domain.request.SlideRequest;
+import com.alkemy.ong.domain.response.NewsResponse;
 import com.alkemy.ong.domain.response.SlideResponse;
+import com.alkemy.ong.exception.NotFoundException;
 import com.alkemy.ong.exception.ParamNotFound;
 import com.alkemy.ong.repository.SlideRepository;
 import com.alkemy.ong.service.SlideService;
@@ -13,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -27,6 +32,7 @@ public class SlideServiceImpl implements SlideService {
     public SlideResponse saveSlide(SlideRequest request) {
         SlideEntity entity = slideMapper.DTO2Entity(request);
         entity.setImageUrl(generateUrlAmazon(request.getImage_b64()));
+        entity.setText(request.getText());
         /*
         Integer order = generateOrder(request.getOrganization());
         entity.setSlideOrder(request.getSlideOrder() != null && request.getSlideOrder() > order
@@ -66,4 +72,28 @@ public class SlideServiceImpl implements SlideService {
 
         return slideDTOImageOrderList;
     }
+
+    @Override
+    public SlideResponse update(UUID id, SlideRequest request) {
+        Optional<SlideEntity> entity= slideRepository.findById(id);
+        if (entity.isEmpty()){
+            throw new NotFoundException("Slide not exist");
+        }
+        SlideEntity slide= entity.get();
+        slide.setText(request.getText());
+        slide.setImageUrl(request.getImage_b64());
+        return slideMapper.entity2DtoResponse(slideRepository.save(slide));
+    }
+
+    @Override
+    public void delete(UUID id) {
+
+        if (!slideRepository.existsById(id)) {
+            throw new NotFoundException("Slide not exist");
+        }
+        slideRepository.delete(slideRepository.findById(id).get());
+
+    }
+
+
 }
