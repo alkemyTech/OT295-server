@@ -18,7 +18,7 @@ import java.util.UUID;
 public class UserController {
 
     @Autowired
-    UserService userService;
+    private UserService userService;
 
     @PatchMapping("/{id}")
     public ResponseEntity<UserResponse> patchUser(@PathVariable UUID userId, @RequestBody UserRequest userRequest) {

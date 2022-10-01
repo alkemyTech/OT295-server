@@ -1,12 +1,9 @@
 package com.alkemy.ong.service.impl;
 
 import com.alkemy.ong.domain.dto.SlideDTOImageOrder;
-import com.alkemy.ong.domain.entity.NewsEntity;
 import com.alkemy.ong.domain.entity.SlideEntity;
 import com.alkemy.ong.domain.mapper.SlideMapper;
-import com.alkemy.ong.domain.request.NewsRequest;
 import com.alkemy.ong.domain.request.SlideRequest;
-import com.alkemy.ong.domain.response.NewsResponse;
 import com.alkemy.ong.domain.response.SlideResponse;
 import com.alkemy.ong.exception.NotFoundException;
 import com.alkemy.ong.exception.ParamNotFound;

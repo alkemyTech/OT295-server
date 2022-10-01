@@ -1,14 +1,13 @@
 package com.alkemy.ong.controller;
 
 import com.alkemy.ong.domain.dto.SlideDTOImageOrder;
-import com.alkemy.ong.domain.request.NewsRequest;
 import com.alkemy.ong.domain.request.SlideRequest;
-import com.alkemy.ong.domain.response.NewsResponse;
 import com.alkemy.ong.domain.response.SlideResponse;
 import com.alkemy.ong.service.SlideService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -37,6 +36,7 @@ public class SlideController {
     public ResponseEntity<List<SlideDTOImageOrder>> readAllSlides(){
         return new ResponseEntity<>(slideService.readAllSlides(),HttpStatus.OK);
     }
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PutMapping("/{id}")
     public ResponseEntity<SlideResponse> update(@PathVariable UUID id, @Valid @RequestBody SlideRequest request) {
         SlideResponse response = slideService.update(id,request);

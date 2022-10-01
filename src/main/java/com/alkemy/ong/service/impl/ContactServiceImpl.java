@@ -1,8 +1,5 @@
 package com.alkemy.ong.service.impl;
 
-
-import com.alkemy.ong.domain.dto.CategoryBasicDTO;
-import com.alkemy.ong.domain.entity.CategoryEntity;
 import com.alkemy.ong.domain.entity.ContactEntity;
 import com.alkemy.ong.domain.mapper.ContactMapper;
 import com.alkemy.ong.domain.request.ContactRequest;

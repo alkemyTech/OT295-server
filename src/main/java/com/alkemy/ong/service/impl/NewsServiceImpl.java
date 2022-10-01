@@ -1,6 +1,5 @@
 package com.alkemy.ong.service.impl;
 
-
 import com.alkemy.ong.domain.entity.NewsEntity;
 import com.alkemy.ong.domain.mapper.NewsMapper;
 import com.alkemy.ong.domain.request.NewsRequest;

@@ -7,6 +7,7 @@ import com.alkemy.ong.service.NewsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -23,16 +24,21 @@ public class NewsController {
         this.service = service;
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping
     public ResponseEntity<NewsResponse> create(@Valid @RequestBody NewsRequest newsRequest) {
         NewsResponse news = service.save(newsRequest);
         return ResponseEntity.ok().body(news);
     }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PutMapping("/{id}")
     public ResponseEntity<NewsResponse> update(@PathVariable UUID id,@Valid @RequestBody NewsRequest  newsRequest) {
         NewsResponse response = service.update(id,newsRequest);
         return ResponseEntity.ok().body(response);
     }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity<Object> deleteUser(@PathVariable UUID id){
         this.service.delete(id);

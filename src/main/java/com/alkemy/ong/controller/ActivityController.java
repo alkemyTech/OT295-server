@@ -17,7 +17,7 @@ import java.util.UUID;
 public class ActivityController {
 
     @Autowired
-    ActivityService activitiesService;
+    private ActivityService activitiesService;
 
     @PostMapping
     public ResponseEntity<ActivityResponse> save(@Valid @RequestBody ActivityRequest activityRequest) {
