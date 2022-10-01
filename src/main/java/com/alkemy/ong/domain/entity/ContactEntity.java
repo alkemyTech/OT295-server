@@ -13,7 +13,7 @@ import java.util.UUID;
 @Getter
 @Setter
 @SQLDelete(sql = "UPDATE contacts SET soft_delete = true WHERE id = ?")
-@Where(clause = "deleted=false")
+@Where(clause = "soft_delete=false")
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
