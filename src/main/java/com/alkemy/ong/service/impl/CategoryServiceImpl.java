@@ -60,7 +60,7 @@ public class CategoryServiceImpl implements CategoryService {
         if(!entity.isPresent()){
             throw new ParamNotFound("Id not valid");
         }
-        this.categoryMapper.generoEntityRefreshValues(entity.get(), category);
+        this.categoryMapper.categoryEntityRefreshValues(entity.get(), category);
         CategoryEntity entitySaved = this.categoryRepository.save(entity.get());
         CategoryDTO result = this.categoryMapper.categoryEntity2DTO(entitySaved);
 
