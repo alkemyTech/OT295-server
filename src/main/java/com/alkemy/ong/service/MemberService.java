@@ -6,4 +6,6 @@ import java.util.UUID;
 
 public interface MemberService {
     MemberDTO update(UUID id, MemberDTO member);
+
+    void delete(UUID id);
 }
