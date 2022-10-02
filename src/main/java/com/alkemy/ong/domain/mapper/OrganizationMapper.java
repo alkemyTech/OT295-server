@@ -17,7 +17,11 @@ public interface OrganizationMapper {
             @Mapping(source = "name", target = "name"),
             @Mapping(source = "image", target = "image"),
             @Mapping(source = "phone", target = "phone"),
-            @Mapping(source = "address", target = "address")
+            @Mapping(source = "address", target = "address"),
+            @Mapping(source = "URLInstagram" , target = "URLInstagram"),
+            @Mapping(source = "URLLinkedin" , target = "URLLinkedin"),
+            @Mapping(source = "URLFacebook" , target = "URLFacebook")
+
     })
     OrganizationBasicDTO toOrganizationBasicDTO(OrganizationEntity organization);
 
@@ -34,7 +38,10 @@ public interface OrganizationMapper {
             @Mapping(source = "address", target = "address"),
             @Mapping(source = "mail", target = "mail"),
             @Mapping(source = "welcomeText", target = "welcomeText"),
-            @Mapping(source = "aboutUsText", target = "aboutUsText")
+            @Mapping(source = "aboutUsText", target = "aboutUsText"),
+            @Mapping(source = "URLInstagram" , target = "URLInstagram"),
+            @Mapping(source = "URLLinkedin" , target = "URLLinkedin"),
+            @Mapping(source = "URLFacebook" , target = "URLFacebook")
     })
     OrganizationResponse entityToDto(OrganizationEntity organization);
 }
