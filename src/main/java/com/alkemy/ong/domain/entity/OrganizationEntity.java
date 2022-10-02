@@ -52,17 +52,27 @@ public class OrganizationEntity {
     @Column(name = "about_us_text")
     private String aboutUsText;
 
+    @Column (name = "URL_Instragram")
+    private String URLInstragram;
+
+    @Column (name = "URL_Facebook")
+    private String URLFacebook;
+
+    @Column (name = "URL_Linkedin")
+    private String URLLinkedin;
+
     @CreationTimestamp
     @Column(name = "create_timestamp")
     private Timestamp createTimestamp;
 
     @Column(name = "soft_delete")
     private Boolean softDelete = Boolean.FALSE;
-/*
+
+
     @OneToMany(mappedBy = "organization")
     @JsonIgnore
     private Set<SlideEntity> slidesList;
 
 
- */
+
 }
