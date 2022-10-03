@@ -1,16 +1,17 @@
 package com.alkemy.ong.service.impl;
 
-import com.alkemy.ong.domain.entity.MemberEntity;
 import com.alkemy.ong.domain.dto.MemberDTO;
+import com.alkemy.ong.domain.entity.MemberEntity;
+import com.alkemy.ong.domain.mapper.MemberMapper;
 import com.alkemy.ong.domain.request.MemberRequest;
 import com.alkemy.ong.domain.response.MemberResponse;
 import com.alkemy.ong.exception.ParamNotFound;
 import com.alkemy.ong.repository.MemberRepository;
 import com.alkemy.ong.service.MemberService;
-import com.alkemy.ong.domain.mapper.MemberMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -46,6 +47,13 @@ public class MemberServiceImpl implements MemberService {
             throw new ParamNotFound("Id not valid");
         }
         this.repository.delete(entity.get());
+    }
+
+    @Override
+    public List<MemberResponse> getMembers() {
+        List<MemberEntity> entities = repository.findAll();
+        List<MemberResponse> result = mapper.memberEntityTOResponse(entities);
+        return result;
     }
 
 

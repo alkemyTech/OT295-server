@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-
+/*
 public class DataLoader implements ApplicationRunner {
 
     private UserRepository userRepository;
@@ -35,7 +35,7 @@ public class DataLoader implements ApplicationRunner {
         List<RoleEntity> roles = new ArrayList<>();
         roles.add(role);
 
- /*
+
         UserEntity userEntity = new UserEntity();
         userEntity.setFirstName("admin_FN");
         userEntity.setLastName("admin_LN");
@@ -44,6 +44,7 @@ public class DataLoader implements ApplicationRunner {
         userEntity.setPassword("12345678");
         userEntity.setRoles(roles);
         userRepository.save(userEntity);
-*/
+
     }
 }
+*/
