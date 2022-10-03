@@ -35,6 +35,7 @@ public class UserDetailsCustomService implements UserDetailsService {
     private RoleRepository roleRepository;
     @Autowired
     private JwtUtils jwtUtil;
+
     @Autowired
     private EmailServiceInterface emailService;
 
@@ -65,8 +66,9 @@ public class UserDetailsCustomService implements UserDetailsService {
         UserResponse result = userMapper.entity2DTO(userRepository.save(userEntity));
         result.setToken(jwtUtil.generateToken(userEntity));
 
+        //MAIL VALIDATION WHEN AN USER IS CREATED
         if (userEntity != null) {
-            emailService.sendEmailTo(userEntity.getEmail());
+            emailService.sendEmailTo(userEntity.getEmail(), "welcome");
         }
         return result;
 
