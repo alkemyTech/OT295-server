@@ -13,7 +13,6 @@ public class TestimonialMapper {
         entity.setName(testimonialRequest.getName());
         entity.setImage(testimonialRequest.getImage());
         entity.setContent(testimonialRequest.getContent());
-        entity.setCreateTimestamp(testimonialRequest.getCreateTimestamp());
         return entity;
     }
 
