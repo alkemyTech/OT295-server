@@ -4,8 +4,10 @@ import com.alkemy.ong.domain.entity.CommentEntity;
 import com.alkemy.ong.domain.entity.NewsEntity;
 import com.alkemy.ong.domain.entity.UserEntity;
 import com.alkemy.ong.domain.mapper.CommentMapper;
+import com.alkemy.ong.domain.mapper.NewsMapper;
 import com.alkemy.ong.domain.request.CommentRequest;
 import com.alkemy.ong.domain.response.CommentResponse;
+import com.alkemy.ong.domain.response.NewsResponse;
 import com.alkemy.ong.exception.NotFoundException;
 import com.alkemy.ong.repository.CommentRepository;
 import com.alkemy.ong.repository.NewsRepository;
@@ -27,6 +29,8 @@ public class CommentServiceImpl implements CommentService {
     private UserRepository userRepository;
     private NewsRepository newsRepository;
     private CommentsSpecifications commentsSpecifications;
+    private NewsMapper newsMapper;
+
 
     @Autowired
     public CommentServiceImpl(CommentMapper commentMapper, CommentRepository commentRepository, UserRepository userRepository, NewsRepository newsRepository, CommentsSpecifications commentsSpecifications) {
@@ -49,6 +53,15 @@ public class CommentServiceImpl implements CommentService {
         CommentRequest comment = new  CommentRequest(order);
         List<CommentEntity> entities = commentRepository.findAll(this.commentsSpecifications.getByDate(comment));
         List<CommentResponse> ret = commentMapper.entityToResponseList(entities);
+        return ret;
+    }
+
+    @Override
+    public List<CommentResponse> getAllCommentsOfPost(UUID idPost) {
+        NewsEntity newEntity = newsRepository.getById(idPost);
+        List<CommentEntity> commentEntity = newEntity.getCommentList();
+        List<CommentResponse> ret = commentMapper.entityToResponseList(commentEntity);
+
         return ret;
     }
 

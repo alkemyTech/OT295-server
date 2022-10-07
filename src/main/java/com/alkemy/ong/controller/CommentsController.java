@@ -7,10 +7,12 @@ import com.alkemy.ong.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("comments")
@@ -25,11 +27,21 @@ public class CommentsController {
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping
     public ResponseEntity<List<CommentResponse>> getAll(@RequestParam(required = false, defaultValue = "ASC") String order) {
         List<CommentResponse> comments = commentService.getAllComments(order);
         return ResponseEntity.ok().body(comments);
     }
+
+    @PreAuthorize("hasRole('ROLE_USER')")
+    @GetMapping("/post/{id}")
+    public ResponseEntity<List<CommentResponse>> getAll(@PathVariable UUID id) {
+        List<CommentResponse> comments = commentService.getAllCommentsOfPost(id);
+        return ResponseEntity.ok().body(comments);
+    }
+
+
 
 }
 
