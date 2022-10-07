@@ -12,6 +12,6 @@ public class SlideRequest {
     private String text;
     //private Integer slideOrder;
     //private UUID organization;
-    private String image_b64;
+    private String imageUrl;
 
 }

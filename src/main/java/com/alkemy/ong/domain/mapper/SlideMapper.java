@@ -17,8 +17,8 @@ public class SlideMapper {
     public SlideEntity DTO2Entity(SlideRequest slideRequest) {
         SlideEntity entity = new SlideEntity();
         entity.setText(slideRequest.getText());
-        entity.setImageUrl(slideRequest.getImage_b64());
-        //entity.setOrganizationId(slideRequest.getOrganization() != null || slideRequest.getOrganization().equals("") ? organizationService.getById(slideRequest.getOrganization()).getId() : null);
+        entity.setImageUrl(slideRequest.getImageUrl());
+      //  entity.setOrganizationId(slideRequest.getOrganization() != null || slideRequest.getOrganization().equals("") ? organizationService.getById(slideRequest.getOrganization()).getId() : null);
         return entity;
     }
 
@@ -27,11 +27,12 @@ public class SlideMapper {
         dto.setImageUrl(entity.getImageUrl());
         dto.setText(entity.getText());
         //dto.setSlideOrder(entity.getSlideOrder());
-        /*if (entity.getOrganizationId() != null) {
+        /*
+       if (entity.getOrganizationId() != null) {
             dto.setOrganization(orgMapper.entity2DTO(
                     organizationService.getById(entity.getOrganizationId())));
         }
-        */
+*/
         return dto;
     }
 

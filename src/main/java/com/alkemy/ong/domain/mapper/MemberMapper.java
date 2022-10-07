@@ -33,6 +33,7 @@ public class MemberMapper {
     public MemberEntity map(MemberRequest request) {
         MemberEntity entity = new MemberEntity();
         entity.setName(request.getName());
+        entity.setImage(request.getImage());
         entity.setFacebookUrl(request.getFacebookUrl());
         entity.setInstagramUrl(request.getInstagramUrl());
         entity.setLinkedinUrl(request.getLinkedinUrl());
@@ -43,6 +44,7 @@ public class MemberMapper {
     public MemberResponse map(MemberEntity entity) {
         MemberResponse response = new MemberResponse();
         response.setName(entity.getName());
+        response.setImage(entity.getImage());
         response.setFacebookUrl(entity.getFacebookUrl());
         response.setInstagramUrl(entity.getInstagramUrl());
         response.setLinkedinUrl(entity.getLinkedinUrl());
