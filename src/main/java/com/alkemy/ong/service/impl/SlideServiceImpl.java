@@ -28,10 +28,11 @@ public class SlideServiceImpl implements SlideService {
     @Override
     public SlideResponse saveSlide(SlideRequest request) {
         SlideEntity entity = slideMapper.DTO2Entity(request);
-        entity.setImageUrl(generateUrlAmazon(request.getImage_b64()));
+        entity.setImageUrl(generateUrlAmazon(request.getImageUrl()));
         entity.setText(request.getText());
-        /*
+/*
         Integer order = generateOrder(request.getOrganization());
+
         entity.setSlideOrder(request.getSlideOrder() != null && request.getSlideOrder() > order
                 ? request.getSlideOrder() : order + 1);
         */
@@ -78,7 +79,7 @@ public class SlideServiceImpl implements SlideService {
         }
         SlideEntity slide= entity.get();
         slide.setText(request.getText());
-        slide.setImageUrl(request.getImage_b64());
+        slide.setImageUrl(request.getImageUrl());
         return slideMapper.entity2DtoResponse(slideRepository.save(slide));
     }
 

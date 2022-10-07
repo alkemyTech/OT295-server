@@ -25,3 +25,27 @@
 [2022-10-03 00:37:21] [INFO ] [EmailServiceImplementation:68] 202
 [2022-10-03 00:37:21] [INFO ] [EmailServiceImplementation:69] 
 [2022-10-03 00:37:35] [INFO ] [EmailServiceImplementation:70] {Strict-Transport-Security=max-age=600; includeSubDomains, Server=nginx, Access-Control-Allow-Origin=https://sendgrid.api-docs.io, Access-Control-Allow-Methods=POST, Connection=keep-alive, X-Message-Id=NNV4w6VFRDKtBOi99-NLjw, X-No-CORS-Reason=https://sendgrid.com/docs/Classroom/Basics/API/cors.html, Content-Length=0, Access-Control-Max-Age=600, Date=Mon, 03 Oct 2022 05:37:22 GMT, Access-Control-Allow-Headers=Authorization, Content-Type, On-behalf-of, x-sg-elas-acl}
+[2022-10-04 20:02:05] [DEBUG] [cache:45] Couldn't find template in cache for "plantilla_email.html"("es_AR", UTF-8, parsed); will try to load it.
+[2022-10-04 20:02:05] [DEBUG] [cache:45] TemplateLoader.findTemplateSource("plantilla_email_es_AR.html"): Not found
+[2022-10-04 20:02:05] [DEBUG] [cache:45] TemplateLoader.findTemplateSource("plantilla_email_es.html"): Not found
+[2022-10-04 20:02:05] [DEBUG] [cache:45] TemplateLoader.findTemplateSource("plantilla_email.html"): Found
+[2022-10-04 20:02:05] [DEBUG] [cache:45] Loading template for "plantilla_email.html"("es_AR", UTF-8, parsed) from "class path resource [templates/plantilla_email.html]"
+[2022-10-04 20:02:07] [INFO ] [EmailServiceImplementation:68] 401
+[2022-10-04 20:02:07] [INFO ] [EmailServiceImplementation:69] {"errors":[{"message":"The provided authorization grant is invalid, expired, or revoked","field":null,"help":null}]}
+[2022-10-04 20:02:07] [INFO ] [EmailServiceImplementation:70] {Strict-Transport-Security=max-age=600; includeSubDomains, Server=nginx, Access-Control-Allow-Origin=https://sendgrid.api-docs.io, Access-Control-Allow-Methods=POST, Connection=keep-alive, X-No-CORS-Reason=https://sendgrid.com/docs/Classroom/Basics/API/cors.html, Content-Length=116, Access-Control-Max-Age=600, Date=Tue, 04 Oct 2022 23:02:07 GMT, Access-Control-Allow-Headers=Authorization, Content-Type, On-behalf-of, x-sg-elas-acl, Content-Type=application/json}
+[2022-10-04 20:18:32] [DEBUG] [cache:45] Couldn't find template in cache for "plantilla_email.html"("es_AR", UTF-8, parsed); will try to load it.
+[2022-10-04 20:18:32] [DEBUG] [cache:45] TemplateLoader.findTemplateSource("plantilla_email_es_AR.html"): Not found
+[2022-10-04 20:18:32] [DEBUG] [cache:45] TemplateLoader.findTemplateSource("plantilla_email_es.html"): Not found
+[2022-10-04 20:18:32] [DEBUG] [cache:45] TemplateLoader.findTemplateSource("plantilla_email.html"): Found
+[2022-10-04 20:18:32] [DEBUG] [cache:45] Loading template for "plantilla_email.html"("es_AR", UTF-8, parsed) from "class path resource [templates/plantilla_email.html]"
+[2022-10-04 20:18:34] [INFO ] [EmailServiceImplementation:68] 401
+[2022-10-04 20:18:34] [INFO ] [EmailServiceImplementation:69] {"errors":[{"message":"The provided authorization grant is invalid, expired, or revoked","field":null,"help":null}]}
+[2022-10-04 20:18:34] [INFO ] [EmailServiceImplementation:70] {Strict-Transport-Security=max-age=600; includeSubDomains, Server=nginx, Access-Control-Allow-Origin=https://sendgrid.api-docs.io, Access-Control-Allow-Methods=POST, Connection=keep-alive, X-No-CORS-Reason=https://sendgrid.com/docs/Classroom/Basics/API/cors.html, Content-Length=116, Access-Control-Max-Age=600, Date=Tue, 04 Oct 2022 23:18:33 GMT, Access-Control-Allow-Headers=Authorization, Content-Type, On-behalf-of, x-sg-elas-acl, Content-Type=application/json}
+[2022-10-04 20:58:54] [DEBUG] [cache:45] Couldn't find template in cache for "plantilla_email.html"("es_AR", UTF-8, parsed); will try to load it.
+[2022-10-04 20:58:54] [DEBUG] [cache:45] TemplateLoader.findTemplateSource("plantilla_email_es_AR.html"): Not found
+[2022-10-04 20:58:54] [DEBUG] [cache:45] TemplateLoader.findTemplateSource("plantilla_email_es.html"): Not found
+[2022-10-04 20:58:54] [DEBUG] [cache:45] TemplateLoader.findTemplateSource("plantilla_email.html"): Found
+[2022-10-04 20:58:54] [DEBUG] [cache:45] Loading template for "plantilla_email.html"("es_AR", UTF-8, parsed) from "class path resource [templates/plantilla_email.html]"
+[2022-10-04 20:58:55] [INFO ] [EmailServiceImplementation:68] 401
+[2022-10-04 20:58:55] [INFO ] [EmailServiceImplementation:69] {"errors":[{"message":"The provided authorization grant is invalid, expired, or revoked","field":null,"help":null}]}
+[2022-10-04 20:58:55] [INFO ] [EmailServiceImplementation:70] {Strict-Transport-Security=max-age=600; includeSubDomains, Server=nginx, Access-Control-Allow-Origin=https://sendgrid.api-docs.io, Access-Control-Allow-Methods=POST, Connection=keep-alive, X-No-CORS-Reason=https://sendgrid.com/docs/Classroom/Basics/API/cors.html, Content-Length=116, Access-Control-Max-Age=600, Date=Tue, 04 Oct 2022 23:58:54 GMT, Access-Control-Allow-Headers=Authorization, Content-Type, On-behalf-of, x-sg-elas-acl, Content-Type=application/json}
