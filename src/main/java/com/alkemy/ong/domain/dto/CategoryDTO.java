@@ -22,4 +22,15 @@ public class CategoryDTO {
     private String description;
     private String image;
     private Timestamp createTimestamp;
+
+    public CategoryDTO(UUID id, String name, String description, String image, Timestamp createTimestamp) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.image = image;
+        this.createTimestamp = createTimestamp;
+    }
+
+    public CategoryDTO() {
+    }
 }
