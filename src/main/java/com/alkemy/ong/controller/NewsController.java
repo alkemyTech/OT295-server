@@ -2,6 +2,7 @@ package com.alkemy.ong.controller;
 
 import com.alkemy.ong.domain.request.NewsRequest;
 import com.alkemy.ong.domain.response.NewDTOResponse;
+import com.alkemy.ong.domain.response.NewsResponsePage;
 import com.alkemy.ong.domain.response.NewsResponse;
 import com.alkemy.ong.service.NewsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,6 +50,11 @@ public class NewsController {
     public ResponseEntity<NewDTOResponse> getNewById(@PathVariable UUID id){
         NewDTOResponse result = service.getNewById(id);
         return ResponseEntity.status(HttpStatus.OK).body(result);
+    }
+    @GetMapping("/page/{page}")
+    public ResponseEntity<NewsResponsePage> getAll(@PathVariable Integer page){
+        NewsResponsePage news = service.getAllNews(page);
+        return ResponseEntity.ok().body(news);
     }
 }
 

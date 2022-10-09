@@ -4,16 +4,22 @@ import com.alkemy.ong.domain.entity.NewsEntity;
 import com.alkemy.ong.domain.mapper.NewsMapper;
 import com.alkemy.ong.domain.request.NewsRequest;
 import com.alkemy.ong.domain.response.NewDTOResponse;
+import com.alkemy.ong.domain.response.NewsResponsePage;
 import com.alkemy.ong.domain.response.NewsResponse;
 import com.alkemy.ong.exception.NotFoundException;
 import com.alkemy.ong.exception.ParamNotFound;
 import com.alkemy.ong.repository.NewsRepository;
 import com.alkemy.ong.service.NewsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -67,6 +73,27 @@ public class NewsServiceImpl implements NewsService {
         NewsEntity newsEntity = getNew(id);
         NewDTOResponse dto = newsMapper.toNewDtoResponse(newsEntity);
         return dto;
+    }
+
+    @Override
+    public NewsResponsePage getAllNews(Integer page) {
+        NewsResponsePage respuesta = new NewsResponsePage();
+        Pageable pageable = PageRequest.of(page, 10);
+        Page<NewsEntity> newsPage = newsRepository.findAll(pageable);
+        int totalElements = (int) newsPage.getTotalElements();
+        Page<NewsResponse> respuestaFinal = new PageImpl<NewsResponse>(newsPage.getContent()
+                .stream()
+                .map(news -> new NewsResponse(
+                        news.getName(),
+                        news.getContent(),
+                        news.getImageUrl()))
+                .collect(Collectors.toList()), pageable, totalElements);
+        respuesta.setRespuesta(respuestaFinal);
+        if (page > 1) {
+            respuesta.setPaginaAnt("localhost:8080/news/page/" + (page - 1));
+        }
+        respuesta.setPaginaSig("localhost:8080/news/page/" + (page + 1));
+        return respuesta;
     }
 
     private NewsEntity getNew(UUID newId) {
