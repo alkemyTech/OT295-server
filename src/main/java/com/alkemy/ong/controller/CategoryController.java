@@ -2,11 +2,9 @@ package com.alkemy.ong.controller;
 
 import com.alkemy.ong.domain.dto.CategoryBasicDTO;
 import com.alkemy.ong.domain.dto.CategoryDTO;
+import com.alkemy.ong.domain.response.CategoryResponsePage;
 import com.alkemy.ong.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -35,9 +33,8 @@ public class CategoryController {
         return ResponseEntity.ok().body(categories);
     }
     @GetMapping("/page/{page}")
-    public ResponseEntity<Page<CategoryDTO>> getAll(@PathVariable Integer page){
-        Pageable pageable= PageRequest.of(page,10);
-        Page<CategoryDTO> categories = categoryService.getAllCategories(pageable);
+    public ResponseEntity<CategoryResponsePage> getAll(@PathVariable Integer page){
+        CategoryResponsePage categories = categoryService.getAllCategories(page);
         return ResponseEntity.ok().body(categories);
     }
     @GetMapping("/{id}")

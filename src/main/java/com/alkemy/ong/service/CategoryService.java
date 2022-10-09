@@ -2,15 +2,14 @@ package com.alkemy.ong.service;
 
 import com.alkemy.ong.domain.dto.CategoryBasicDTO;
 import com.alkemy.ong.domain.dto.CategoryDTO;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import com.alkemy.ong.domain.response.CategoryResponsePage;
 
 import java.util.List;
 import java.util.UUID;
 
 public interface CategoryService {
     List<CategoryBasicDTO> getAllCategories();
-    Page<CategoryDTO> getAllCategories(Pageable pageable);
+    CategoryResponsePage getAllCategories(Integer page);
 
     CategoryDTO getDetailsById(UUID id);
 
