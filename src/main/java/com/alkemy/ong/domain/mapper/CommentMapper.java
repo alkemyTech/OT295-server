@@ -6,7 +6,6 @@ import com.alkemy.ong.domain.entity.UserEntity;
 import com.alkemy.ong.domain.request.CommentRequest;
 import com.alkemy.ong.domain.response.CommentResponse;
 import org.springframework.stereotype.Component;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,7 +31,7 @@ public class CommentMapper {
 
     }
 
-    private CommentResponse entityToResponse(CommentEntity e) {
+    public CommentResponse entityToResponse(CommentEntity e) {
 
         CommentResponse ret = new CommentResponse();
 

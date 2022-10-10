@@ -1,5 +1,6 @@
 package com.alkemy.ong.service.impl;
 
+import com.alkemy.ong.auth.security.RoleType;
 import com.alkemy.ong.domain.entity.CommentEntity;
 import com.alkemy.ong.domain.entity.NewsEntity;
 import com.alkemy.ong.domain.entity.UserEntity;
@@ -7,7 +8,7 @@ import com.alkemy.ong.domain.mapper.CommentMapper;
 import com.alkemy.ong.domain.mapper.NewsMapper;
 import com.alkemy.ong.domain.request.CommentRequest;
 import com.alkemy.ong.domain.response.CommentResponse;
-import com.alkemy.ong.domain.response.NewsResponse;
+import com.alkemy.ong.exception.InsufficientPermissionsException;
 import com.alkemy.ong.exception.NotFoundException;
 import com.alkemy.ong.repository.CommentRepository;
 import com.alkemy.ong.repository.NewsRepository;
@@ -15,10 +16,12 @@ import com.alkemy.ong.repository.Specifications.CommentsSpecifications;
 import com.alkemy.ong.repository.UserRepository;
 import com.alkemy.ong.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
-
+import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -65,6 +68,25 @@ public class CommentServiceImpl implements CommentService {
         return ret;
     }
 
+    @Override
+    public CommentResponse update(UUID id, CommentRequest commentRequest, Authentication authentication) throws InsufficientPermissionsException {
+        CommentEntity comment = findBy(id);
+        NewsEntity news = getNews(commentRequest.getNewsId());
+        UserEntity user = getUser(commentRequest.getUserId());
+        checkUser(comment, authentication);
+        updateValues(comment, commentRequest, news, user);
+        commentRepository.save(comment);
+        return commentMapper.entityToResponse(comment);
+    }
+
+    private CommentEntity findBy(UUID id) {
+        Optional<CommentEntity> result = commentRepository.findById(id);
+        if (result.isEmpty()) {
+            throw new NotFoundException("Comment not found");
+        }
+        return result.get();
+    }
+
     private UserEntity getUser(UUID id) {
         UserEntity user = userRepository.findById(id).get();
         if (user == null) {
@@ -80,4 +102,30 @@ public class CommentServiceImpl implements CommentService {
         }
         return news;
     }
+
+    private void updateValues(CommentEntity comment, CommentRequest updateCommentRequest, NewsEntity news,
+                              UserEntity user) {
+        comment.setBody(updateCommentRequest.getBody());
+        comment.setNews(news);
+        comment.setUser(user);
+        comment.setTimestamp(Timestamp.from(Instant.now()));
+    }
+
+    private void checkUser(CommentEntity comment, Authentication authentication)
+            throws InsufficientPermissionsException {
+        if (!isAdmin(authentication) && isNotCreator(comment, authentication)) {
+            throw new InsufficientPermissionsException("Unauthorized to do changes");
+        }
+    }
+
+    private boolean isAdmin(Authentication authentication) {
+        return authentication.getAuthorities().stream()
+                .anyMatch(r -> RoleType.ADMIN.getFullRoleName().equals(r.getAuthority()));
+    }
+
+    private boolean isNotCreator(CommentEntity comment, Authentication authentication) {
+        return authentication.getName() != null
+                && !authentication.getName().equals(comment.getUser().getEmail());
+    }
+
 }
