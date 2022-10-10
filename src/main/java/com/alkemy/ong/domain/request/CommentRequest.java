@@ -5,6 +5,7 @@ import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.UUID;
 
 @Getter
@@ -19,6 +20,7 @@ public class CommentRequest {
     private UUID  newsId;
 
     @NotBlank(message = "The body cannot be null or empty.")
+    @Size(max = 600)
     private String body;
 
     private String order;
