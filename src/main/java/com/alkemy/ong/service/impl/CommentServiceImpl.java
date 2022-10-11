@@ -88,19 +88,19 @@ public class CommentServiceImpl implements CommentService {
     }
 
     private UserEntity getUser(UUID id) {
-        UserEntity user = userRepository.findById(id).get();
-        if (user == null) {
+        Optional<UserEntity> user = userRepository.findById(id);
+        if (user.isEmpty()) {
             throw new NotFoundException("User not found.");
         }
-        return user;
+        return user.get();
     }
 
     private NewsEntity getNews(UUID id) {
-        NewsEntity news = newsRepository.findById(id).get();
-        if (news == null) {
+        Optional<NewsEntity> news = newsRepository.findById(id);
+        if (news.isEmpty()) {
             throw new NotFoundException("Post not found.");
         }
-        return news;
+        return news.get();
     }
 
     private void updateValues(CommentEntity comment, CommentRequest updateCommentRequest, NewsEntity news,

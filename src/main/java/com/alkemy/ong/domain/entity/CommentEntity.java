@@ -33,7 +33,6 @@ public class CommentEntity {
     @Column(name = "body", nullable = false)
     private String body;
 
-
     @Column(name = "timestamp")
     @CreationTimestamp
     private Timestamp timestamp;
