@@ -22,27 +22,32 @@ public class SlideController {
 
     private final SlideService slideService;
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping
     public ResponseEntity<SlideResponse> saveSlid(@RequestBody SlideRequest request){
         return ResponseEntity.ok().body(slideService.saveSlide(request));
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_USER'),('ROLE_ADMIN')")
     @GetMapping("/{id}")
     public ResponseEntity<SlideResponse> getById(@PathVariable UUID id){
         return ResponseEntity.status(HttpStatus.OK).body(slideService.getByIdResponse(id));
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_USER'),('ROLE_ADMIN')")
     @GetMapping()
     public ResponseEntity<List<SlideDTOImageOrder>> readAllSlides(){
         return new ResponseEntity<>(slideService.readAllSlides(),HttpStatus.OK);
     }
+
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PutMapping("/{id}")
     public ResponseEntity<SlideResponse> update(@PathVariable UUID id, @Valid @RequestBody SlideRequest request) {
         SlideResponse response = slideService.update(id,request);
         return ResponseEntity.ok().body(response);
     }
-    
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity<Object> delete(@PathVariable UUID id){
         this.slideService.delete(id);

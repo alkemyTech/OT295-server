@@ -29,18 +29,21 @@ public class MemberController {
         this.service = service;
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_USER'),('ROLE_ADMIN')")
     @GetMapping
     public ResponseEntity<List<MemberResponse>> getMembers() {
         List<MemberResponse> members = service.getMembers();
         return ResponseEntity.ok().body(members);
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PutMapping("/{id}")
     public ResponseEntity<MemberDTO> update(@PathVariable UUID id, @RequestBody MemberDTO member) {
         MemberDTO result = this.service.update(id, member);
         return ResponseEntity.ok().body(result);
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable UUID id) {
         this.service.delete(id);
