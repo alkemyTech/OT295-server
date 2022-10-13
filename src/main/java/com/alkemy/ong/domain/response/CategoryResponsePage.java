@@ -8,6 +8,6 @@ import org.springframework.data.domain.Page;
 @Setter
 public class CategoryResponsePage {
     Page<CategoryDTO> respuesta;
-    String paginaSig;
-    String paginaAnt;
+    String nextPage;
+    String previousPage;
 }
