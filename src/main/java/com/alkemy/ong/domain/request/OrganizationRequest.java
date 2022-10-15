@@ -33,6 +33,17 @@ public class OrganizationRequest {
   @NotBlank(message = "About Text text field can not be null or empty.")
   private String aboutUsText;
 
+  @NotBlank(message = "URLInstagram text field can not be null or empty.")
+  private String URLInstagram;
+
+  @NotBlank(message = "URLFacebook text field can not be null or empty.")
+  private String URLFacebook;
+
+  @NotBlank(message = "URLLinkedin text field can not be null or empty.")
+  private String URLLinkedin;
+
+
+
 
 
 

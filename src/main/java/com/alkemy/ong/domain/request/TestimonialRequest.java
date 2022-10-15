@@ -2,7 +2,8 @@ package com.alkemy.ong.domain.request;
 
 import lombok.*;
 
-import javax.validation.constraints.NotNull;
+
+import javax.validation.constraints.NotBlank;
 import java.sql.Timestamp;
 
 @Getter
@@ -10,14 +11,14 @@ import java.sql.Timestamp;
 
 public class TestimonialRequest {
 
-    @NotNull(message = "Name can not be empty or null")
+    @NotBlank(message = "Name can not be empty or null")
     private String name;
 
     private String image;
 
-    @NotNull(message = "Content can not be empty or null")
+    @NotBlank(message = "Content can not be empty or null")
     private String content;
 
-    private Timestamp createTimestamp;
+
 
 }

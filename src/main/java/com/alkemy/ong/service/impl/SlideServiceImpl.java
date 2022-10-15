@@ -1,12 +1,9 @@
 package com.alkemy.ong.service.impl;
 
 import com.alkemy.ong.domain.dto.SlideDTOImageOrder;
-import com.alkemy.ong.domain.entity.NewsEntity;
 import com.alkemy.ong.domain.entity.SlideEntity;
 import com.alkemy.ong.domain.mapper.SlideMapper;
-import com.alkemy.ong.domain.request.NewsRequest;
 import com.alkemy.ong.domain.request.SlideRequest;
-import com.alkemy.ong.domain.response.NewsResponse;
 import com.alkemy.ong.domain.response.SlideResponse;
 import com.alkemy.ong.exception.NotFoundException;
 import com.alkemy.ong.exception.ParamNotFound;
@@ -31,10 +28,11 @@ public class SlideServiceImpl implements SlideService {
     @Override
     public SlideResponse saveSlide(SlideRequest request) {
         SlideEntity entity = slideMapper.DTO2Entity(request);
-        entity.setImageUrl(generateUrlAmazon(request.getImage_b64()));
+        entity.setImageUrl(generateUrlAmazon(request.getImageUrl()));
         entity.setText(request.getText());
-        /*
+/*
         Integer order = generateOrder(request.getOrganization());
+
         entity.setSlideOrder(request.getSlideOrder() != null && request.getSlideOrder() > order
                 ? request.getSlideOrder() : order + 1);
         */
@@ -81,7 +79,7 @@ public class SlideServiceImpl implements SlideService {
         }
         SlideEntity slide= entity.get();
         slide.setText(request.getText());
-        slide.setImageUrl(request.getImage_b64());
+        slide.setImageUrl(request.getImageUrl());
         return slideMapper.entity2DtoResponse(slideRepository.save(slide));
     }
 

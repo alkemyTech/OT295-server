@@ -17,9 +17,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
-import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 
 @EnableWebSecurity
 @Configuration
@@ -46,6 +44,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         managerBuilder.userDetailsService(userDetailsService)
                 .passwordEncoder(passwordEncoder());
     }
+
     @Bean
     public AccessDeniedHandler accessDeniedHandler() {
         return new CustomAccessDeniedHandler();
@@ -91,15 +90,23 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .hasRole(RoleType.ADMIN.name())
                 .antMatchers(HttpMethod.GET, "/users")
                 .hasRole(RoleType.ADMIN.name())
+                .antMatchers(HttpMethod.PUT, "/slides/{id:[\\d+]}")
+                .hasRole(RoleType.ADMIN.name())
                 .antMatchers(HttpMethod.POST, "/news")
                 .hasRole(RoleType.ADMIN.name())
                 .antMatchers(HttpMethod.PUT, "/news")
                 .hasRole(RoleType.ADMIN.name())
+                .antMatchers(HttpMethod.POST, "/members")
+                .hasAnyRole(RoleType.USER.name())
                 .antMatchers( "/categories/**")
                 .hasRole(RoleType.ADMIN.name())
                 .antMatchers(HttpMethod.POST, "/testimonials/**")
                 .hasAnyRole(RoleType.ADMIN.name())
                 .antMatchers(HttpMethod.PUT, "/members")
+                .hasRole(RoleType.ADMIN.name())
+                .antMatchers(HttpMethod.GET,"/comments/post/{id:[\\d+]}")
+                .hasRole(RoleType.USER.name())
+                .antMatchers(HttpMethod.GET, "/comments")
                 .hasRole(RoleType.ADMIN.name())
                 .antMatchers(HttpMethod.DELETE, "/members")
                 .hasRole(RoleType.ADMIN.name())

@@ -45,6 +45,9 @@ public class OrganizationServiceImpl implements OrganizationService {
         organization.setEmail(organizationRequest.getEmail());
         organization.setWelcomeText(organizationRequest.getWelcomeText());
         organization.setAboutUsText(organizationRequest.getAboutUsText());
+        organization.setURLFacebook(organizationRequest.getURLFacebook());
+        organization.setURLInstragram(organizationRequest.getURLInstagram());
+        organization.setURLLinkedin(organization.getURLLinkedin());
         return mapper.entityToDto(repository.save(organization));
 
     }

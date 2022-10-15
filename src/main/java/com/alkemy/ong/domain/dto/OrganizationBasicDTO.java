@@ -12,4 +12,7 @@ public class OrganizationBasicDTO {
     private String image;
     private int phone;
     private String address;
+    private String URLInstagram;
+    private String URLFacebook;
+    private String URLLinkedin;
 }

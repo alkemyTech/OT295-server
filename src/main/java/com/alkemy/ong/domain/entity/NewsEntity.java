@@ -1,5 +1,6 @@
 package com.alkemy.ong.domain.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,6 +12,7 @@ import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.List;
 import java.util.UUID;
 
 @Getter
@@ -41,6 +43,10 @@ public class NewsEntity {
     @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "category_id", foreignKey = @ForeignKey(name = "fk_category_id"))
     private CategoryEntity category;
+
+    @OneToMany(mappedBy = "news")
+    @JsonIgnore
+    private List<CommentEntity> commentList;
 
     @CreationTimestamp
     @Column(name = "create_timestamp")
