@@ -21,6 +21,7 @@ public class CommentsController {
     @Autowired
     private CommentService commentService;
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping
     public ResponseEntity<Void> create(@RequestBody @Valid CommentRequest commentRequest)
             throws NotFoundException {
@@ -35,14 +36,14 @@ public class CommentsController {
         return ResponseEntity.ok().body(comments);
     }
 
-    @PreAuthorize("hasRole('ROLE_USER')")
+    @PreAuthorize("hasAnyRole('ROLE_USER'),('ROLE_ADMIN')")
     @GetMapping("/post/{id}")
     public ResponseEntity<List<CommentResponse>> getAll(@PathVariable UUID id) {
         List<CommentResponse> comments = commentService.getAllCommentsOfPost(id);
         return ResponseEntity.ok().body(comments);
     }
 
-    @PreAuthorize("hasRole('ROLE_USER')")
+    @PreAuthorize("hasAnyRole('ROLE_USER'),('ROLE_ADMIN')")
     @PutMapping("{id}")
     public ResponseEntity<CommentResponse> update(@PathVariable UUID id,
                                                   @Valid @RequestBody CommentRequest commentRequest,Authentication authentication) throws InsufficientPermissionsException {

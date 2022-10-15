@@ -80,7 +80,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, "/auth/register")
                 .permitAll()
                 .antMatchers(HttpMethod.GET, "/auth/me")
-                .hasRole(RoleType.USER.name())
+                .hasAnyRole(RoleType.USER.name())
                 .antMatchers(HttpMethod.GET, "/organization/public")
                 .permitAll()
                 .antMatchers(HttpMethod.POST, "/organization/public")
