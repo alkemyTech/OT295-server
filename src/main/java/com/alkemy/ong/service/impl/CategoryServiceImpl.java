@@ -49,19 +49,24 @@ public class CategoryServiceImpl implements CategoryService {
                         category.getCreateTimestamp()))
                 .collect(Collectors.toList()), pageable, totalElements);
         respuesta.setRespuesta(respuestaFinal);
-        if (page > 1) {
-            respuesta.setPaginaAnt("localhost:8080/categories/page/" + (page - 1));
-        }
-        respuesta.setPaginaSig("localhost:8080/categories/page/" + (page + 1));
+
+        if((pageable.getPageNumber()+1)>0 && (pageable.getPageNumber()+1)<respuestaFinal.getTotalPages()){
+            respuesta.setPreviousPage("localhost:8080/categories/page/" + (pageable.getPageNumber() - 1));
+            respuesta.setNextPage("localhost:8080/categories/page/" + (pageable.getPageNumber() + 1));}
+        if((pageable.getPageNumber()+1)==respuestaFinal.getTotalPages()){
+            respuesta.setPreviousPage("localhost:8080/categories/page/" + (pageable.getPageNumber() - 1));
+            respuesta.setNextPage("nonexistent next page");}
+        if(pageable.getPageNumber()==0){
+            respuesta.setPreviousPage("nonexistent previous page");
+            respuesta.setNextPage("localhost:8080/categories/page/" + (pageable.getPageNumber() + 1));}
+
         return respuesta;
     }
 
-
-
-    @Override
+            @Override
     public CategoryDTO getDetailsById(UUID id) {
         Optional<CategoryEntity> entity = this.categoryRepository.findById(id);
-        if(!entity.isPresent()){
+        if (!entity.isPresent()) {
             throw new ParamNotFound("Id not valid");
         }
         CategoryDTO categoryDTO = this.categoryMapper.categoryEntity2DTO(entity.get());
@@ -78,8 +83,8 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public void delete(UUID id) {
-        Optional<CategoryEntity> entity= this.categoryRepository.findById(id);
-        if(!entity.isPresent()){
+        Optional<CategoryEntity> entity = this.categoryRepository.findById(id);
+        if (!entity.isPresent()) {
             throw new ParamNotFound("Id not valid");
         }
         this.categoryRepository.delete(entity.get());
@@ -87,8 +92,8 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public CategoryDTO update(UUID id, CategoryDTO category) {
-        Optional<CategoryEntity> entity= this.categoryRepository.findById(id);
-        if(!entity.isPresent()){
+        Optional<CategoryEntity> entity = this.categoryRepository.findById(id);
+        if (!entity.isPresent()) {
             throw new ParamNotFound("Id not valid");
         }
         this.categoryMapper.categoryEntityRefreshValues(entity.get(), category);
@@ -97,7 +102,5 @@ public class CategoryServiceImpl implements CategoryService {
 
         return result;
     }
-
-
 
 }
