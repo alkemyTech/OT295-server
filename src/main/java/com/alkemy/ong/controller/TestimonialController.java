@@ -1,6 +1,8 @@
 package com.alkemy.ong.controller;
 
 import com.alkemy.ong.domain.request.TestimonialRequest;
+import com.alkemy.ong.domain.response.MemberPageResponse;
+import com.alkemy.ong.domain.response.TestimonialPageResponse;
 import com.alkemy.ong.domain.response.TestimonialResponse;
 import com.alkemy.ong.service.TestimonialService;
 import lombok.RequiredArgsConstructor;
@@ -37,6 +39,12 @@ public class TestimonialController {
     public ResponseEntity<Object> deleteTestimonial(@PathVariable UUID id){
         this.testimonialService.delete(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+    @PreAuthorize("hasAnyRole('ROLE_USER'),('ROLE_ADMIN')")
+    @GetMapping("/page/{page}")
+    public ResponseEntity<TestimonialPageResponse> getAll(@PathVariable Integer page){
+        TestimonialPageResponse testimonial = testimonialService.getAllTestimonials(page);
+        return ResponseEntity.ok().body(testimonial);
     }
 
 }
