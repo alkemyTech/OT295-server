@@ -2,7 +2,9 @@ package com.alkemy.ong.controller;
 
 import com.alkemy.ong.domain.dto.MemberDTO;
 import com.alkemy.ong.domain.request.MemberRequest;
+import com.alkemy.ong.domain.response.MemberPageResponse;
 import com.alkemy.ong.domain.response.MemberResponse;
+import com.alkemy.ong.domain.response.NewsResponsePage;
 import com.alkemy.ong.repository.MemberRepository;
 import com.alkemy.ong.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,6 +56,13 @@ public class MemberController {
     @PostMapping
     public ResponseEntity<MemberResponse> create(@Valid @RequestBody MemberRequest request) {
         MemberResponse member = service.save(request);
+        return ResponseEntity.ok().body(member);
+    }
+
+    @PreAuthorize("hasAnyRole('ROLE_USER'),('ROLE_ADMIN')")
+    @GetMapping("/page/{page}")
+    public ResponseEntity<MemberPageResponse> getAll(@PathVariable Integer page){
+        MemberPageResponse member = service.getAllMember(page);
         return ResponseEntity.ok().body(member);
     }
 }
