@@ -2,7 +2,9 @@ package com.alkemy.ong.controller;
 
 import com.alkemy.ong.domain.dto.MemberDTO;
 import com.alkemy.ong.domain.request.MemberRequest;
+import com.alkemy.ong.domain.response.MemberPageResponse;
 import com.alkemy.ong.domain.response.MemberResponse;
+import com.alkemy.ong.domain.response.NewsResponsePage;
 import com.alkemy.ong.repository.MemberRepository;
 import com.alkemy.ong.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,18 +31,21 @@ public class MemberController {
         this.service = service;
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_USER'),('ROLE_ADMIN')")
     @GetMapping
     public ResponseEntity<List<MemberResponse>> getMembers() {
         List<MemberResponse> members = service.getMembers();
         return ResponseEntity.ok().body(members);
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PutMapping("/{id}")
     public ResponseEntity<MemberDTO> update(@PathVariable UUID id, @RequestBody MemberDTO member) {
         MemberDTO result = this.service.update(id, member);
         return ResponseEntity.ok().body(result);
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable UUID id) {
         this.service.delete(id);
@@ -51,6 +56,13 @@ public class MemberController {
     @PostMapping
     public ResponseEntity<MemberResponse> create(@Valid @RequestBody MemberRequest request) {
         MemberResponse member = service.save(request);
+        return ResponseEntity.ok().body(member);
+    }
+
+    @PreAuthorize("hasAnyRole('ROLE_USER'),('ROLE_ADMIN')")
+    @GetMapping("/page/{page}")
+    public ResponseEntity<MemberPageResponse> getAll(@PathVariable Integer page){
+        MemberPageResponse member = service.getAllMember(page);
         return ResponseEntity.ok().body(member);
     }
 }

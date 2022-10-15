@@ -45,12 +45,13 @@ public class NewsController {
         this.service.delete(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
-
+    @PreAuthorize("hasAnyRole('ROLE_USER'),('ROLE_ADMIN')")
     @GetMapping("/{id}")
     public ResponseEntity<NewDTOResponse> getNewById(@PathVariable UUID id){
         NewDTOResponse result = service.getNewById(id);
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
+    @PreAuthorize("hasAnyRole('ROLE_USER'),('ROLE_ADMIN')")
     @GetMapping("/page/{page}")
     public ResponseEntity<NewsResponsePage> getAll(@PathVariable Integer page){
         NewsResponsePage news = service.getAllNews(page);

@@ -33,6 +33,7 @@ public class ContactController {
         ContactResponse contactResponse = contactService.create(contactRequest);
         return ResponseEntity.status(HttpStatus.CREATED).body(contactResponse);
     }
+    @PreAuthorize("hasAnyRole('ROLE_USER'),('ROLE_ADMIN')")
     @GetMapping
     public ResponseEntity<List<ContactResponse>> getAll(){
         List<ContactResponse> contacts = contactService.getAllContacts();
