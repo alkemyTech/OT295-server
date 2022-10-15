@@ -9,6 +9,7 @@ import org.springframework.data.domain.Page;
 public class NewsResponsePage {
 
     Page<NewsResponse> respuesta;
-    String paginaSig;
-    String paginaAnt;
+    String nextPage;
+    String previousPage;
+
 }
