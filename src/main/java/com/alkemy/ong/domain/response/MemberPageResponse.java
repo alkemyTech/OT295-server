@@ -4,12 +4,11 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.domain.Page;
 
-@Setter
 @Getter
-public class NewsResponsePage {
+@Setter
+public class MemberPageResponse {
 
-    Page<NewsResponse> respuesta;
+    Page<MemberResponse> responses;
     String nextPage;
     String previousPage;
-
 }

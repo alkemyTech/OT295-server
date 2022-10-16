@@ -1,7 +1,7 @@
 package com.alkemy.ong.service.impl;
 
-import com.alkemy.ong.domain.dto.CategoryBasicDTO;
-import com.alkemy.ong.domain.dto.CategoryDTO;
+import com.alkemy.ong.domain.response.CategoryBasicResponse;
+import com.alkemy.ong.domain.response.CategoryResponse;
 import com.alkemy.ong.domain.response.CategoryResponsePage;
 import com.alkemy.ong.domain.entity.CategoryEntity;
 import com.alkemy.ong.domain.mapper.CategoryMapper;
@@ -28,9 +28,9 @@ public class CategoryServiceImpl implements CategoryService {
     CategoryMapper categoryMapper;
 
     @Override
-    public List<CategoryBasicDTO> getAllCategories() {
+    public List<CategoryBasicResponse> getAllCategories() {
         List<CategoryEntity> entities = categoryRepository.findAll();
-        List<CategoryBasicDTO> result = categoryMapper.categoryEntity2DTOList(entities);
+        List<CategoryBasicResponse> result = categoryMapper.categoryEntity2DTOList(entities);
         return result;
     }
 
@@ -39,9 +39,9 @@ public class CategoryServiceImpl implements CategoryService {
         Pageable pageable = PageRequest.of(page, 10);
         Page<CategoryEntity> categoryPage = categoryRepository.findAll(pageable);
         int totalElements = (int) categoryPage.getTotalElements();
-        Page<CategoryDTO> respuestaFinal = new PageImpl<CategoryDTO>(categoryPage.getContent()
+        Page<CategoryResponse> respuestaFinal = new PageImpl<CategoryResponse>(categoryPage.getContent()
                 .stream()
-                .map(category -> new CategoryDTO(
+                .map(category -> new CategoryResponse(
                         category.getId(),
                         category.getName(),
                         category.getDescription(),
@@ -49,55 +49,58 @@ public class CategoryServiceImpl implements CategoryService {
                         category.getCreateTimestamp()))
                 .collect(Collectors.toList()), pageable, totalElements);
         respuesta.setRespuesta(respuestaFinal);
-        if (page > 1) {
-            respuesta.setPaginaAnt("localhost:8080/categories/page/" + (page - 1));
-        }
-        respuesta.setPaginaSig("localhost:8080/categories/page/" + (page + 1));
+
+        if((pageable.getPageNumber()+1)>0 && (pageable.getPageNumber()+1)<respuestaFinal.getTotalPages()){
+            respuesta.setPreviousPage("localhost:8080/categories/page/" + (pageable.getPageNumber() - 1));
+            respuesta.setNextPage("localhost:8080/categories/page/" + (pageable.getPageNumber() + 1));}
+        if((pageable.getPageNumber()+1)==respuestaFinal.getTotalPages()){
+            respuesta.setPreviousPage("localhost:8080/categories/page/" + (pageable.getPageNumber() - 1));
+            respuesta.setNextPage("nonexistent next page");}
+        if(pageable.getPageNumber()==0){
+            respuesta.setPreviousPage("nonexistent previous page");
+            respuesta.setNextPage("localhost:8080/categories/page/" + (pageable.getPageNumber() + 1));}
+
         return respuesta;
     }
 
-
-
-    @Override
-    public CategoryDTO getDetailsById(UUID id) {
+            @Override
+    public CategoryResponse getDetailsById(UUID id) {
         Optional<CategoryEntity> entity = this.categoryRepository.findById(id);
-        if(!entity.isPresent()){
+        if (!entity.isPresent()) {
             throw new ParamNotFound("Id not valid");
         }
-        CategoryDTO categoryDTO = this.categoryMapper.categoryEntity2DTO(entity.get());
-        return categoryDTO;
+        CategoryResponse categoryResponse = this.categoryMapper.categoryEntity2DTO(entity.get());
+        return categoryResponse;
     }
 
     @Override
-    public CategoryDTO save(CategoryDTO dto) {
+    public CategoryResponse save(CategoryResponse dto) {
         CategoryEntity entity = categoryMapper.categoryDTO2Entity(dto);
         CategoryEntity entitySaved = categoryRepository.save(entity);
-        CategoryDTO result = categoryMapper.categoryEntity2DTO(entitySaved);
+        CategoryResponse result = categoryMapper.categoryEntity2DTO(entitySaved);
         return result;
     }
 
     @Override
     public void delete(UUID id) {
-        Optional<CategoryEntity> entity= this.categoryRepository.findById(id);
-        if(!entity.isPresent()){
+        Optional<CategoryEntity> entity = this.categoryRepository.findById(id);
+        if (!entity.isPresent()) {
             throw new ParamNotFound("Id not valid");
         }
         this.categoryRepository.delete(entity.get());
     }
 
     @Override
-    public CategoryDTO update(UUID id, CategoryDTO category) {
-        Optional<CategoryEntity> entity= this.categoryRepository.findById(id);
-        if(!entity.isPresent()){
+    public CategoryResponse update(UUID id, CategoryResponse category) {
+        Optional<CategoryEntity> entity = this.categoryRepository.findById(id);
+        if (!entity.isPresent()) {
             throw new ParamNotFound("Id not valid");
         }
         this.categoryMapper.categoryEntityRefreshValues(entity.get(), category);
         CategoryEntity entitySaved = this.categoryRepository.save(entity.get());
-        CategoryDTO result = this.categoryMapper.categoryEntity2DTO(entitySaved);
+        CategoryResponse result = this.categoryMapper.categoryEntity2DTO(entitySaved);
 
         return result;
     }
-
-
 
 }
