@@ -35,11 +35,12 @@ public class SlideEntity {
 
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "id", insertable = false, updatable = false)
+    @JoinColumn(name = "organization_id", insertable = false, updatable = false)
     // Solo para buscar informacion
     private OrganizationEntity organization;
 
     @Column(name = "organization_id", nullable = true) // Para guardar y actualizar
+    @Type(type = "uuid-char")
     private UUID organizationId;
 
 }

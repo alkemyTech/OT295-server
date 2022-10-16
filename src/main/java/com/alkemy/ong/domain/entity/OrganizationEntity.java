@@ -53,14 +53,14 @@ public class OrganizationEntity {
     @Column(name = "about_us_text")
     private String aboutUsText;
 
-    @Column (name = "URL_Instagram")
-    private String URLInstagram;
+    @Column (name = "url_Instagram")
+    private String urlInstagram;
 
-    @Column (name = "URL_Facebook")
-    private String URLFacebook;
+    @Column (name = "url_Facebook")
+    private String urlFacebook;
 
-    @Column (name = "URL_Linkedin")
-    private String URLLinkedin;
+    @Column (name = "url_Linkedin")
+    private String urlLinkedin;
 
     @CreationTimestamp
     @Column(name = "create_timestamp")

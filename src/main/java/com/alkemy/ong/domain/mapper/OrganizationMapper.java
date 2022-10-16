@@ -28,9 +28,9 @@ public class OrganizationMapper {
         entity.setAboutUsText(request.getAboutUsText());
         entity.setEmail(request.getEmail());
         entity.setWelcomeText(request.getWelcomeText());
-        entity.setURLInstagram(request.getURLInstagram());
-        entity.setURLFacebook(request.getURLFacebook());
-        entity.setURLLinkedin(request.getURLLinkedin());
+        entity.setUrlInstagram(request.getUrlInstagram());
+        entity.setUrlFacebook(request.getUrlFacebook());
+        entity.setUrlLinkedin(request.getUrlLinkedin());
         return entity;
     }
 
