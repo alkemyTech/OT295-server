@@ -1,10 +1,8 @@
 package com.alkemy.ong.domain.response;
 
-import com.alkemy.ong.domain.dto.CategoryDTO;
 import lombok.*;
 
 import java.sql.Timestamp;
-import java.util.UUID;
 
 @Getter
 @Setter
@@ -18,7 +16,7 @@ public class NewDTOResponse {
 
     private String imageUrl;
 
-    private CategoryDTO category;
+    private CategoryResponse category;
 
     private Timestamp timestamp;
 }

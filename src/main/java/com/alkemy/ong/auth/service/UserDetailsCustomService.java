@@ -35,11 +35,8 @@ public class UserDetailsCustomService implements UserDetailsService {
     private RoleRepository roleRepository;
     @Autowired
     private JwtUtils jwtUtil;
-
     @Autowired
     private EmailServiceInterface emailService;
-
-
     @Autowired
     @Lazy
     private AuthenticationManager authenticationManager;
@@ -73,7 +70,6 @@ public class UserDetailsCustomService implements UserDetailsService {
         return result;
 
     }
-
 
 
     public AuthenticationResponse login(AuthenticationRequest authenticationRequest)
