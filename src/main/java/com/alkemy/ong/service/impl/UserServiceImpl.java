@@ -65,7 +65,7 @@ public class UserServiceImpl implements UserService {
         return userMapper.userEntity2UserProfileDTO(getUser(request));
     }
     private UserEntity getUser(String username) {
-        UserEntity user = userRepository.findByEmail(username);
+        UserEntity user = userRepository.findByEmail(username).get();
         if (user == null) {
             throw new UsernameNotFoundException(USER_NOT_FOUND_MESSAGE);
         }

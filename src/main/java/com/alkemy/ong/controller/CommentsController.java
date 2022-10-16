@@ -12,6 +12,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
+import java.security.Principal;
 import java.util.List;
 import java.util.UUID;
 
@@ -50,6 +51,13 @@ public class CommentsController {
         return ResponseEntity.ok().body(commentResponse);
     }
 
+
+    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_ADMIN')")
+    @DeleteMapping("/{id}")
+    public ResponseEntity<CommentResponse> delete(@PathVariable("id") UUID id, Principal request){
+        CommentResponse response = commentService.delete(id, request);
+        return new ResponseEntity<>(response,HttpStatus.ACCEPTED);
+    }
 
 }
 

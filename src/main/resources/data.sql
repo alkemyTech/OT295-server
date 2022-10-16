@@ -73,3 +73,20 @@ INSERT INTO app_users_roles SELECT app_users.id, app_roles.id FROM app_users INN
 INSERT INTO app_users_roles SELECT app_users.id, app_roles.id FROM app_users INNER JOIN app_roles ON app_users.email = 'franco@gmail.com' AND app_roles.name = 'ROLE_USER';
 INSERT INTO app_users_roles SELECT app_users.id, app_roles.id FROM app_users INNER JOIN app_roles ON app_users.email = 'angel@gmail.com' AND app_roles.name = 'ROLE_USER';
 INSERT INTO app_users_roles SELECT app_users.id, app_roles.id FROM app_users INNER JOIN app_roles ON app_users.email = 'marta@gmail.com' AND app_roles.name = 'ROLE_USER';
+
+
+INSERT INTO categories(id,create_timestamp,description,image,name,soft_delete) VALUES
+('00000000-0000-0000-0000-000000000001',CURRENT_TIMESTAMP,'This is the description for CATEGORY 1','image CATEGORY 1','CATEGORY 1',FALSE),
+('00000000-0000-0000-0000-000000000002',CURRENT_TIMESTAMP,'This is the description for CATEGORY 2','image CATEGORY 2','CATEGORY 2',FALSE),
+('00000000-0000-0000-0000-000000000003',CURRENT_TIMESTAMP,'This is the description for CATEGORY 3','image CATEGORY 3','CATEGORY 3',FALSE);
+
+
+INSERT INTO news(id,content,create_timestamp,image_url,name,soft_delete,category_id) VALUES
+('00000000-0000-0000-0000-000000000001','This is the content for NEW 1',CURRENT_TIMESTAMP,'image NEW 1','NEW 1',FALSE,'00000000-0000-0000-0000-000000000001'),
+('00000000-0000-0000-0000-000000000002','This is the content for NEW 2',CURRENT_TIMESTAMP,'image NEW 2','NEW 2',FALSE,'00000000-0000-0000-0000-000000000002'),
+('00000000-0000-0000-0000-000000000003','This is the content for NEW 3',CURRENT_TIMESTAMP,'image NEW 3','NEW 3',FALSE,'00000000-0000-0000-0000-000000000003');
+
+INSERT INTO comments(id,body,create_timestamp,news_id,user_id) VALUES
+('00000000-0000-0000-0000-000000000001','This is the body for COMMENT 1',CURRENT_TIMESTAMP,'00000000-0000-0000-0000-000000000001',(SELECT id FROM app_users WHERE email = 'grupoalkemyaceleracion@gmail.com')),
+('00000000-0000-0000-0000-000000000002','This is the body for COMMENT 2',CURRENT_TIMESTAMP,'00000000-0000-0000-0000-000000000002',(SELECT id FROM app_users WHERE email = 'maria@gmail.com')),
+('00000000-0000-0000-0000-000000000003','This is the body for COMMENT 3',CURRENT_TIMESTAMP,'00000000-0000-0000-0000-000000000003',(SELECT id FROM app_users WHERE email = 'sandra@gmail.com'));

@@ -3,6 +3,7 @@ package com.alkemy.ong.service.impl;
 import com.alkemy.ong.auth.security.RoleType;
 import com.alkemy.ong.domain.entity.CommentEntity;
 import com.alkemy.ong.domain.entity.NewsEntity;
+import com.alkemy.ong.domain.entity.RoleEntity;
 import com.alkemy.ong.domain.entity.UserEntity;
 import com.alkemy.ong.domain.mapper.CommentMapper;
 import com.alkemy.ong.domain.mapper.NewsMapper;
@@ -10,6 +11,7 @@ import com.alkemy.ong.domain.request.CommentRequest;
 import com.alkemy.ong.domain.response.CommentResponse;
 import com.alkemy.ong.exception.InsufficientPermissionsException;
 import com.alkemy.ong.exception.NotFoundException;
+import com.alkemy.ong.exception.NotGrantedException;
 import com.alkemy.ong.repository.CommentRepository;
 import com.alkemy.ong.repository.NewsRepository;
 import com.alkemy.ong.repository.Specifications.CommentsSpecifications;
@@ -18,6 +20,8 @@ import com.alkemy.ong.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
+
+import java.security.Principal;
 import java.sql.Timestamp;
 import java.time.Instant;
 import java.util.List;
@@ -48,12 +52,12 @@ public class CommentServiceImpl implements CommentService {
     public void create(CommentRequest commentRequest) {
         UserEntity user = getUser(commentRequest.getUserId());
         NewsEntity news = getNews(commentRequest.getNewsId());
-        commentRepository.save(commentMapper.map(commentRequest,user,news));
+        commentRepository.save(commentMapper.map(commentRequest, user, news));
     }
 
     @Override
     public List<CommentResponse> getAllComments(String order) {
-        CommentRequest comment = new  CommentRequest(order);
+        CommentRequest comment = new CommentRequest(order);
         List<CommentEntity> entities = commentRepository.findAll(this.commentsSpecifications.getByDate(comment));
         List<CommentResponse> ret = commentMapper.entityToResponseList(entities);
         return ret;
@@ -77,6 +81,34 @@ public class CommentServiceImpl implements CommentService {
         updateValues(comment, commentRequest, news, user);
         commentRepository.save(comment);
         return commentMapper.entityToResponse(comment);
+    }
+
+    @Override
+    public CommentResponse delete(UUID id, Principal request) {
+        Optional<UserEntity> user = userRepository.findByEmail(request.getName());
+
+        if (!user.isPresent()) {
+            throw new NotFoundException("User not found by email: " + request.getName());
+        }
+
+        CommentEntity commentEntity = findBy(id);
+        boolean checkAdminRole = false; // This variable is used to identify if user has ROLE_ADMIN
+
+        //For every ROL granted is validated if has ROLE_ADMIN then skip any other validation.
+        for (RoleEntity role : user.get().getRoles()) {
+            if (role.getName().equals(RoleType.ADMIN.getFullRoleName())) {
+                checkAdminRole = true;
+            }
+        }
+        //Validation for granted role to delete comments
+        if (!commentEntity.getUser().getId().equals(user.get().getId()) && !checkAdminRole) {
+            throw new NotGrantedException("You are not granted to deleted this comment.");
+        }
+
+        CommentResponse commentResponse = commentMapper.entityToResponse(commentEntity);
+        commentRepository.delete(commentEntity);
+
+        return commentResponse;
     }
 
     private CommentEntity findBy(UUID id) {

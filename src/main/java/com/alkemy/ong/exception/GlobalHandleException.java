@@ -1,5 +1,8 @@
 package com.alkemy.ong.exception;
 
+import com.alkemy.ong.service.impl.EmailServiceImplementation;
+import org.apache.log4j.Logger;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -7,10 +10,12 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 @RestControllerAdvice
 public class GlobalHandleException {
-
+    final static Logger LOGGER = Logger.getLogger(EmailServiceImplementation.class);
     @ExceptionHandler(value = ExternalServiceException.class)
     public ResponseEntity<ErrorResponse> handleExternalServiceException(ExternalServiceException e) {
         ErrorResponse error = buildErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
@@ -36,9 +41,9 @@ public class GlobalHandleException {
         return new ResponseEntity<>(error, HttpStatus.UNAUTHORIZED);
     }
 
-    @ExceptionHandler(value = NotFoundException.class)
-    public ResponseEntity<ErrorResponse> handleNotFoundException(NotFoundException e) {
-        ErrorResponse error = buildErrorResponse(HttpStatus.NOT_FOUND, e.getMessage());
+     @ExceptionHandler(value = NotFoundException.class)
+        public ResponseEntity<ErrorResponse> handleNotFoundException(NotFoundException e) {
+            ErrorResponse error = buildErrorResponse(HttpStatus.NOT_FOUND, e.getMessage());
         return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
     }
 
@@ -69,6 +74,14 @@ public class GlobalHandleException {
         error.add(message);
         error.getTimestamp();
         return error;
+    }
+
+
+    @ExceptionHandler(value = {NotGrantedException.class})
+    protected ResponseEntity<Object> handleNotGrantedException(RuntimeException ex, WebRequest request) {
+        String bodyOfResponse = ex.getMessage();
+        LOGGER.error(bodyOfResponse);
+        return new ResponseEntity<>(bodyOfResponse, HttpStatus.UNAUTHORIZED);
     }
 
 }

@@ -110,6 +110,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .hasRole(RoleType.ADMIN.name())
                 .antMatchers(HttpMethod.DELETE, "/members")
                 .hasRole(RoleType.ADMIN.name())
+                .antMatchers(HttpMethod.DELETE, "/comments/{id:[\\d+]}")
+                .hasAnyRole(RoleType.ADMIN.name(),RoleType.USER.name())
                 .antMatchers("/h2-console/**")
                 .permitAll()
                 .anyRequest()
