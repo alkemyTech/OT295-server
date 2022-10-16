@@ -30,12 +30,10 @@ public class SlideServiceImpl implements SlideService {
         SlideEntity entity = slideMapper.DTO2Entity(request);
         entity.setImageUrl(generateUrlAmazon(request.getImageUrl()));
         entity.setText(request.getText());
-/*
         Integer order = generateOrder(request.getOrganization());
 
         entity.setSlideOrder(request.getSlideOrder() != null && request.getSlideOrder() > order
                 ? request.getSlideOrder() : order + 1);
-        */
         return slideMapper.entity2DtoResponse(slideRepository.save(entity));
     }
 

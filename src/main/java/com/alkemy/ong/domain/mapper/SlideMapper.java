@@ -13,12 +13,12 @@ import org.springframework.stereotype.Component;
 public class SlideMapper {
 
     private final OrganizationService organizationService;
-    private final OrgMapper orgMapper;
+    private final OrganizationMapper organizationMapper;
     public SlideEntity DTO2Entity(SlideRequest slideRequest) {
         SlideEntity entity = new SlideEntity();
         entity.setText(slideRequest.getText());
         entity.setImageUrl(slideRequest.getImageUrl());
-      //  entity.setOrganizationId(slideRequest.getOrganization() != null || slideRequest.getOrganization().equals("") ? organizationService.getById(slideRequest.getOrganization()).getId() : null);
+        entity.setOrganizationId(slideRequest.getOrganization() != null || slideRequest.getOrganization().equals("") ? organizationService.getById(slideRequest.getOrganization()).getId() : null);
         return entity;
     }
 
@@ -26,13 +26,11 @@ public class SlideMapper {
         SlideResponse dto = new SlideResponse();
         dto.setImageUrl(entity.getImageUrl());
         dto.setText(entity.getText());
-        //dto.setSlideOrder(entity.getSlideOrder());
-        /*
+        dto.setSlideOrder(entity.getSlideOrder());
        if (entity.getOrganizationId() != null) {
-            dto.setOrganization(orgMapper.entity2DTO(
+            dto.setOrganization(organizationMapper.entity2DTOResponse(
                     organizationService.getById(entity.getOrganizationId())));
         }
-*/
         return dto;
     }
 

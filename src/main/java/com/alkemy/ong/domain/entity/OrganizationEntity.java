@@ -12,6 +12,7 @@ import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
@@ -52,8 +53,8 @@ public class OrganizationEntity {
     @Column(name = "about_us_text")
     private String aboutUsText;
 
-    @Column (name = "URL_Instragram")
-    private String URLInstragram;
+    @Column (name = "URL_Instagram")
+    private String URLInstagram;
 
     @Column (name = "URL_Facebook")
     private String URLFacebook;
@@ -68,11 +69,10 @@ public class OrganizationEntity {
     @Column(name = "soft_delete")
     private Boolean softDelete = Boolean.FALSE;
 
-/*
+
     @OneToMany(mappedBy = "organization")
     @JsonIgnore
-    private Set<SlideEntity> slidesList;
+    private List<SlideEntity> slidesList;
 
 
-*/
 }

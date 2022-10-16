@@ -10,8 +10,8 @@ import java.util.UUID;
 public class SlideRequest {
     
     private String text;
-    //private Integer slideOrder;
-    //private UUID organization;
+    private Integer slideOrder;
+    private UUID organization;
     private String imageUrl;
 
 }

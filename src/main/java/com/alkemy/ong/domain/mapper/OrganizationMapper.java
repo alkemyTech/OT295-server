@@ -1,47 +1,39 @@
 package com.alkemy.ong.domain.mapper;
 
-import com.alkemy.ong.domain.dto.OrganizationBasicDTO;
 import com.alkemy.ong.domain.entity.OrganizationEntity;
+import com.alkemy.ong.domain.request.OrganizationRequest;
 import com.alkemy.ong.domain.response.OrganizationResponse;
-import org.mapstruct.InheritInverseConfiguration;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.Mappings;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
 
-import java.util.List;
+@Component
+@RequiredArgsConstructor
+public class OrganizationMapper {
 
-@Mapper(componentModel = "spring")
-public interface OrganizationMapper {
+    public OrganizationResponse entity2DTOResponse(OrganizationEntity organizationEntity) {
+        OrganizationResponse response = new OrganizationResponse();
+        response.setName(organizationEntity.getName());
+        response.setAddress(organizationEntity.getAddress());
+        response.setImage(organizationEntity.getImage());
+        response.setPhone(organizationEntity.getPhone());
+        return response;
+    }
 
-    @Mappings({
-            @Mapping(source = "name", target = "name"),
-            @Mapping(source = "image", target = "image"),
-            @Mapping(source = "phone", target = "phone"),
-            @Mapping(source = "address", target = "address"),
-            @Mapping(source = "URLInstagram" , target = "URLInstagram"),
-            @Mapping(source = "URLLinkedin" , target = "URLLinkedin"),
-            @Mapping(source = "URLFacebook" , target = "URLFacebook")
+    public OrganizationEntity DTO2Entity(OrganizationRequest request){
+        OrganizationEntity entity = new OrganizationEntity();
+        entity.setName(request.getName());
+        entity.setAddress(request.getAddress());
+        entity.setImage(request.getImage());
+        entity.setPhone(request.getPhone());
+        entity.setAboutUsText(request.getAboutUsText());
+        entity.setEmail(request.getEmail());
+        entity.setWelcomeText(request.getWelcomeText());
+        entity.setURLInstagram(request.getURLInstagram());
+        entity.setURLFacebook(request.getURLFacebook());
+        entity.setURLLinkedin(request.getURLLinkedin());
+        return entity;
+    }
 
-    })
-    OrganizationBasicDTO toOrganizationBasicDTO(OrganizationEntity organization);
 
-    List<OrganizationBasicDTO> toOrganizationBasicDTOList(List<OrganizationEntity> organizations);
 
-    @InheritInverseConfiguration
-    OrganizationEntity toOrganizationEntity(OrganizationBasicDTO organizationBasicDTO);
-
-    @Mappings({
-            @Mapping(source = "id", target = "id"),
-            @Mapping(source = "name", target = "name"),
-            @Mapping(source = "image", target = "image"),
-            @Mapping(source = "phone", target = "phone"),
-            @Mapping(source = "address", target = "address"),
-            @Mapping(source = "mail", target = "mail"),
-            @Mapping(source = "welcomeText", target = "welcomeText"),
-            @Mapping(source = "aboutUsText", target = "aboutUsText"),
-            @Mapping(source = "URLInstagram" , target = "URLInstagram"),
-            @Mapping(source = "URLLinkedin" , target = "URLLinkedin"),
-            @Mapping(source = "URLFacebook" , target = "URLFacebook")
-    })
-    OrganizationResponse entityToDto(OrganizationEntity organization);
 }

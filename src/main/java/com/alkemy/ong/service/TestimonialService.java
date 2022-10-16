@@ -1,6 +1,7 @@
 package com.alkemy.ong.service;
 
 
+import com.alkemy.ong.domain.entity.TestimonialEntity;
 import com.alkemy.ong.domain.request.TestimonialRequest;
 import com.alkemy.ong.domain.response.TestimonialResponse;
 
@@ -13,5 +14,7 @@ public interface TestimonialService {
     void delete(UUID id);
 
     TestimonialResponse update(TestimonialRequest testimonialRequest, UUID id);
+
+    TestimonialEntity getById(UUID id);
 
 }

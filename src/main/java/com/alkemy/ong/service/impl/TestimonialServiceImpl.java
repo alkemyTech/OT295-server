@@ -38,6 +38,7 @@ public class TestimonialServiceImpl implements TestimonialService {
     }
 
     public void delete(UUID id){
+
         testimonialRepository.delete(getById(id));
     }
     public TestimonialEntity getById(UUID id){

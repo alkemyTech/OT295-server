@@ -10,9 +10,15 @@ import java.util.UUID;
 
 public interface OrganizationService {
 
-    List<OrganizationBasicDTO> getOrganizations();
+    //List<OrganizationResponse> getOrganizations();
 
     OrganizationResponse update(OrganizationRequest organizationRequest);
 
     OrganizationEntity getById(UUID id);
+
+    OrganizationResponse save(OrganizationRequest organizationRequest);
+
+    OrganizationResponse getPublicInformation(UUID id);
+
+    void delete(UUID id);
 }

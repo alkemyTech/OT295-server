@@ -24,7 +24,6 @@ public class OrganizationRequest {
   @NotBlank(message = "address text field can not be null or empty.")
   private String address;
 
-  @NotBlank(message = "phone text field can not be null or empty.")
   private Integer phone;
 
   @NotBlank(message = "Welcome text field can not be null or empty.")

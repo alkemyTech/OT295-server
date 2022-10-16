@@ -73,3 +73,7 @@ INSERT INTO app_users_roles SELECT app_users.id, app_roles.id FROM app_users INN
 INSERT INTO app_users_roles SELECT app_users.id, app_roles.id FROM app_users INNER JOIN app_roles ON app_users.email = 'franco@gmail.com' AND app_roles.name = 'ROLE_USER';
 INSERT INTO app_users_roles SELECT app_users.id, app_roles.id FROM app_users INNER JOIN app_roles ON app_users.email = 'angel@gmail.com' AND app_roles.name = 'ROLE_USER';
 INSERT INTO app_users_roles SELECT app_users.id, app_roles.id FROM app_users INNER JOIN app_roles ON app_users.email = 'marta@gmail.com' AND app_roles.name = 'ROLE_USER';
+
+
+
+
