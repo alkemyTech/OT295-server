@@ -3,6 +3,7 @@ package com.alkemy.ong.domain.response;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,20 +17,17 @@ import java.util.UUID;
 @ApiModel
 public class CategoryResponse {
 
-    @ApiModelProperty(example = "1",
-            position = 0)
+    @Schema(example = "3fa85f64-5717-4562-b3fc-2c963f66afa6")
     private UUID id;
 
-    @ApiModelProperty(example = "Category number 1",
-            position = 1)
+    @Schema(example = "Category number 1")
     @NotBlank(message = "Name field can not be null or empty.")
     private String name;
 
-    @ApiModelProperty(example = "This is a description",
-            position = 2)
+    @Schema(example = "This is a description")
     private String description;
 
-    @ApiModelProperty(example = "https://s3.us-east-1.amazonaws.com/cohorte-septiembre-5efe33c6/1665545315223-logoEmpres.png")
+    @Schema(example = "https://s3.us-east-1.amazonaws.com/cohorte-septiembre-5efe33c6/1665545315223-logoEmpres.png")
     private String image;
 
     private Timestamp createTimestamp;

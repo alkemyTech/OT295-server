@@ -6,7 +6,7 @@ import org.springframework.data.domain.Page;
 @Getter
 @Setter
 public class CategoryResponsePage {
-    Page<CategoryResponse> respuesta;
+    Page<CategoryResponse> response;
     String nextPage;
     String previousPage;
 }

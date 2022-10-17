@@ -35,11 +35,11 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     public CategoryResponsePage getAllCategories(Integer page) {
-        CategoryResponsePage respuesta = new CategoryResponsePage();
+        CategoryResponsePage responsePage= new CategoryResponsePage();
         Pageable pageable = PageRequest.of(page, 10);
         Page<CategoryEntity> categoryPage = categoryRepository.findAll(pageable);
         int totalElements = (int) categoryPage.getTotalElements();
-        Page<CategoryResponse> respuestaFinal = new PageImpl<CategoryResponse>(categoryPage.getContent()
+        Page<CategoryResponse> responses = new PageImpl<CategoryResponse>(categoryPage.getContent()
                 .stream()
                 .map(category -> new CategoryResponse(
                         category.getId(),
@@ -48,19 +48,19 @@ public class CategoryServiceImpl implements CategoryService {
                         category.getImage(),
                         category.getCreateTimestamp()))
                 .collect(Collectors.toList()), pageable, totalElements);
-        respuesta.setRespuesta(respuestaFinal);
+        responsePage.setResponse(responses);
 
-        if((pageable.getPageNumber()+1)>0 && (pageable.getPageNumber()+1)<respuestaFinal.getTotalPages()){
-            respuesta.setPreviousPage("localhost:8080/categories/page/" + (pageable.getPageNumber() - 1));
-            respuesta.setNextPage("localhost:8080/categories/page/" + (pageable.getPageNumber() + 1));}
-        if((pageable.getPageNumber()+1)==respuestaFinal.getTotalPages()){
-            respuesta.setPreviousPage("localhost:8080/categories/page/" + (pageable.getPageNumber() - 1));
-            respuesta.setNextPage("nonexistent next page");}
+        if((pageable.getPageNumber()+1)>0 && (pageable.getPageNumber()+1)<responses.getTotalPages()){
+            responsePage.setPreviousPage("localhost:8080/categories/page/" + (pageable.getPageNumber() - 1));
+            responsePage.setNextPage("localhost:8080/categories/page/" + (pageable.getPageNumber() + 1));}
+        if((pageable.getPageNumber()+1)==responses.getTotalPages()){
+            responsePage.setPreviousPage("localhost:8080/categories/page/" + (pageable.getPageNumber() - 1));
+            responsePage.setNextPage("nonexistent next page");}
         if(pageable.getPageNumber()==0){
-            respuesta.setPreviousPage("nonexistent previous page");
-            respuesta.setNextPage("localhost:8080/categories/page/" + (pageable.getPageNumber() + 1));}
+            responsePage.setPreviousPage("nonexistent previous page");
+            responsePage.setNextPage("localhost:8080/categories/page/" + (pageable.getPageNumber() + 1));}
 
-        return respuesta;
+        return responsePage;
     }
 
             @Override
