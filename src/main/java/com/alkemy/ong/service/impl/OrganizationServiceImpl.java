@@ -8,23 +8,30 @@ import com.alkemy.ong.domain.response.OrganizationResponse;
 import com.alkemy.ong.exception.ParamNotFound;
 import com.alkemy.ong.repository.OrganizationRepository;
 import com.alkemy.ong.service.OrganizationService;
-import lombok.RequiredArgsConstructor;
+import com.alkemy.ong.service.SlideService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
-@RequiredArgsConstructor
 @Service
 public class OrganizationServiceImpl implements OrganizationService {
 
+    private OrganizationMapper mapper;
 
-    private final OrganizationMapper mapper;
+    private OrganizationRepository repository;
 
-    private final OrganizationRepository repository;
-
+    private SlideService service;
+    @Autowired
+    public OrganizationServiceImpl(OrganizationRepository repository, OrganizationMapper mapper,@Lazy SlideService service) {
+        this.repository = repository;
+        this.mapper = mapper;
+        this.service = service;
+    }
 
     public OrganizationBasicResponse save(OrganizationRequest request){
         return mapper.entity2BasicDTOResponse(repository.save(mapper.DTO2Entity(request)));
@@ -65,9 +72,17 @@ public class OrganizationServiceImpl implements OrganizationService {
         repository.delete(getById(id));
     }
 
+
     public OrganizationEntity getById(UUID id) {
-        return repository.findById(id).orElseThrow(
-                () -> new ParamNotFound("Organization not found"));
+        Optional<OrganizationEntity> result = repository.findById(id);
+        if (result.isPresent()){
+            OrganizationEntity entity = result.get();
+            entity.setSlidesList(service.slidesForOrg(id));
+            repository.save(entity);
+            return entity;
+        } else {
+            throw  new ParamNotFound("Organization not found or disabled");
+        }
     }
 
 }

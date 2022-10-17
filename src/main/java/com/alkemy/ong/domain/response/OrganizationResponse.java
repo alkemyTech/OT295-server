@@ -1,8 +1,10 @@
 package com.alkemy.ong.domain.response;
 
+import com.alkemy.ong.domain.entity.SlideEntity;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
 import java.util.UUID;
 
 @Getter
@@ -30,4 +32,6 @@ public class OrganizationResponse {
     private String urlFacebook;
 
     private String urlLinkedin;
+
+    private List<SlideEntity> slides;
 }

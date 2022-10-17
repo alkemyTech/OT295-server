@@ -16,6 +16,8 @@ public interface SlideService {
 
     SlideResponse getByIdResponse(UUID id);
 
+    List<SlideEntity> slidesForOrg(UUID organization_id);
+
     List<SlideDTOImageOrder> readAllSlides();
 
     SlideResponse update(UUID id, SlideRequest request);

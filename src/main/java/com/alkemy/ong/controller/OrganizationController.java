@@ -5,6 +5,7 @@ import com.alkemy.ong.domain.response.OrganizationBasicResponse;
 import com.alkemy.ong.domain.response.OrganizationResponse;
 import com.alkemy.ong.service.OrganizationService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,10 +17,11 @@ import java.util.UUID;
 @RequestMapping("/organization")
 public class OrganizationController {
 
-    @Autowired
+
     private OrganizationService service;
 
-    public OrganizationController(OrganizationService service) {
+    @Autowired
+    public OrganizationController(@Lazy OrganizationService service) {
         this.service = service;
     }
 

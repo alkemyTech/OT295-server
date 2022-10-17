@@ -56,6 +56,18 @@ public class SlideServiceImpl implements SlideService {
         return slideMapper.entity2DtoResponse(getById(id));
     }
 
+    public List<SlideEntity> slidesForOrg(UUID organization_id) {
+        List <SlideEntity>  Slides = new ArrayList<>();
+        List <SlideEntity> result = new ArrayList<>();
+        Slides = slideRepository.findAll();
+        for ( SlideEntity slide : Slides) {
+            if(slide.getOrganizationId() == organization_id) {
+                result.add(slide);
+            }
+        }
+        return result;
+    }
+
     @Override
     public List<SlideDTOImageOrder> readAllSlides() {
         List<SlideDTOImageOrder> slideDTOImageOrderList = new ArrayList<>();

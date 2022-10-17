@@ -33,6 +33,7 @@ public class OrganizationMapper {
         response.setUrlInstagram(organizationEntity.getUrlInstagram());
         response.setUrlFacebook(organizationEntity.getUrlFacebook());
         response.setUrlLinkedin(organizationEntity.getUrlLinkedin());
+        response.setSlides(organizationEntity.getSlidesList());
         return response;
     }
 

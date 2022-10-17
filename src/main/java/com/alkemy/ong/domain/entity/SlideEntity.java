@@ -34,7 +34,7 @@ public class SlideEntity {
     private Integer slideOrder;
 
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "organization_id", insertable = false, updatable = false)
     // Solo para buscar informacion
     private OrganizationEntity organization;

@@ -5,15 +5,23 @@ import com.alkemy.ong.domain.entity.SlideEntity;
 import com.alkemy.ong.domain.request.SlideRequest;
 import com.alkemy.ong.domain.response.SlideResponse;
 import com.alkemy.ong.service.OrganizationService;
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
 @Component
-@RequiredArgsConstructor
 public class SlideMapper {
 
-    private final OrganizationService organizationService;
-    private final OrganizationMapper organizationMapper;
+
+    private OrganizationService organizationService;
+
+    private OrganizationMapper organizationMapper;
+
+    @Autowired
+    public SlideMapper(@Lazy OrganizationService organizationService, OrganizationMapper organizationMapper) {
+        this.organizationService = organizationService;
+        this.organizationMapper = organizationMapper;
+    }
     public SlideEntity DTO2Entity(SlideRequest slideRequest) {
         SlideEntity entity = new SlideEntity();
         entity.setText(slideRequest.getText());
@@ -24,13 +32,14 @@ public class SlideMapper {
 
     public SlideResponse entity2DtoResponse(SlideEntity entity) {
         SlideResponse dto = new SlideResponse();
+        dto.setId(entity.getId());
         dto.setImageUrl(entity.getImageUrl());
         dto.setText(entity.getText());
         dto.setSlideOrder(entity.getSlideOrder());
-       if (entity.getOrganizationId() != null) {
+       /*if (entity.getOrganizationId() != null) {
             dto.setOrganization(organizationMapper.entity2BasicDTOResponse(
                     organizationService.getById(entity.getOrganizationId())));
-        }
+        }*/
         return dto;
     }
 
