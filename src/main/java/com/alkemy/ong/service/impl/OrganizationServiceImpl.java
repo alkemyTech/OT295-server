@@ -3,6 +3,7 @@ package com.alkemy.ong.service.impl;
 import com.alkemy.ong.domain.entity.OrganizationEntity;
 import com.alkemy.ong.domain.mapper.OrganizationMapper;
 import com.alkemy.ong.domain.request.OrganizationRequest;
+import com.alkemy.ong.domain.response.OrganizationBasicResponse;
 import com.alkemy.ong.domain.response.OrganizationResponse;
 import com.alkemy.ong.exception.ParamNotFound;
 import com.alkemy.ong.repository.OrganizationRepository;
@@ -25,12 +26,11 @@ public class OrganizationServiceImpl implements OrganizationService {
     private final OrganizationRepository repository;
 
 
-    public OrganizationResponse save(OrganizationRequest request){
-        return mapper.entity2DTOResponse(repository.save(mapper.DTO2Entity(request)));
+    public OrganizationBasicResponse save(OrganizationRequest request){
+        return mapper.entity2BasicDTOResponse(repository.save(mapper.DTO2Entity(request)));
     }
 
     public OrganizationResponse getPublicInformation(UUID id) {
-
         return mapper.entity2DTOResponse((getById(id)));
     }
 

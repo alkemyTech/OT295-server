@@ -28,7 +28,7 @@ public class SlideMapper {
         dto.setText(entity.getText());
         dto.setSlideOrder(entity.getSlideOrder());
        if (entity.getOrganizationId() != null) {
-            dto.setOrganization(organizationMapper.entity2DTOResponse(
+            dto.setOrganization(organizationMapper.entity2BasicDTOResponse(
                     organizationService.getById(entity.getOrganizationId())));
         }
         return dto;

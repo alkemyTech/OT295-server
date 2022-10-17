@@ -1,7 +1,7 @@
 package com.alkemy.ong.controller;
 
-import com.alkemy.ong.domain.dto.OrganizationBasicDTO;
 import com.alkemy.ong.domain.request.OrganizationRequest;
+import com.alkemy.ong.domain.response.OrganizationBasicResponse;
 import com.alkemy.ong.domain.response.OrganizationResponse;
 import com.alkemy.ong.service.OrganizationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -30,7 +29,7 @@ public class OrganizationController {
     }
 
     @PostMapping
-    public ResponseEntity<OrganizationResponse> save(@RequestBody OrganizationRequest request) {
+    public ResponseEntity<OrganizationBasicResponse> save(@Valid @RequestBody OrganizationRequest request) {
         return ResponseEntity.status(HttpStatus.CREATED).body(service.save(request));
     }
 
