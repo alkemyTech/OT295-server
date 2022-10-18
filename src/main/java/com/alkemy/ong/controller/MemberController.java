@@ -1,13 +1,11 @@
 package com.alkemy.ong.controller;
 
-import com.alkemy.ong.domain.dto.MemberDTO;
 import com.alkemy.ong.domain.request.MemberRequest;
 import com.alkemy.ong.domain.response.MemberPageResponse;
 import com.alkemy.ong.domain.response.MemberResponse;
-import com.alkemy.ong.domain.response.NewsResponsePage;
-import com.alkemy.ong.repository.MemberRepository;
 import com.alkemy.ong.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -22,12 +20,11 @@ import java.util.UUID;
 @RequestMapping("/members")
 public class MemberController {
 
-    private MemberRepository memberRepository;
-    private MemberService service;
 
+
+    private MemberService service;
     @Autowired
-    public MemberController(MemberRepository memberRepository, MemberService service) {
-        this.memberRepository = memberRepository;
+    public MemberController(@Lazy MemberService service) {
         this.service = service;
     }
 
@@ -40,8 +37,8 @@ public class MemberController {
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PutMapping("/{id}")
-    public ResponseEntity<MemberDTO> update(@PathVariable UUID id, @RequestBody MemberDTO member) {
-        MemberDTO result = this.service.update(id, member);
+    public ResponseEntity<MemberResponse> update(@PathVariable UUID id, @RequestBody MemberRequest member) {
+        MemberResponse result = this.service.update(id, member);
         return ResponseEntity.ok().body(result);
     }
 
@@ -61,7 +58,7 @@ public class MemberController {
 
     @PreAuthorize("hasAnyRole('ROLE_USER'),('ROLE_ADMIN')")
     @GetMapping("/page/{page}")
-    public ResponseEntity<MemberPageResponse> getAll(@PathVariable Integer page){
+    public ResponseEntity<MemberPageResponse> getAll(@PathVariable Integer page) {
         MemberPageResponse member = service.getAllMember(page);
         return ResponseEntity.ok().body(member);
     }

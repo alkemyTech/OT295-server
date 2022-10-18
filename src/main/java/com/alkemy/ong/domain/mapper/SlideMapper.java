@@ -1,6 +1,5 @@
 package com.alkemy.ong.domain.mapper;
 
-import com.alkemy.ong.domain.dto.SlideDTOImageOrder;
 import com.alkemy.ong.domain.entity.SlideEntity;
 import com.alkemy.ong.domain.request.SlideRequest;
 import com.alkemy.ong.domain.response.SlideResponse;
@@ -36,8 +35,8 @@ public class SlideMapper {
         return dto;
     }
 
-    public SlideDTOImageOrder entity2DTOImageOrder(SlideEntity slideEntity){
-        SlideDTOImageOrder slideDTOImageOrder = new SlideDTOImageOrder();
+    public SlideResponse entity2DTOImageOrder(SlideEntity slideEntity){
+        SlideResponse slideDTOImageOrder = new SlideResponse();
         slideDTOImageOrder.setImageUrl(slideEntity.getImageUrl());
         slideDTOImageOrder.setSlideOrder(slideEntity.getSlideOrder());
 

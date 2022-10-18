@@ -2,7 +2,6 @@ package com.alkemy.ong.auth.controller;
 
 
 import com.alkemy.ong.auth.service.UserDetailsCustomService;
-import com.alkemy.ong.domain.dto.*;
 import com.alkemy.ong.domain.request.AuthenticationRequest;
 import com.alkemy.ong.domain.request.UserRequest;
 import com.alkemy.ong.domain.response.AuthenticationResponse;
@@ -42,8 +41,8 @@ public class UserAuthController {
     }
 
     @GetMapping("/me")
-    public ResponseEntity<UserProfileDTO> getProfile(Principal request) {
-        UserProfileDTO dto = userService.getUserProfile(request.getName());
+    public ResponseEntity<UserResponse> getProfile(Principal request) {
+        UserResponse dto = userService.getUserProfile(request.getName());
         return ResponseEntity.ok().body(dto);
     }
 

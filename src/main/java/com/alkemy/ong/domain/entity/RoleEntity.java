@@ -39,4 +39,6 @@ public class RoleEntity {
     @Column(name = "create_timestamp")
     private Timestamp createTimestamp;
 
+    public RoleEntity(String s, String admin, String admin1, Timestamp createTimestamp) {
+    }
 }

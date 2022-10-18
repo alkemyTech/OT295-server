@@ -1,18 +1,15 @@
 package com.alkemy.ong.service.impl;
 
-import com.alkemy.ong.domain.dto.MemberDTO;
 import com.alkemy.ong.domain.entity.MemberEntity;
-import com.alkemy.ong.domain.entity.NewsEntity;
 import com.alkemy.ong.domain.mapper.MemberMapper;
 import com.alkemy.ong.domain.request.MemberRequest;
 import com.alkemy.ong.domain.response.MemberPageResponse;
 import com.alkemy.ong.domain.response.MemberResponse;
-import com.alkemy.ong.domain.response.NewsResponse;
-import com.alkemy.ong.domain.response.NewsResponsePage;
 import com.alkemy.ong.exception.ParamNotFound;
 import com.alkemy.ong.repository.MemberRepository;
 import com.alkemy.ong.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
@@ -27,24 +24,24 @@ import java.util.stream.Collectors;
 @Service
 public class MemberServiceImpl implements MemberService {
 
-    private MemberMapper mapper;
-    private MemberRepository repository;
+    private  MemberMapper mapper;
+    private  MemberRepository repository;
 
     @Autowired
-    public MemberServiceImpl(MemberMapper mapper, MemberRepository repository) {
+    public MemberServiceImpl(MemberMapper mapper,@Lazy MemberRepository repository) {
         this.mapper = mapper;
         this.repository = repository;
     }
 
     @Override
-    public MemberDTO update(UUID id, MemberDTO member) {
+    public MemberResponse update(UUID id, MemberRequest member) {
         Optional<MemberEntity> entity = this.repository.findById(id);
         if (!entity.isPresent()) {
             throw new ParamNotFound("Id not valid");
         }
         this.mapper.memberEntityRefreshValues(entity.get(), member);
         MemberEntity entitySaved = this.repository.save(entity.get());
-        MemberDTO result = this.mapper.memberEntity2DTO(entitySaved);
+        MemberResponse result = this.mapper.memberEntity2DTO(entitySaved);
 
         return result;
     }
@@ -68,8 +65,8 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public MemberResponse save(MemberRequest request) {
-        MemberEntity member = mapper.map(request);
-        return mapper.map(repository.save(member));
+        MemberEntity member = mapper.mapToEntity(request);
+        return mapper.mapToResponse(repository.save(member));
     }
 
     @Override

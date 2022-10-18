@@ -1,6 +1,5 @@
 package com.alkemy.ong.domain.mapper;
 
-import com.alkemy.ong.domain.dto.OrganizationBasicDTO;
 import com.alkemy.ong.domain.entity.OrganizationEntity;
 import com.alkemy.ong.domain.request.OrganizationRequest;
 import lombok.RequiredArgsConstructor;

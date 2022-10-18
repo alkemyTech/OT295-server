@@ -1,6 +1,5 @@
 package com.alkemy.ong.service.impl;
 
-import com.alkemy.ong.domain.dto.SlideDTOImageOrder;
 import com.alkemy.ong.domain.entity.SlideEntity;
 import com.alkemy.ong.domain.mapper.SlideMapper;
 import com.alkemy.ong.domain.request.SlideRequest;
@@ -59,8 +58,8 @@ public class SlideServiceImpl implements SlideService {
     }
 
     @Override
-    public List<SlideDTOImageOrder> readAllSlides() {
-        List<SlideDTOImageOrder> slideDTOImageOrderList = new ArrayList<>();
+    public List<SlideResponse> readAllSlides() {
+        List<SlideResponse> slideDTOImageOrderList = new ArrayList<>();
         List<SlideEntity> slideEntityList = slideRepository.findAll();
 
 

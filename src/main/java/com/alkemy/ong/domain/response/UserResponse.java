@@ -1,5 +1,6 @@
 package com.alkemy.ong.domain.response;
 
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,4 +16,5 @@ public class UserResponse {
 
     private String token;
 
+    private String role;
 }

@@ -1,6 +1,5 @@
 package com.alkemy.ong.service.impl;
 
-import com.alkemy.ong.domain.dto.OrganizationBasicDTO;
 import com.alkemy.ong.domain.entity.OrganizationEntity;
 import com.alkemy.ong.domain.mapper.OrganizationMapper;
 import com.alkemy.ong.domain.request.OrganizationRequest;
@@ -26,9 +25,9 @@ public class OrganizationServiceImpl implements OrganizationService {
 
 
     @Override
-    public List<OrganizationBasicDTO> getOrganizations() {
+    public List<OrganizationResponse> getOrganizations() {
         List<OrganizationEntity> entityList = repository.findAll();
-            List<OrganizationBasicDTO> result = mapper.toOrganizationBasicDTOList(entityList);
+            List<OrganizationResponse> result = mapper.toOrganizationBasicDTOList(entityList);
         return new ArrayList<>();
     }
 

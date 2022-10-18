@@ -1,7 +1,6 @@
 package com.alkemy.ong.service;
 
 import com.alkemy.ong.domain.request.UserRequest;
-import com.alkemy.ong.domain.dto.UserProfileDTO;
 import com.alkemy.ong.domain.entity.UserEntity;
 import com.alkemy.ong.domain.response.UserResponse;
 
@@ -10,7 +9,7 @@ import java.util.UUID;
 
 public interface UserService {
 
-    UserProfileDTO getUserProfile(String request);
+    UserResponse getUserProfile(String request);
 
     void deleteUser(UUID userId);
 
@@ -18,5 +17,5 @@ public interface UserService {
 
     UserEntity getUserByID(UUID userId);
 
-    List<UserProfileDTO> readAllUsers();
+    List<UserResponse> readAllUsers();
 }
