@@ -1,5 +1,6 @@
 package com.alkemy.ong.service.impl;
 
+import com.alkemy.ong.domain.request.CategoryRequest;
 import com.alkemy.ong.domain.response.CategoryBasicResponse;
 import com.alkemy.ong.domain.response.CategoryResponse;
 import com.alkemy.ong.domain.response.CategoryResponsePage;
@@ -74,7 +75,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public CategoryResponse save(CategoryResponse dto) {
+    public CategoryResponse save(CategoryRequest dto) {
         CategoryEntity entity = categoryMapper.categoryDTO2Entity(dto);
         CategoryEntity entitySaved = categoryRepository.save(entity);
         CategoryResponse result = categoryMapper.categoryEntity2DTO(entitySaved);
@@ -91,7 +92,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public CategoryResponse update(UUID id, CategoryResponse category) {
+    public CategoryResponse update(UUID id, CategoryRequest category) {
         Optional<CategoryEntity> entity = this.categoryRepository.findById(id);
         if (!entity.isPresent()) {
             throw new ParamNotFound("Id not valid");
