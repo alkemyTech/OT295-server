@@ -1,5 +1,6 @@
 package com.alkemy.ong.domain.mapper;
 
+import com.alkemy.ong.domain.request.CategoryRequest;
 import com.alkemy.ong.domain.response.CategoryBasicResponse;
 import com.alkemy.ong.domain.response.CategoryResponse;
 import com.alkemy.ong.domain.entity.CategoryEntity;
@@ -36,16 +37,15 @@ public class CategoryMapper {
         return dto;
     }
 
-    public CategoryEntity categoryDTO2Entity(CategoryResponse dto) {
+    public CategoryEntity categoryDTO2Entity(CategoryRequest dto) {
         CategoryEntity entity = new CategoryEntity();
         entity.setName(dto.getName());
         entity.setDescription(dto.getDescription());
         entity.setImage(dto.getImage());
-        entity.setCreateTimestamp(dto.getCreateTimestamp());
         return entity;
     }
 
-    public void categoryEntityRefreshValues(CategoryEntity entity, CategoryResponse dto) {
+    public void categoryEntityRefreshValues(CategoryEntity entity, CategoryRequest dto) {
         entity.setName(dto.getName());
         entity.setDescription(dto.getDescription());
         entity.setImage(dto.getImage(

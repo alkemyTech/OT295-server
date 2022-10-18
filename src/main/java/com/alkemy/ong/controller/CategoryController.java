@@ -1,5 +1,6 @@
 package com.alkemy.ong.controller;
 
+import com.alkemy.ong.domain.request.CategoryRequest;
 import com.alkemy.ong.domain.response.CategoryBasicResponse;
 import com.alkemy.ong.domain.response.CategoryResponse;
 import com.alkemy.ong.domain.response.CategoryResponsePage;
@@ -43,7 +44,7 @@ public class CategoryController {
             paramType = "header",
             dataTypeClass = String.class,
             example = "Bearer access_token")
-    public ResponseEntity<CategoryResponse> save(@Valid @RequestBody CategoryResponse category) {
+    public ResponseEntity<CategoryResponse> save(@Valid @RequestBody CategoryRequest category) {
         CategoryResponse categorySaved = categoryService.save(category);
         return ResponseEntity.status(HttpStatus.CREATED).body(categorySaved);
     }
@@ -179,7 +180,7 @@ public class CategoryController {
                     paramType = "header",
                     dataTypeClass = String.class,
                     example = "Bearer access_token")})
-    public ResponseEntity<CategoryResponse> update(@PathVariable UUID id, @RequestBody CategoryResponse category) {
+    public ResponseEntity<CategoryResponse> update(@PathVariable UUID id, @RequestBody CategoryRequest category) {
         CategoryResponse result = this.categoryService.update(id, category);
         return ResponseEntity.ok().body(result);
     }
