@@ -1,24 +1,21 @@
 package com.alkemy.ong.domain.mapper;
 
-import com.alkemy.ong.domain.dto.BasicUserDTO;
-import com.alkemy.ong.domain.request.UserRequest;
-import com.alkemy.ong.domain.dto.UserProfileDTO;
 import com.alkemy.ong.domain.entity.UserEntity;
 import com.alkemy.ong.domain.response.UserResponse;
 import org.springframework.stereotype.Component;
 
 @Component
 public class UserMapper {
-    public BasicUserDTO entity2BasicDTO(UserEntity userEntity){
+    public UserResponse entity2BasicDTO(UserEntity userEntity){
 
-        BasicUserDTO result = new BasicUserDTO();
+        UserResponse result = new UserResponse();
         result.setFirstName(userEntity.getFirstName());
         result.setLastName(userEntity.getLastName());
         result.setRole(userEntity.getRoles().get(0).getName());
         return result;
     }
 
-    //Rever Segunda implementacion de basicDTO2Entity
+
     public UserResponse entity2DTO(UserEntity entity) {
         UserResponse dto = new UserResponse();
         dto.setFirstName(entity.getFirstName());
@@ -27,8 +24,8 @@ public class UserMapper {
         return dto;
     }
 
-    public UserProfileDTO userEntity2UserProfileDTO(UserEntity entity) {
-        UserProfileDTO userProfileDto = new UserProfileDTO();
+    public UserResponse userEntity2UserProfileDTO(UserEntity entity) {
+        UserResponse userProfileDto = new UserResponse();
 
         userProfileDto.setEmail(entity.getEmail());
         userProfileDto.setFirstName(entity.getFirstName());

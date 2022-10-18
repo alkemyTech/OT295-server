@@ -62,6 +62,8 @@ public class UserEntity implements UserDetails {
     @Column(name = "soft_delete")
     private Boolean softDelete = Boolean.FALSE;
 
+    public <T> UserEntity(String id, String carlos, String suarez, String s, String s1, int i, List<T> asList, Timestamp valueOf) {
+    }
 
 
     @Override

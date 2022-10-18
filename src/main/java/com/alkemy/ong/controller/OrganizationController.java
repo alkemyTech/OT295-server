@@ -1,6 +1,5 @@
 package com.alkemy.ong.controller;
 
-import com.alkemy.ong.domain.dto.OrganizationBasicDTO;
 import com.alkemy.ong.domain.request.OrganizationRequest;
 import com.alkemy.ong.domain.response.OrganizationResponse;
 import com.alkemy.ong.service.OrganizationService;
@@ -25,8 +24,8 @@ public class OrganizationController {
 
     @PreAuthorize("hasAnyRole('ROLE_USER'),('ROLE_ADMIN')")
     @GetMapping("/public")
-    public ResponseEntity<List<OrganizationBasicDTO>> getOrganization() {
-        List<OrganizationBasicDTO> organization = service.getOrganizations();
+    public ResponseEntity<List<OrganizationResponse>> getOrganization() {
+        List<OrganizationResponse> organization = service.getOrganizations();
         return ResponseEntity.ok().body(organization);
     }
 

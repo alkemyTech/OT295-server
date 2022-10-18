@@ -1,6 +1,5 @@
 package com.alkemy.ong.controller;
 
-import com.alkemy.ong.domain.dto.SlideDTOImageOrder;
 import com.alkemy.ong.domain.request.SlideRequest;
 import com.alkemy.ong.domain.response.SlideResponse;
 import com.alkemy.ong.service.SlideService;
@@ -36,7 +35,7 @@ public class SlideController {
 
     @PreAuthorize("hasAnyRole('ROLE_USER'),('ROLE_ADMIN')")
     @GetMapping()
-    public ResponseEntity<List<SlideDTOImageOrder>> readAllSlides(){
+    public ResponseEntity<List<SlideResponse>> readAllSlides(){
         return new ResponseEntity<>(slideService.readAllSlides(),HttpStatus.OK);
     }
 

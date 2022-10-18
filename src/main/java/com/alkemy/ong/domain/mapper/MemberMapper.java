@@ -1,18 +1,16 @@
 package com.alkemy.ong.domain.mapper;
 
-import com.alkemy.ong.domain.dto.MemberDTO;
 import com.alkemy.ong.domain.entity.MemberEntity;
 import com.alkemy.ong.domain.request.MemberRequest;
 import com.alkemy.ong.domain.response.MemberResponse;
 import org.springframework.stereotype.Component;
-
 import java.util.ArrayList;
 import java.util.List;
 
 
 @Component
 public class MemberMapper {
-    public void memberEntityRefreshValues(MemberEntity entity, MemberDTO dto) {
+    public void memberEntityRefreshValues(MemberEntity entity, MemberRequest dto) {
         entity.setName(dto.getName());
         entity.setFacebookUrl(dto.getFacebookUrl());
         entity.setInstagramUrl(dto.getInstagramUrl());
@@ -20,8 +18,8 @@ public class MemberMapper {
         entity.setDescription(dto.getDescription());
     }
 
-    public MemberDTO memberEntity2DTO(MemberEntity entity) {
-        MemberDTO dto = new MemberDTO();
+    public MemberResponse memberEntity2DTO(MemberEntity entity) {
+        MemberResponse dto = new MemberResponse();
         dto.setName(entity.getName());
         dto.setInstagramUrl(entity.getInstagramUrl());
         dto.setInstagramUrl(entity.getInstagramUrl());
@@ -30,7 +28,7 @@ public class MemberMapper {
         return dto;
     }
 
-    public MemberEntity map(MemberRequest request) {
+    public MemberEntity mapToEntity(MemberRequest request) {
         MemberEntity entity = new MemberEntity();
         entity.setName(request.getName());
         entity.setImage(request.getImage());
@@ -41,7 +39,7 @@ public class MemberMapper {
         return entity;
     }
 
-    public MemberResponse map(MemberEntity entity) {
+    public MemberResponse mapToResponse(MemberEntity entity) {
         MemberResponse response = new MemberResponse();
         response.setName(entity.getName());
         response.setImage(entity.getImage());
@@ -57,7 +55,7 @@ public class MemberMapper {
         List<MemberResponse> result = new ArrayList<>();
 
         for (MemberEntity e : entities)
-            result.add(map(e));
+            result.add(mapToResponse(e));
 
         return result;
     }

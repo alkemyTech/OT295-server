@@ -1,6 +1,5 @@
 package com.alkemy.ong.domain.mapper;
 
-import com.alkemy.ong.domain.dto.OrganizationBasicDTO;
 import com.alkemy.ong.domain.entity.OrganizationEntity;
 import com.alkemy.ong.domain.response.OrganizationResponse;
 import org.mapstruct.InheritInverseConfiguration;
@@ -23,12 +22,12 @@ public interface OrganizationMapper {
             @Mapping(source = "URLFacebook" , target = "URLFacebook")
 
     })
-    OrganizationBasicDTO toOrganizationBasicDTO(OrganizationEntity organization);
+    OrganizationResponse toOrganizationBasicDTO(OrganizationEntity organization);
 
-    List<OrganizationBasicDTO> toOrganizationBasicDTOList(List<OrganizationEntity> organizations);
+    List<OrganizationResponse> toOrganizationBasicDTOList(List<OrganizationEntity> organizations);
 
     @InheritInverseConfiguration
-    OrganizationEntity toOrganizationEntity(OrganizationBasicDTO organizationBasicDTO);
+    OrganizationEntity toOrganizationEntity(OrganizationResponse organizationBasicDTO);
 
     @Mappings({
             @Mapping(source = "id", target = "id"),

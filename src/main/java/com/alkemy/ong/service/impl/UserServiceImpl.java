@@ -2,7 +2,6 @@ package com.alkemy.ong.service.impl;
 
 import com.alkemy.ong.auth.jwt.JwtUtils;
 import com.alkemy.ong.domain.request.UserRequest;
-import com.alkemy.ong.domain.dto.UserProfileDTO;
 import com.alkemy.ong.domain.entity.UserEntity;
 import com.alkemy.ong.domain.mapper.UserMapper;
 import com.alkemy.ong.domain.response.UserResponse;
@@ -48,10 +47,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<UserProfileDTO> readAllUsers() {
+    public List<UserResponse> readAllUsers() {
         //This method creates a list of users based on UserProfileDTO
         List<UserEntity> userEntityList = userRepository.findAll();
-        List<UserProfileDTO> userProfileDTOList = new ArrayList<>();
+        List<UserResponse> userProfileDTOList = new ArrayList<>();
 
         for (UserEntity user : userEntityList) {
             userProfileDTOList.add(userMapper.userEntity2UserProfileDTO(user));
@@ -61,7 +60,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserProfileDTO getUserProfile(String request) {
+    public UserResponse getUserProfile(String request) {
         return userMapper.userEntity2UserProfileDTO(getUser(request));
     }
     private UserEntity getUser(String username) {
