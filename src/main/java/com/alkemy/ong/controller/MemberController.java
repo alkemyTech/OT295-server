@@ -47,8 +47,7 @@ public class MemberController {
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PutMapping("/{id}")
     @Operation(summary = "Update information about a member", description = "This endpoint requires a member ID and Body to perform update of information")
-    @Parameter(name ="id", description = "UUID type for member id", example="00000000-0000-0000-0000-000000000001")
-    public ResponseEntity<MemberResponse> update(@PathVariable UUID id, @RequestBody MemberRequest member) {
+    public ResponseEntity<MemberResponse> update(@PathVariable @Schema(example = "3fa85f64-5717-4562-b3fc-2c963f66afa6") UUID id, @RequestBody MemberRequest member) {
         MemberResponse result = this.service.update(id, member);
         return ResponseEntity.ok().body(result);
     }
@@ -56,8 +55,7 @@ public class MemberController {
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping("/{id}")
     @Operation(summary = "Delete information about a member", description = "This endpoint requires a member ID to perform delete of information")
-    @Parameter(name ="id", description = "UUID type for member id", example="00000000-0000-0000-0000-000000000001")
-    public ResponseEntity<Void> delete(@PathVariable UUID id) {
+    public ResponseEntity<Void> delete(@PathVariable @Schema(example = "3fa85f64-5717-4562-b3fc-2c963f66afa6") UUID id) {
         this.service.delete(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
