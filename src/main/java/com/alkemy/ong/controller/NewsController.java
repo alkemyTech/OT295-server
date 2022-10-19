@@ -65,7 +65,6 @@ public class NewsController {
     @PreAuthorize("hasAnyRole('ROLE_USER'),('ROLE_ADMIN')")
     @GetMapping("/{id}")
     @Operation(summary = "get a news", description = "get news by id")
-    @Parameter(name = "id", description = "enter the id of the news to get", required = true, example = "3fa85f64-5717-4562-b3fc-2c963f66afa6")
     public ResponseEntity<NewDTOResponse> getNewById(@PathVariable UUID id) {
         NewDTOResponse result = service.getNewById(id);
         return ResponseEntity.status(HttpStatus.OK).body(result);
@@ -74,7 +73,7 @@ public class NewsController {
     @PreAuthorize("hasAnyRole('ROLE_USER'),('ROLE_ADMIN')")
     @GetMapping("/page/{page}")
     @Operation(summary = "get a news by page", description = "get a news by page ")
-    @Parameter(name = "page", description = "enter the page of the news to get", required = true, example = "//")
+    @Parameter(name = "page", description = "enter the page of the news to get", required = true, example = "1")
     public ResponseEntity<NewsResponsePage> getAll(@PathVariable Integer page) {
         NewsResponsePage news = service.getAllNews(page);
         return ResponseEntity.ok().body(news);
