@@ -71,8 +71,7 @@ public class MemberController {
     @PreAuthorize("hasAnyRole('ROLE_USER'),('ROLE_ADMIN')")
     @GetMapping("/page/{page}")
     @Operation(summary = "Get a paginated list of member with minimal information", description = "This endpoint retrieves a paginated list of members containing minimal information")
-    @Parameter(name ="page", description = "It is the page number to access", example="1")
-    public ResponseEntity<MemberPageResponse> getAll(@PathVariable Integer page) {
+    public ResponseEntity<MemberPageResponse> getAll(@PathVariable @Schema(example = "1")Integer page) {
         MemberPageResponse member = service.getAllMember(page);
         return ResponseEntity.ok().body(member);
     }
