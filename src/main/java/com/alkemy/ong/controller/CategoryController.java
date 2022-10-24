@@ -7,6 +7,8 @@ import com.alkemy.ong.domain.response.CategoryResponsePage;
 import com.alkemy.ong.exception.ErrorResponse;
 import com.alkemy.ong.service.CategoryService;
 import io.swagger.annotations.*;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Schema;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,7 +31,7 @@ public class CategoryController {
     @PostMapping(produces = {"application/json"},
             consumes = {"application/json"})
     @ResponseStatus(HttpStatus.CREATED)
-    @ApiOperation(value = "Create a category and return it.")
+    @Operation(summary = "Create a category and return it.",description = "This endpoint creation of category")
     @ApiResponses(value = {
             @ApiResponse(code = 201, message = "CREATED - The category was successfully created",
                     response = CategoryResponse.class),
@@ -38,12 +40,6 @@ public class CategoryController {
                     response = ErrorResponse.class),
             @ApiResponse(code = 403, message = "PERMISSION_DENIED - Forbidden.",
                     response = ErrorResponse.class)})
-    @ApiImplicitParam(name = "Authorization", value = "Access Token",
-            required = true,
-            allowEmptyValue = false,
-            paramType = "header",
-            dataTypeClass = String.class,
-            example = "Bearer access_token")
     public ResponseEntity<CategoryResponse> save(@Valid @RequestBody CategoryRequest category) {
         CategoryResponse categorySaved = categoryService.save(category);
         return ResponseEntity.status(HttpStatus.CREATED).body(categorySaved);
@@ -51,20 +47,12 @@ public class CategoryController {
 
     @PreAuthorize("hasAnyRole('ROLE_USER'),('ROLE_ADMIN')")
     @GetMapping(produces = {"application/json"})
-    @ApiOperation(value = "Return the list of Categories")
+    @Operation(summary = "Return the list of Categories",description = "This endpoint get all a categories")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "OK - The list of comments.",
                     response = CategoryBasicResponse.class),
             @ApiResponse(code = 403, message = "PERMISSION_DENIED - Forbidden.",
                     response = ErrorResponse.class)})
-    @ApiImplicitParams(value = {
-            @ApiImplicitParam(name = "Authorization",
-                    value = "Access Token",
-                    required = true,
-                    allowEmptyValue = false,
-                    paramType = "header",
-                    dataTypeClass = String.class,
-                    example = "Bearer access_token")})
     public ResponseEntity<List<CategoryBasicResponse>> getAll() {
         List<CategoryBasicResponse> categories = categoryService.getAllCategories();
         return ResponseEntity.ok().body(categories);
@@ -72,7 +60,7 @@ public class CategoryController {
 
     @PreAuthorize("hasAnyRole('ROLE_USER'),('ROLE_ADMIN')")
     @GetMapping(value = "/page/{page}", produces = {"application/json"})
-    @ApiOperation(value = "Returns the list of categories for multiple pages")
+    @Operation(summary = "Returns the list of categories for multiple pages",description = "This endpoint page all of categories")
     @ApiResponses(value = {
             @ApiResponse(code = 200,
                     message = "OK - The list of categories. "
@@ -83,45 +71,20 @@ public class CategoryController {
                             response = String.class)}),
             @ApiResponse(code = 403, message = "PERMISSION_DENIED - Forbidden.",
                     response = ErrorResponse.class)})
-    @ApiImplicitParams(value = {
-            @ApiImplicitParam(name = "page", value = "Page of the list",
-                    required = true,
-                    paramType = "query",
-                    dataTypeClass = String.class,
-                    example = "0"),
-            @ApiImplicitParam(name = "size",
-                    value = "Size of the page",
-                    required = false,
-                    paramType = "query",
-                    dataTypeClass = String.class,
-                    example = "10"),
-            @ApiImplicitParam(name = "Authorization",
-                    value = "Access Token",
-                    required = true,
-                    allowEmptyValue = false,
-                    paramType = "header",
-                    dataTypeClass = String.class,
-                    example = "Bearer access_token")})
-    public ResponseEntity<CategoryResponsePage> getAll(@PathVariable Integer page) {
+    public ResponseEntity<CategoryResponsePage> getAll(@PathVariable @Schema(example = "1") Integer page) {
         CategoryResponsePage categories = categoryService.getAllCategories(page);
         return ResponseEntity.ok().body(categories);
     }
 
     @PreAuthorize("hasAnyRole('ROLE_USER'),('ROLE_ADMIN')")
     @GetMapping(value = "/{id}", produces = {"application/json"})
-    @ApiOperation(value = "Get a category's details.")
+    @Operation(summary = "Get a category's details.",description = "This endpoint get category's details")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "OK - The category was found and it return their details",
                     response = CategoryResponse.class),
             @ApiResponse(code = 403, message = "PERMISSION_DENIED - Forbidden.",
                     response = ErrorResponse.class)})
-    @ApiImplicitParam(name = "Authorization", value = "Access Token",
-            required = true,
-            allowEmptyValue = false,
-            paramType = "header",
-            dataTypeClass = String.class,
-            example = "Bearer access_token")
-    public ResponseEntity<CategoryResponse> getDetailsById(@PathVariable UUID id) {
+    public ResponseEntity<CategoryResponse> getDetailsById(@PathVariable @Schema(example = "3fa85f64-5717-4562-b3fc-2c963f66afa6") UUID id) {
         CategoryResponse categoryResponse = this.categoryService.getDetailsById(id);
         return ResponseEntity.ok(categoryResponse);
     }
@@ -129,27 +92,14 @@ public class CategoryController {
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping(value = "/{id}", produces = {"application/json"})
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @ApiOperation(value = "Delete a category passed by id.")
+    @Operation(summary = "Delete a category passed by id.",description = "This endpoint get category's id")
     @ApiResponses(value = {
             @ApiResponse(code = 204, message = "NO_CONTENT - The category was successfully deleted"),
             @ApiResponse(code = 403, message = "PERMISSION_DENIED - Forbidden.",
                     response = ErrorResponse.class),
             @ApiResponse(code = 404, message = "NOT_FOUND - Member not found.",
                     response = ErrorResponse.class)})
-    @ApiImplicitParams(value = {
-            @ApiImplicitParam(name = "id",
-                    value = "Id of the category we want to delete",
-                    required = true, allowEmptyValue = false,
-                    paramType = "path", dataTypeClass = String.class,
-                    example = "1"),
-            @ApiImplicitParam(name = "Authorization",
-                    value = "Access Token",
-                    required = true,
-                    allowEmptyValue = false,
-                    paramType = "header",
-                    dataTypeClass = String.class,
-                    example = "Bearer access_token")})
-    public ResponseEntity<Void> delete(@PathVariable UUID id) {
+    public ResponseEntity<Void> delete(@PathVariable @Schema(example = "3fa85f64-5717-4562-b3fc-2c963f66afa6") UUID id) {
         this.categoryService.delete(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
@@ -157,7 +107,7 @@ public class CategoryController {
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PutMapping(value = "/{id}", produces = {"application/json"},
             consumes = {"application/json"})
-    @ApiOperation(value = "Update a category passed by id.")
+    @Operation(summary = "Update a category passed by id.",description = "This endpoint update category's")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "OK - The category was successfully updated"),
             @ApiResponse(code = 400, message = "INVALID_ARGUMENT - Certain arguments "
@@ -167,20 +117,7 @@ public class CategoryController {
                     response = ErrorResponse.class),
             @ApiResponse(code = 404, message = "NOT_FOUND - Member not found.",
                     response = ErrorResponse.class)})
-    @ApiImplicitParams(value = {
-            @ApiImplicitParam(name = "id",
-                    value = "Id of the category we want to update",
-                    required = true, allowEmptyValue = false,
-                    paramType = "path", dataTypeClass = String.class,
-                    example = "1"),
-            @ApiImplicitParam(name = "Authorization",
-                    value = "Access Token",
-                    required = true,
-                    allowEmptyValue = false,
-                    paramType = "header",
-                    dataTypeClass = String.class,
-                    example = "Bearer access_token")})
-    public ResponseEntity<CategoryResponse> update(@PathVariable UUID id, @RequestBody CategoryRequest category) {
+    public ResponseEntity<CategoryResponse> update(@PathVariable @Schema(example = "3fa85f64-5717-4562-b3fc-2c963f66afa6") UUID id, @RequestBody CategoryRequest category) {
         CategoryResponse result = this.categoryService.update(id, category);
         return ResponseEntity.ok().body(result);
     }

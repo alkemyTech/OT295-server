@@ -60,7 +60,7 @@ public class MemberController {
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_USER')")
+    @PreAuthorize("hasAnyRole('ROLE_USER'),('ROLE_ADMIN')")
     @PostMapping
     @Operation(summary = "Create a Member through a MemberRequest", description = "This endpoint inserts a new member")
     public ResponseEntity<MemberResponse> create(@Parameter(description = "It is a body in JSON format with the entity's atributes")@Valid @RequestBody MemberRequest request) {

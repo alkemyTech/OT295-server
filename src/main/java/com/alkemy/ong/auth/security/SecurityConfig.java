@@ -25,18 +25,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @RequiredArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private static final String[] SWAGGER_ENDPOINTS = {
-            "/api/docs",
-            "/v2/api-docs",
-            "/swagger-ui/**",
-            "/swagger-resources",
-            "/swagger-resources/**",
-            "/configuration/ui",
-            "/configuration/security",
-            "/swagger-ui.html",
-            "/webjars/**"
-    };
-
     @Autowired
     private UserDetailsService userDetailsService;
 
@@ -93,8 +81,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .antMatchers(HttpMethod.GET, "/auth/me")
                 .hasAnyRole(RoleType.USER.name())
-                .antMatchers(SWAGGER_ENDPOINTS)
-                .permitAll()
                 .antMatchers(HttpMethod.GET, "/organization/public")
                 .permitAll()
                 .antMatchers(HttpMethod.POST, "/organization/public")
@@ -111,19 +97,25 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .hasRole(RoleType.ADMIN.name())
                 .antMatchers(HttpMethod.PUT, "/news")
                 .hasRole(RoleType.ADMIN.name())
+                .antMatchers(HttpMethod.DELETE, "/news")
+                .hasRole(RoleType.ADMIN.name())
                 .antMatchers(HttpMethod.POST, "/members")
-                .hasAnyRole(RoleType.USER.name())
-                .antMatchers("/categories/**")
+                .hasAnyRole(RoleType.ADMIN.name(),RoleType.USER.name())
+                .antMatchers(HttpMethod.PUT, "/members/{id}")
+                .hasRole(RoleType.ADMIN.name())
+                .antMatchers(HttpMethod.DELETE, "/members/{id}")
+                .hasRole(RoleType.ADMIN.name())
+                .antMatchers(HttpMethod.PUT,"/categories")
+                .hasRole(RoleType.ADMIN.name())
+                .antMatchers(HttpMethod.POST,"/categories")
+                .hasRole(RoleType.ADMIN.name())
+                .antMatchers(HttpMethod.DELETE,"/categories")
                 .hasRole(RoleType.ADMIN.name())
                 .antMatchers(HttpMethod.POST, "/testimonials/**")
                 .hasAnyRole(RoleType.ADMIN.name())
-                .antMatchers(HttpMethod.PUT, "/members")
-                .hasRole(RoleType.ADMIN.name())
                 .antMatchers(HttpMethod.GET, "/comments/post/{id:[\\d+]}")
                 .hasRole(RoleType.USER.name())
                 .antMatchers(HttpMethod.GET, "/comments")
-                .hasRole(RoleType.ADMIN.name())
-                .antMatchers(HttpMethod.DELETE, "/members")
                 .hasRole(RoleType.ADMIN.name())
                 .antMatchers(HttpMethod.DELETE, "/comments/{id:[\\d+]}")
                 .hasAnyRole(RoleType.ADMIN.name(), RoleType.USER.name())
