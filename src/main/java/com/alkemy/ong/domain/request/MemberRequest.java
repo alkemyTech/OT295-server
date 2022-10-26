@@ -21,22 +21,22 @@ public class MemberRequest {
 
     @NotBlank(message = "Name cannot be null or empty.")
     @Pattern(regexp = "^[A-Za-z]*$", message = "The name has to contain only letters")
-    @Schema(name="name", example = "John")
+    @Schema(name = "name", example = "John")
     private String name;
 
-    @Schema(name="facebookUrl", example = "www.facebook.com/johndoe")
+    @Schema(name = "facebookUrl", example = "www.facebook.com/johndoe")
     private String facebookUrl;
 
-    @Schema(name="instagramUrl", example = "www.instagram.com/johndoe")
+    @Schema(name = "instagramUrl", example = "www.instagram.com/johndoe")
     private String instagramUrl;
 
-    @Schema(name="linkedinUrl", example = "www.linkedin.com/johndoe")
+    @Schema(name = "linkedinUrl", example = "www.linkedin.com/johndoe")
     private String linkedinUrl;
 
-    @Schema(name="image", example = "this is a image's url")
+    @Schema(name = "image", example = "this is a image's url")
     private String image;
 
-    @Schema(name="description", example = "this is a description of a member")
+    @Schema(name = "description", example = "this is a description of a member")
     private String description;
 
 

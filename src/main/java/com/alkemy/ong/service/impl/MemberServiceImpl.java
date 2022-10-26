@@ -78,6 +78,7 @@ public class MemberServiceImpl implements MemberService {
         Page<MemberResponse> responses=new PageImpl<MemberResponse>(memberPage.getContent()
                 .stream()
                 .map(member->new MemberResponse(
+                        member.getId(),
                         member.getName(),
                         member.getDescription(),
                         member.getImage(),

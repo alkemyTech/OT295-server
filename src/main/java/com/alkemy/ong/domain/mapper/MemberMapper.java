@@ -12,6 +12,7 @@ import java.util.List;
 public class MemberMapper {
     public void memberEntityRefreshValues(MemberEntity entity, MemberRequest dto) {
         entity.setName(dto.getName());
+        entity.setLinkedinUrl(dto.getLinkedinUrl());
         entity.setFacebookUrl(dto.getFacebookUrl());
         entity.setInstagramUrl(dto.getInstagramUrl());
         entity.setImage(dto.getImage());
@@ -20,8 +21,10 @@ public class MemberMapper {
 
     public MemberResponse memberEntity2DTO(MemberEntity entity) {
         MemberResponse dto = new MemberResponse();
+        dto.setId(entity.getId());
         dto.setName(entity.getName());
-        dto.setInstagramUrl(entity.getInstagramUrl());
+        dto.setFacebookUrl(entity.getFacebookUrl());
+        dto.setLinkedinUrl(entity.getLinkedinUrl());
         dto.setInstagramUrl(entity.getInstagramUrl());
         dto.setImage(entity.getImage());
         dto.setDescription(entity.getDescription());
@@ -41,6 +44,7 @@ public class MemberMapper {
 
     public MemberResponse mapToResponse(MemberEntity entity) {
         MemberResponse response = new MemberResponse();
+        response.setId(entity.getId());
         response.setName(entity.getName());
         response.setImage(entity.getImage());
         response.setFacebookUrl(entity.getFacebookUrl());
